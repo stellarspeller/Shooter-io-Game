@@ -150,7 +150,7 @@ class Bullet():
         self.penetration = bulletBase.penetration
 
     def update(self):
-        pass
+        self.pos += self.vel
         
     def render(self):
         x = round(self.pos.getX()-self.size/2)
@@ -314,7 +314,9 @@ while running:
 
 
     """Click to Shoot"""
-    if(pygame.mouse.get_pressed(3)[0]): print("ha")
+    if(pygame.mouse.get_pressed(3)[0]): 
+        for i in playerShooters:
+            i.shoot(player.pos, math.atan2(mousePos.getY(), mousePos.getX()))
 
 
 
