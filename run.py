@@ -133,15 +133,21 @@ class Player():
         cameraPos.add(self.vel)
 
 
-
-
-class Bullet():
-    def __init__(self, pos, speed, angle, size, damage, penetration):
-        self.pos = pos
-        self.vel = Vect(speed * math.cos(angle), speed * math.sin(angle)) #thank you chatgpt, i was too lazy to write this myself
+class BaseBullet():
+    def __init__(self, speed, size, damage, penetration):
+        self.speed = speed
         self.size = size
         self.damage = damage
         self.penetration = penetration
+
+
+class Bullet():
+    def __init__(self, pos, angle, bulletBase):
+        self.pos = pos
+        self.vel = Vect(bulletBase.speed * math.cos(angle), bulletBase.speed * math.sin(angle)) #thank you chatgpt, i was too lazy to write this myself
+        self.size = bulletBase.size
+        self.damage = bulletBase.damage
+        self.penetration = bulletBase.penetration
 
     def update(self):
         pass
@@ -152,7 +158,9 @@ class Bullet():
         pygame.draw.rect(screen, white, (x, y, self.size, self.size))
 
 bulletTypes = {
-    "basic":Bullet()
+    "basic":BaseBullet(10, 5, 2, 1),
+    "sniper":BaseBullet(20, 4, 6, 3),
+    "cannonball":BaseBullet(6, 12, 20, 20)
 }
 
 class Shooter():
@@ -166,7 +174,6 @@ class Shooter():
         bulletList.append(Bullet())
 
     
-Shooter(1, Bullet(Vect(2, 1), 10, angle, ))
 
 
 """class Particle():
@@ -225,6 +232,7 @@ logoPixelSize = 10
 
 particleList = []
 bulletList = []
+shooterList = []
 
 cameraPos = Vect(0,0)
 screenSize = Vect(1200, 675)
@@ -238,6 +246,10 @@ playerWidth = 32
 
 
 player = Player(Vect(screenSize.getX()/2 - playerWidth/2,screenSize.getY()/2 - playerWidth/2), Vect(0,0))
+
+
+shooterList.append(Shooter(1, Bullet(Vect(player.pos.getX(), player.pos.getY()), 0, "basic")))
+
 
 clock = pygame.time.Clock()
 # game loop
