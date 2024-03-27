@@ -151,7 +151,7 @@ class Bullet():
 
     def update(self):
         self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.2))
-        self.penetration -= 0.1 * 1/FPS
+        self.penetration -= 0.25 * 1/FPS
         if self.penetration <= 0:
             bulletList.remove(self)
             del self
@@ -180,8 +180,51 @@ class Shooter():
         
         bulletList.append(Bullet(position, angle, self.bulletCreated))
 
-    
 
+enemyData = {
+    "red":{
+        "hp":10,
+        "maxVelocity":2,
+        "shooters":[
+            Shooter(.7, bulletTypes["basic"], 0)
+        ],
+        "sprite":"res/enemies/RED.png"
+    },
+    "orange":{
+        "hp":18,
+        "maxVelocity":3,
+        "shooters":[
+            Shooter(.8, bulletTypes["basic"], 0), 
+            Shooter(1, bulletTypes["basic"], 0)
+        ],
+        "sprite":"res/enemies/ORANGE.png"
+    },
+    "orange":{
+        "hp":18,
+        "maxVelocity":3,
+        "shooters":[
+            Shooter(.8, bulletTypes["basic"], 0), 
+            Shooter(1, bulletTypes["basic"], 0)
+        ],
+        "sprite":"res/enemies/ORANGE.png"
+    },
+    "yellow":{
+        "hp":21,
+        "maxVelocity":4,
+        "shooters":[
+            Shooter(.6, bulletTypes["basic"], 0), 
+            Shooter(.9, bulletTypes["basic"], -0.2),
+            Shooter(.9, bulletTypes["basic"], 0.2)
+        ],
+        "sprite":"res/enemies/YELLOW.png"
+    }
+}
+    
+class Enemy():
+    def __init__(self, pos, hp, enemyType):
+        self.pos = pos
+        self.vel = Vect(0,0)
+        
 
 """class Particle():
     def __init__(self, pos, vel, size):
@@ -257,7 +300,7 @@ player = Player(Vect(screenSize.getX()/2 - playerWidth/2,screenSize.getY()/2 - p
 
 #Shooter(cooldown,  )
 #Shooter(1, Bullet(Vect(player.pos.getX(), player.pos.getY()), 0, bulletTypes["basic"]), 0)
-playerShooters.append(Shooter(.4, bulletTypes["basic"], 0))
+playerShooters.append(Shooter(.4, bulletTypes["cannonball"], 0))
 
 
 clock = pygame.time.Clock()
