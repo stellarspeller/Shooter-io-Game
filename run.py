@@ -164,14 +164,15 @@ bulletTypes = {
 }
 
 class Shooter():
-    def __init__(self, cooldown, bulletCreated, angle):
-        """NOTE - Cooldown measured in seconds"""
+    def __init__(self, cooldown, bulletCreated, angleVariant):
+        """NOTE - Cooldown measured in seconds // angleVariant is the degrees of rotation away from perfect accuracy"""
         self.cooldown = cooldown
         self.bulletCreated = bulletCreated
-        self.angle = angle
+        self.angleVariant = angleVariant
 
-    def shoot():
-        bulletList.append(Bullet())
+    def shoot(self, position, angle):
+        
+        bulletList.append(Bullet(position, angle, self.bulletCreated))
 
     
 
@@ -232,7 +233,8 @@ logoPixelSize = 10
 
 particleList = []
 bulletList = []
-shooterList = []
+enemyShooters = []
+playerShooters = []
 
 cameraPos = Vect(0,0)
 screenSize = Vect(1200, 675)
@@ -247,8 +249,9 @@ playerWidth = 32
 
 player = Player(Vect(screenSize.getX()/2 - playerWidth/2,screenSize.getY()/2 - playerWidth/2), Vect(0,0))
 
-
-shooterList.append(Shooter(1, Bullet(Vect(player.pos.getX(), player.pos.getY()), 0, "basic")))
+#Shooter(cooldown,  )
+#Shooter(1, Bullet(Vect(player.pos.getX(), player.pos.getY()), 0, bulletTypes["basic"]), 0)
+playerShooters.append(Shooter(1, Bullet(Vect(player.pos.getX(), player.pos.getY()), 0, bulletTypes["basic"]), 0))
 
 
 clock = pygame.time.Clock()
