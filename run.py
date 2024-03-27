@@ -150,13 +150,18 @@ class Bullet():
         self.penetration = bulletBase.penetration
 
     def update(self):
-        self.pos += self.vel
+        self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.2))
+        self.penetration -= 0.1 * 1/FPS
+        if self.penetration <= 0:
+            bulletList.remove(self)
+            del self
         
     def render(self):
-        x = round(self.pos.getX()-self.size/2)
-        y = round(self.pos.getY()-self.size/2)
+        x = round(self.pos.getX()-self.size/2 - cameraPos.getX())
+        y = round(self.pos.getY()-self.size/2 - cameraPos.getY())
         pygame.draw.rect(screen, white, (x, y, self.size, self.size))
 
+#speed size damage pen.
 bulletTypes = {
     "basic":BaseBullet(10, 5, 2, 1),
     "sniper":BaseBullet(20, 4, 6, 3),
@@ -169,6 +174,7 @@ class Shooter():
         self.cooldown = cooldown
         self.bulletCreated = bulletCreated
         self.angleVariant = angleVariant
+        self.cooldownFrames = FPS * cooldown
 
     def shoot(self, position, angle):
         
@@ -251,7 +257,7 @@ player = Player(Vect(screenSize.getX()/2 - playerWidth/2,screenSize.getY()/2 - p
 
 #Shooter(cooldown,  )
 #Shooter(1, Bullet(Vect(player.pos.getX(), player.pos.getY()), 0, bulletTypes["basic"]), 0)
-playerShooters.append(Shooter(1, Bullet(Vect(player.pos.getX(), player.pos.getY()), 0, bulletTypes["basic"]), 0))
+playerShooters.append(Shooter(.4, bulletTypes["basic"], 0))
 
 
 clock = pygame.time.Clock()
@@ -259,6 +265,10 @@ clock = pygame.time.Clock()
 while running:
     clock.tick(FPS)
     frameCount += 1
+
+    for i in playerShooters:
+        if i.cooldownFrames > 0:
+            i.cooldownFrames -= 1
 
 
 
@@ -316,7 +326,9 @@ while running:
     """Click to Shoot"""
     if(pygame.mouse.get_pressed(3)[0]): 
         for i in playerShooters:
-            i.shoot(player.pos, math.atan2(mousePos.getY(), mousePos.getX()))
+            if i.cooldownFrames <= 0:
+                i.shoot(Vect(player.pos.getX()+cameraPos.getX()+playerWidth/2,player.pos.getY()+cameraPos.getY()+playerWidth/2), math.atan2(mousePos.getY(), mousePos.getX()))
+                i.cooldownFrames = FPS * i.cooldown
 
 
 
@@ -332,6 +344,10 @@ while running:
     for i in particleList:
         #print(i.vel)
         i.tick()
+        i.render()
+
+    for i in bulletList:
+        i.update()
         i.render()
 
 
