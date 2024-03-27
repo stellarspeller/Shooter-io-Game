@@ -8,6 +8,15 @@ pygame.init()
 
 
 playerImage = pygame.image.load("res/guy.png")
+redSprite = pygame.image.load("res/enemies/RED.png")
+orangeSprite = pygame.image.load("res/enemies/ORANGE.png")
+yellowSprite = pygame.image.load("res/enemies/YELLOW.png")
+greenSprite = pygame.image.load("res/enemies/GREEN.png")
+cyanSprite = pygame.image.load("res/enemies/CYAN.png")
+blueSprite = pygame.image.load("res/enemies/BLUE.png")
+purpleSprite = pygame.image.load("res/enemies/PURPLE.png")
+pinkSprite = pygame.image.load("res/enemies/PINK.png")
+
 
 
 #dQw4w9WgXcQ
@@ -123,6 +132,7 @@ class Player():
     def __init__(self, pos, vel):
         self.pos = pos
         self.vel = vel
+        self.hp = 100
 
     def render(self):
         #pygame.transform.scale(playerImage, (64,64), screen)
@@ -188,7 +198,7 @@ enemyData = {
         "shooters":[
             Shooter(.7, bulletTypes["basic"], 0)
         ],
-        "sprite":"res/enemies/RED.png"
+        "sprite":pygame.image.load("res/enemies/RED.png")
     },
     "orange":{
         "hp":18,
@@ -197,16 +207,7 @@ enemyData = {
             Shooter(.8, bulletTypes["basic"], 0), 
             Shooter(1, bulletTypes["basic"], 0)
         ],
-        "sprite":"res/enemies/ORANGE.png"
-    },
-    "orange":{
-        "hp":18,
-        "maxVelocity":3,
-        "shooters":[
-            Shooter(.8, bulletTypes["basic"], 0), 
-            Shooter(1, bulletTypes["basic"], 0)
-        ],
-        "sprite":"res/enemies/ORANGE.png"
+        "sprite":orangeSprite
     },
     "yellow":{
         "hp":21,
@@ -216,15 +217,42 @@ enemyData = {
             Shooter(.9, bulletTypes["basic"], -0.2),
             Shooter(.9, bulletTypes["basic"], 0.2)
         ],
-        "sprite":"res/enemies/YELLOW.png"
+        "sprite":yellowSprite
     }
 }
     
 class Enemy():
-    def __init__(self, pos, hp, enemyType):
+    def __init__(self, pos, enemyType):
         self.pos = pos
         self.vel = Vect(0,0)
+        self.enemyType = enemyType
+        self.hp = enemyData[enemyType]["hp"]
+        self.rotation = 0
+    
+    def update(self):
+        moveConst = 2
+        initComponent = Vect(self.vel.getX(),self.vel.getY()).multiply(1-(moveConst/FPS))
+        modifyComponent = Vect((0-self.pos.getX()+player.pos.getX()+cameraPos.getX()), (0-self.pos.getY()+player.pos.getY()+cameraPos.getY())).multiply(moveConst/FPS)
+        self.vel = initComponent.add(modifyComponent)
+        self.rotation += 0.1 * (120/FPS)
+        if self.vel.getMagnitude() >= enemyData[self.enemyType]["maxVelocity"]:
+            self.vel.unitize(enemyData[self.enemyType]["maxVelocity"])
+        self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.2))
+
+    def render(self):
+        xComp = self.pos.getRoundX()-cameraPos.getX()
+        yComp = self.pos.getRoundY()-cameraPos.getY()
+
+        scaled_image = pygame.transform.scale(enemyData[self.enemyType]["sprite"], (int(15 * enemyScaleFactor), int(15 * enemyScaleFactor)))
+        rotated_image = pygame.transform.rotate(scaled_image, self.rotation)
+        #scaled_rect = scaled_image.get_rect(center=(self.pos.getX(), self.pos.getY()))
+
+        screen.blit(rotated_image, (xComp, yComp))
+
         
+
+
+
 
 """class Particle():
     def __init__(self, pos, vel, size):
@@ -284,6 +312,9 @@ particleList = []
 bulletList = []
 enemyShooters = []
 playerShooters = []
+enemyList = []
+
+enemyList.append(Enemy(Vect(70,70), "red"))
 
 cameraPos = Vect(0,0)
 screenSize = Vect(1200, 675)
@@ -294,13 +325,13 @@ playerMaxVelocity = 2
 decelConst = -0.075
 frameCount = 0
 playerWidth = 32
-
+enemyScaleFactor = 2
 
 player = Player(Vect(screenSize.getX()/2 - playerWidth/2,screenSize.getY()/2 - playerWidth/2), Vect(0,0))
 
 #Shooter(cooldown,  )
 #Shooter(1, Bullet(Vect(player.pos.getX(), player.pos.getY()), 0, bulletTypes["basic"]), 0)
-playerShooters.append(Shooter(.4, bulletTypes["cannonball"], 0))
+playerShooters.append(Shooter(.4, bulletTypes["basic"], 0))
 
 
 clock = pygame.time.Clock()
@@ -374,16 +405,12 @@ while running:
                 i.cooldownFrames = FPS * i.cooldown
 
 
-
+    """Updating and rendering orders"""
     for i in range(round(screenSize.getRoundX()/lineDensity)+2):
         pygame.draw.line(screen, white, ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, -10), ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, screenSize.getY()+10), lineThickness)
     for i in range(round(screenSize.getY()/lineDensity)+2):
         pygame.draw.line(screen, white, (-10, ((lineDensity*i)-cameraPos.getRoundY()%lineDensity)), (screenSize.getX()+10, (lineDensity*i)-cameraPos.getRoundY()%lineDensity), lineThickness)
     
-    
-    
-    
-
     for i in particleList:
         #print(i.vel)
         i.tick()
@@ -393,6 +420,9 @@ while running:
         i.update()
         i.render()
 
+    for i in enemyList:
+        i.update()
+        i.render()
 
     player.update()
     player.render()
