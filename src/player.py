@@ -6,6 +6,7 @@ class Player():
         self.vel = vel
         self.hp = 100
         self.xp = 0
+        self.level = 1
 
     def render(self):
         #pygame.transform.scale(playerImage, (64,64), screen)
@@ -22,8 +23,8 @@ class Player():
     def checkBulletCollision(self):
         for i in bulletList:
             if not i.isFromPlayer:
-                xComp = i.pos.getX()-self.pos.getX()-cameraPos.getX()
-                yComp = i.pos.getY()-self.pos.getY()-cameraPos.getY()
+                xComp = i.pos.getX()-self.pos.getX()-cameraPos.getX()-playerWidth/2
+                yComp = i.pos.getY()-self.pos.getY()-cameraPos.getY()-playerWidth/2
                 #print("a")
                 if Vect(xComp, yComp).getMagnitude() <= 16:
                     print(self.hp)
@@ -34,5 +35,11 @@ class Player():
                     else:
                         self.hp -= i.damage
                         i.kill()
+
+    def checkLevelUp(self):
+        if self.xp >= xpToLevelUp[self.level-1]:
+            self.xp -= xpToLevelUp[self.level-1]
+            self.level += 1
+            #levelup sequence
 
 player = Player(Vect(screenSize.getX()/2 - playerWidth/2,screenSize.getY()/2 - playerWidth/2), Vect(0,0))
