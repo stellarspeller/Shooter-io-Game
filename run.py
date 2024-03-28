@@ -136,7 +136,7 @@ while running:
     #print(cameraPos)
 
     #system.clear()
-    print("Particles: " + str(len(particleList)))
+    #print("Particles: " + str(len(particleList)))
 
 
 

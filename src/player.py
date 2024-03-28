@@ -22,10 +22,11 @@ class Player():
     def checkBulletCollision(self):
         for i in bulletList:
             if not i.isFromPlayer:
-                xComp = i.pos.getX()-self.pos.getX()+cameraPos.getX()
-                yComp = i.pos.getY()-self.pos.getY()+cameraPos.getY()
+                xComp = i.pos.getX()-self.pos.getX()-cameraPos.getX()
+                yComp = i.pos.getY()-self.pos.getY()-cameraPos.getY()
                 #print("a")
                 if Vect(xComp, yComp).getMagnitude() <= 30:
+                    print(self.hp)
                     #print("YOUR MOM")
                     if i.penetration >= self.hp:
                         i.penetration -= self.hp
