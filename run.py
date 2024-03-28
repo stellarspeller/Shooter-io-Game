@@ -246,8 +246,8 @@ class itemDrop():
         pygame.draw.ellipse(screen, xpColor[1], (xComp, yComp, xpSize[1], xpSize[1]))
 
     def update(self):
-        xComp = player.pos.getX()-self.pos.getX()+cameraPos.getX()
-        yComp = player.pos.getY()-self.pos.getY()+cameraPos.getY()
+        xComp = player.pos.getX()+playerWidth/2-self.pos.getX()+cameraPos.getX()
+        yComp = player.pos.getY()+playerWidth/2-self.pos.getY()+cameraPos.getY()
         if Vect(xComp, yComp).getMagnitude() <= 22:
             self.pickup()
 
@@ -307,6 +307,12 @@ class Enemy():
         self.hitboxCenter = Vect(xComp - rotated_rect.x/2 -.5, yComp - rotated_rect.y/2 -.5)
         #print(self.hitboxCenter)
         #screen.blit(rotated_image, (xComp, yComp))
+
+        if random.uniform(0,1) <= (10/FPS):
+            xComp = (self.hitboxCenter.getX()+cameraPos.getX())
+            yComp = (self.hitboxCenter.getY()+cameraPos.getY())
+            particleList.append(Particle(xComp, yComp, .14, 5, enemyData[self.enemyType]["particleColor"], 18))
+        
 
         for i in bulletList:
             #(self.pos.getX()-(round(self.size/2))-cameraPos.getX(), self.pos.getY()-(round(self.size/2))
@@ -462,7 +468,7 @@ while running:
 
     player.vel.add(inputVect)
 
-    if player.vel.getMagnitude() <= 0.00001:
+    if player.vel.getMagnitude() <= 0.0001:
         player.vel = Vect(0,0)
 
     if player.vel.getMagnitude() > playerMaxVelocity:
@@ -525,7 +531,7 @@ while running:
     #print(cameraPos)
 
     #system.clear()
-    #print("Particles: " + str(len(particleList)))
+    print("Particles: " + str(len(particleList)))
 
 
 
