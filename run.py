@@ -117,6 +117,7 @@ while running:
 
     player.update()
     player.render()
+    player.checkBulletCollision()
 
     """if frameCount < 240:
         for i in particlePositions:
