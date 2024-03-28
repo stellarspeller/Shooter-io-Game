@@ -9,34 +9,12 @@ from data.bullets import *
 from src.enemy import *
 from data import *
 
-"""
-playerImage = pygame.image.load("res/guy.png")
-redSprite = pygame.image.load("res/enemies/RED.png")
-orangeSprite = pygame.image.load("res/enemies/ORANGE.png")
-yellowSprite = pygame.image.load("res/enemies/YELLOW.png")
-greenSprite = pygame.image.load("res/enemies/GREEN.png")
-cyanSprite = pygame.image.load("res/enemies/CYAN.png")
-blueSprite = pygame.image.load("res/enemies/BLUE.png")
-purpleSprite = pygame.image.load("res/enemies/PURPLE.png")
-pinkSprite = pygame.image.load("res/enemies/PINK.png")
-"""
-
-
-  
-# Variable to keep our game loop running
 running = True
-
-
 
 enemyList.append(Enemy(Vect(70,70), "red"))
 
-
-
-
-
 playerShooters.append(Shooter(.4, bulletTypes["basic"], 0))
 playerShooters.append(Shooter(.9, bulletTypes["cannonball"], 0))
-
 
 
 clock = pygame.time.Clock()
