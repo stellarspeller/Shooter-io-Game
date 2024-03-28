@@ -6,7 +6,7 @@ pygame.init()
 #Font=pygame.font.SysFont('fontify.ttf', 96)
 
 
-
+"""
 playerImage = pygame.image.load("res/guy.png")
 redSprite = pygame.image.load("res/enemies/RED.png")
 orangeSprite = pygame.image.load("res/enemies/ORANGE.png")
@@ -16,7 +16,8 @@ cyanSprite = pygame.image.load("res/enemies/CYAN.png")
 blueSprite = pygame.image.load("res/enemies/BLUE.png")
 purpleSprite = pygame.image.load("res/enemies/PURPLE.png")
 pinkSprite = pygame.image.load("res/enemies/PINK.png")
-
+"""
+playerImage = pygame.image.load("res/guy.png")
 
 
 #dQw4w9WgXcQ
@@ -133,6 +134,7 @@ class Player():
         self.pos = pos
         self.vel = vel
         self.hp = 100
+        self.xp = 0
 
     def render(self):
         #pygame.transform.scale(playerImage, (64,64), screen)
@@ -212,7 +214,7 @@ enemyData = {
             Shooter(.8, bulletTypes["basic"], 0), 
             Shooter(1, bulletTypes["basic"], 0)
         ],
-        "sprite":orangeSprite,
+        "sprite":pygame.image.load("res/enemies/ORANGE.png"),
         "particleColor":(255,127,0)
     },
     "yellow":{
@@ -223,19 +225,33 @@ enemyData = {
             Shooter(.9, bulletTypes["basic"], -0.2),
             Shooter(.9, bulletTypes["basic"], 0.2)
         ],
-        "sprite":yellowSprite,
+        "sprite":pygame.image.load("res/enemies/YELLOW.png"),
         "particleColor":(255,255,0)
     }
 }
 
 
-#image_rect = redSprite.get_rect()
-#image_center = image_rect.center
+class itemDrop():
+    def __init__(self, pos, value):
+        """pos - Vect // value - int"""
+        self.pos = pos
+        self.value = value
 
-# Specify the point of rotation (for example, the center of the image)
-#rotation_point = image_center
+    def render(self):
+        pygame.draw.ellipse(screen, xpColor[0], (self.pos.getX(), self.pos.getY(), xpSize[0], xpSize[0]))
+        pygame.draw.ellipse(screen, xpColor[1], (self.pos.getX(), self.pos.getY(), xpSize[1], xpSize[1]))
 
-#    rotated_rect = rotated_image.get_rect(center=rotation_point)
+    def update(self):
+        xComp = player.pos.getX()-self.pos.getX()-cameraPos.getX()
+        yComp = player.pos.getY()-self.pos.getY()-cameraPos.getY()
+        if Vect(xComp, yComp).getMagnitude() <= 18:
+            self.pickup()
+
+
+    def pickup(self):
+
+        xpList.remove(self)
+        del self
 
 
 class Enemy():
@@ -250,6 +266,7 @@ class Enemy():
     def kill(self):
         for i in range(particlesPerDeath):
             particleList.append(Particle(self.pos.getX(), self.pos.getY(), 1.1, 10, enemyData[self.enemyType]["particleColor"], 10))
+        xpList.append(itemDrop(Vect(self.pos.getX()+random.randint(-20,20), self.pos.getY()+random.randint(-20,20), ), 10))
         enemyList.remove(self)
         del self
     
@@ -364,6 +381,7 @@ bulletList = []
 enemyShooters = []
 playerShooters = []
 enemyList = []
+xpList = []
 
 enemyList.append(Enemy(Vect(70,70), "red"))
 
@@ -378,6 +396,8 @@ frameCount = 0
 playerWidth = 32
 enemyScaleFactor = 2
 particlesPerDeath = 7
+xpColor = ((180, 220, 8), (220, 255, 10))
+xpSize = (12, 8)
 
 player = Player(Vect(screenSize.getX()/2 - playerWidth/2,screenSize.getY()/2 - playerWidth/2), Vect(0,0))
 
@@ -469,6 +489,10 @@ while running:
         #print(i.vel)
         i.tick()
         i.render()
+
+    for i in xpList:
+        i.render()
+        i.update()
 
     for i in bulletList:
         i.update()
