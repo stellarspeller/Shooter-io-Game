@@ -25,7 +25,7 @@ class Player():
                 xComp = i.pos.getX()-self.pos.getX()-cameraPos.getX()
                 yComp = i.pos.getY()-self.pos.getY()-cameraPos.getY()
                 #print("a")
-                if Vect(xComp, yComp).getMagnitude() <= 30:
+                if Vect(xComp, yComp).getMagnitude() <= 16:
                     print(self.hp)
                     #print("YOUR MOM")
                     if i.penetration >= self.hp:
