@@ -114,7 +114,7 @@ class Particle(): #thank you chatgpt
     def render(self):
         pygame.draw.rect(screen, self.color, (self.pos.getX()-(round(self.size/2))-cameraPos.getX(), self.pos.getY()-(round(self.size/2))-cameraPos.getY(), self.size, self.size))
 
-    def tick(self):
+    def update(self):
         #deltaVelocity = self.vel.multiply(1/FPS)
         #print(self.vel.multi)
         #print(deltaVelocity)
@@ -238,18 +238,22 @@ class itemDrop():
         self.value = value
 
     def render(self):
-        pygame.draw.ellipse(screen, xpColor[0], (self.pos.getX(), self.pos.getY(), xpSize[0], xpSize[0]))
-        pygame.draw.ellipse(screen, xpColor[1], (self.pos.getX(), self.pos.getY(), xpSize[1], xpSize[1]))
+        xComp = self.pos.getX()-cameraPos.getX()
+        yComp = self.pos.getY()-cameraPos.getY()
+        pygame.draw.ellipse(screen, xpColor[0], (xComp, yComp, xpSize[0], xpSize[0]))
+        xComp = self.pos.getX()-cameraPos.getX()+(xpSize[0]-xpSize[1])/2
+        yComp = self.pos.getY()-cameraPos.getY()+(xpSize[0]-xpSize[1])/2
+        pygame.draw.ellipse(screen, xpColor[1], (xComp, yComp, xpSize[1], xpSize[1]))
 
     def update(self):
-        xComp = player.pos.getX()-self.pos.getX()-cameraPos.getX()
-        yComp = player.pos.getY()-self.pos.getY()-cameraPos.getY()
-        if Vect(xComp, yComp).getMagnitude() <= 18:
+        xComp = player.pos.getX()-self.pos.getX()+cameraPos.getX()
+        yComp = player.pos.getY()-self.pos.getY()+cameraPos.getY()
+        if Vect(xComp, yComp).getMagnitude() <= 22:
             self.pickup()
 
 
     def pickup(self):
-
+        player.xp += self.value
         xpList.remove(self)
         del self
 
@@ -487,12 +491,12 @@ while running:
     
     for i in particleList:
         #print(i.vel)
-        i.tick()
+        i.update()
         i.render()
 
     for i in xpList:
-        i.render()
         i.update()
+        i.render()
 
     for i in bulletList:
         i.update()
@@ -500,7 +504,6 @@ while running:
 
     for i in enemyList:
         i.update()
-        #i.render()
 
     player.update()
     player.render()
