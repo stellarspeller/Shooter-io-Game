@@ -248,6 +248,8 @@ class Enemy():
         self.hitboxCenter = Vect(0,0)
 
     def kill(self):
+        for i in range(particlesPerDeath):
+            particleList.append(Particle(self.pos.getX(), self.pos.getY(), 1.1, 10, enemyData[self.enemyType]["particleColor"], 10))
         enemyList.remove(self)
         del self
     
@@ -372,6 +374,7 @@ decelConst = -0.075
 frameCount = 0
 playerWidth = 32
 enemyScaleFactor = 2
+particlesPerDeath = 7
 
 player = Player(Vect(screenSize.getX()/2 - playerWidth/2,screenSize.getY()/2 - playerWidth/2), Vect(0,0))
 
