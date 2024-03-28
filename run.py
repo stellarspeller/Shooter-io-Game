@@ -220,7 +220,17 @@ enemyData = {
         "sprite":yellowSprite
     }
 }
-    
+
+
+#image_rect = redSprite.get_rect()
+#image_center = image_rect.center
+
+# Specify the point of rotation (for example, the center of the image)
+#rotation_point = image_center
+
+#    rotated_rect = rotated_image.get_rect(center=rotation_point)
+
+
 class Enemy():
     def __init__(self, pos, enemyType):
         self.pos = pos
@@ -232,12 +242,15 @@ class Enemy():
     def update(self):
         moveConst = 2
         initComponent = Vect(self.vel.getX(),self.vel.getY()).multiply(1-(moveConst/FPS))
-        modifyComponent = Vect((0-self.pos.getX()+player.pos.getX()+cameraPos.getX()), (0-self.pos.getY()+player.pos.getY()+cameraPos.getY())).multiply(moveConst/FPS)
+        xComp = player.pos.getX()-self.pos.getX()-(enemyScaleFactor*15/4)+cameraPos.getX()+playerWidth/2
+        yComp = player.pos.getY()-self.pos.getY()-(enemyScaleFactor*15/4)+cameraPos.getY()+playerWidth/2 
+        #idk why divided by 4 works, it just does
+        modifyComponent = Vect(xComp, yComp).multiply(moveConst/FPS)
         self.vel = initComponent.add(modifyComponent)
         self.rotation += 0.1 * (120/FPS)
         if self.vel.getMagnitude() >= enemyData[self.enemyType]["maxVelocity"]:
             self.vel.unitize(enemyData[self.enemyType]["maxVelocity"])
-        self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.2))
+        self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.14))
 
     def render(self):
         xComp = self.pos.getRoundX()-cameraPos.getX()
@@ -245,9 +258,16 @@ class Enemy():
 
         scaled_image = pygame.transform.scale(enemyData[self.enemyType]["sprite"], (int(15 * enemyScaleFactor), int(15 * enemyScaleFactor)))
         rotated_image = pygame.transform.rotate(scaled_image, self.rotation)
+        image_rect = enemyData[self.enemyType]["sprite"].get_rect()
+        image_center = image_rect.center
+        rotation_point = image_center
+        print(rotation_point)
+        rotated_rect = rotated_image.get_rect(center=rotation_point)
         #scaled_rect = scaled_image.get_rect(center=(self.pos.getX(), self.pos.getY()))
+        screen.blit(rotated_image, (xComp + rotated_rect.x, yComp + rotated_rect.y))
 
-        screen.blit(rotated_image, (xComp, yComp))
+
+        #screen.blit(rotated_image, (xComp, yComp))
 
         
 
