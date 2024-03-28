@@ -165,6 +165,10 @@ class Bullet():
         if self.penetration <= 0:
             bulletList.remove(self)
             del self
+    
+    def kill(self):
+        bulletList.remove(self)
+        del self
         
     def render(self):
         x = round(self.pos.getX()-self.size/2 - cameraPos.getX())
@@ -198,7 +202,8 @@ enemyData = {
         "shooters":[
             Shooter(.7, bulletTypes["basic"], 0)
         ],
-        "sprite":pygame.image.load("res/enemies/RED.png")
+        "sprite":pygame.image.load("res/enemies/RED.png"),
+        "particleColor":(255,0,0)
     },
     "orange":{
         "hp":18,
@@ -207,7 +212,8 @@ enemyData = {
             Shooter(.8, bulletTypes["basic"], 0), 
             Shooter(1, bulletTypes["basic"], 0)
         ],
-        "sprite":orangeSprite
+        "sprite":orangeSprite,
+        "particleColor":(255,127,0)
     },
     "yellow":{
         "hp":21,
@@ -217,7 +223,8 @@ enemyData = {
             Shooter(.9, bulletTypes["basic"], -0.2),
             Shooter(.9, bulletTypes["basic"], 0.2)
         ],
-        "sprite":yellowSprite
+        "sprite":yellowSprite,
+        "particleColor":(255,255,0)
     }
 }
 
@@ -238,8 +245,14 @@ class Enemy():
         self.enemyType = enemyType
         self.hp = enemyData[enemyType]["hp"]
         self.rotation = 0
+        self.hitboxCenter = Vect(0,0)
+
+    def kill(self):
+        enemyList.remove(self)
+        del self
     
     def update(self):
+        """Does the functionality of both Render and Update because the hitbox is influenced by the sprite's rotation"""
         moveConst = 2
         initComponent = Vect(self.vel.getX(),self.vel.getY()).multiply(1-(moveConst/FPS))
         xComp = player.pos.getX()-self.pos.getX()-(enemyScaleFactor*15/4)+cameraPos.getX()+playerWidth/2
@@ -252,7 +265,7 @@ class Enemy():
             self.vel.unitize(enemyData[self.enemyType]["maxVelocity"])
         self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.14))
 
-    def render(self):
+
         xComp = self.pos.getRoundX()-cameraPos.getX()
         yComp = self.pos.getRoundY()-cameraPos.getY()
 
@@ -261,13 +274,26 @@ class Enemy():
         image_rect = enemyData[self.enemyType]["sprite"].get_rect()
         image_center = image_rect.center
         rotation_point = image_center
-        print(rotation_point)
+        #print(rotation_point)
         rotated_rect = rotated_image.get_rect(center=rotation_point)
+        #print(rotated_rect)
         #scaled_rect = scaled_image.get_rect(center=(self.pos.getX(), self.pos.getY()))
         screen.blit(rotated_image, (xComp + rotated_rect.x, yComp + rotated_rect.y))
 
-
+        #pygame.draw.ellipse(screen, white, (xComp - rotated_rect.x/2 -.5, yComp - rotated_rect.y/2 -.5, 5, 5))
+        self.hitboxCenter = Vect(xComp - rotated_rect.x/2 -.5, yComp - rotated_rect.y/2 -.5)
+        print(self.hitboxCenter)
         #screen.blit(rotated_image, (xComp, yComp))
+
+        for i in bulletList:
+            if Vect(i.pos.getX()-self.hitboxCenter.getX(), i.pos.getY()-self.hitboxCenter.getY()).getMagnitude() <= 25.6:
+                if i.penetration >= self.hp:
+                    i.penetration -= self.hp
+                    self.kill()
+                else:
+                    self.hp -= i.damage
+                    i.kill()
+                #print(Vect(i.pos.getX(), i.pos.getY()).multiply(-1).add(self.hitboxCenter).getMagnitude() <= 50)
 
         
 
@@ -442,7 +468,7 @@ while running:
 
     for i in enemyList:
         i.update()
-        i.render()
+        #i.render()
 
     player.update()
     player.render()
