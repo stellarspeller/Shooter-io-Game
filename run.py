@@ -284,11 +284,14 @@ class Enemy():
 
         #pygame.draw.ellipse(screen, white, (xComp - rotated_rect.x/2 -.5, yComp - rotated_rect.y/2 -.5, 5, 5))
         self.hitboxCenter = Vect(xComp - rotated_rect.x/2 -.5, yComp - rotated_rect.y/2 -.5)
-        print(self.hitboxCenter)
+        #print(self.hitboxCenter)
         #screen.blit(rotated_image, (xComp, yComp))
 
         for i in bulletList:
-            if Vect(i.pos.getX()-self.hitboxCenter.getX(), i.pos.getY()-self.hitboxCenter.getY()).getMagnitude() <= 25.6:
+            #(self.pos.getX()-(round(self.size/2))-cameraPos.getX(), self.pos.getY()-(round(self.size/2))
+            xComp = i.pos.getX()-self.hitboxCenter.getX()-(round(i.size/2))-cameraPos.getX()
+            yComp = i.pos.getY()-self.hitboxCenter.getY()-(round(i.size/2))-cameraPos.getY()
+            if Vect(xComp, yComp).getMagnitude() <= 25.6:
                 if i.penetration >= self.hp:
                     i.penetration -= self.hp
                     self.kill()
@@ -381,6 +384,8 @@ player = Player(Vect(screenSize.getX()/2 - playerWidth/2,screenSize.getY()/2 - p
 #Shooter(cooldown,  )
 #Shooter(1, Bullet(Vect(player.pos.getX(), player.pos.getY()), 0, bulletTypes["basic"]), 0)
 playerShooters.append(Shooter(.4, bulletTypes["basic"], 0))
+playerShooters.append(Shooter(.9, bulletTypes["cannonball"], 0))
+
 
 
 clock = pygame.time.Clock()
