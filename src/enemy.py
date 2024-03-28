@@ -25,9 +25,9 @@ class Enemy():
     def shootReady(self):
         for i in self.personalShooterList:
             if i.cooldownFrames <= 0:
-                xComp = self.pos.getX()+cameraPos.getX()+15
-                yComp = self.pos.getY()+cameraPos.getY()+15
-                shootAngle = math.atan2(player.pos.getY()-self.pos.getY()-cameraPos.getY()+15, player.pos.getX()-self.pos.getX()-cameraPos.getX()+15)
+                xComp = self.pos.getX()#+cameraPos.getX()+15
+                yComp = self.pos.getY()#+cameraPos.getY()+15
+                shootAngle = math.atan2(player.pos.getY()-self.pos.getY()+cameraPos.getY()+15, player.pos.getX()-self.pos.getX()+cameraPos.getX()+15)
                 variability = random.triangular(-enemyShooterAccuracy, enemyShooterAccuracy, 0)
                 i.shoot(Vect(xComp, yComp), shootAngle+variability, False)
                 i.cooldownFrames = FPS * i.cooldown
