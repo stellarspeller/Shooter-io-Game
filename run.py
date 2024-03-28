@@ -154,12 +154,13 @@ class BaseBullet():
 
 
 class Bullet():
-    def __init__(self, pos, angle, bulletBase):
+    def __init__(self, pos, angle, bulletBase, isFromPlayer):
         self.pos = pos
         self.vel = Vect(bulletBase.speed * math.cos(angle), bulletBase.speed * math.sin(angle)) #thank you chatgpt, i was too lazy to write this myself
         self.size = bulletBase.size
         self.damage = bulletBase.damage
         self.penetration = bulletBase.penetration
+        self.isFromPlayer = isFromPlayer
 
     def update(self):
         self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.2))
@@ -192,9 +193,9 @@ class Shooter():
         self.angleVariant = angleVariant
         self.cooldownFrames = FPS * cooldown
 
-    def shoot(self, position, angle):
+    def shoot(self, position, angle, isFromPlayer):
         
-        bulletList.append(Bullet(position, angle, self.bulletCreated))
+        bulletList.append(Bullet(position, angle, self.bulletCreated, isFromPlayer))
 
 
 enemyData = {
@@ -251,7 +252,6 @@ class itemDrop():
         if Vect(xComp, yComp).getMagnitude() <= 22:
             self.pickup()
 
-
     def pickup(self):
         player.xp += self.value
         xpList.remove(self)
@@ -266,6 +266,7 @@ class Enemy():
         self.hp = enemyData[enemyType]["hp"]
         self.rotation = 0
         self.hitboxCenter = Vect(0,0)
+        self.personalShooterList = enemyData[enemyType]["shooters"].copy() #thank you chatgpt
 
     def kill(self):
         for i in range(particlesPerDeath):
@@ -273,6 +274,16 @@ class Enemy():
         xpList.append(itemDrop(Vect(self.pos.getX()+random.randint(-20,20), self.pos.getY()+random.randint(-20,20), ), 10))
         enemyList.remove(self)
         del self
+
+    def shootReady(self):
+        for i in self.personalShooterList:
+            if i.cooldownFrames <= 0:
+                xComp = self.pos.getX()+cameraPos.getX()+15
+                yComp = self.pos.getY()+cameraPos.getY()+15
+                shootAngle = math.atan2(mousePos.getY(), mousePos.getX())
+                variability = random.triangular(-enemyShooterAccuracy, enemyShooterAccuracy, 0)
+                i.shoot(Vect(xComp, yComp), shootAngle+variability, False)
+                i.cooldownFrames = FPS * i.cooldown
     
     def update(self):
         """Does the functionality of both Render and Update because the hitbox is influenced by the sprite's rotation"""
@@ -291,6 +302,8 @@ class Enemy():
 
         xComp = self.pos.getRoundX()-cameraPos.getX()
         yComp = self.pos.getRoundY()-cameraPos.getY()
+
+        #this is a mess but so am i :D
 
         scaled_image = pygame.transform.scale(enemyData[self.enemyType]["sprite"], (int(15 * enemyScaleFactor), int(15 * enemyScaleFactor)))
         rotated_image = pygame.transform.rotate(scaled_image, self.rotation)
@@ -315,17 +328,19 @@ class Enemy():
         
 
         for i in bulletList:
-            #(self.pos.getX()-(round(self.size/2))-cameraPos.getX(), self.pos.getY()-(round(self.size/2))
-            xComp = i.pos.getX()-self.hitboxCenter.getX()-(round(i.size/2))-cameraPos.getX()
-            yComp = i.pos.getY()-self.hitboxCenter.getY()-(round(i.size/2))-cameraPos.getY()
-            if Vect(xComp, yComp).getMagnitude() <= 25.6:
-                if i.penetration >= self.hp:
-                    i.penetration -= self.hp
-                    self.kill()
-                else:
-                    self.hp -= i.damage
-                    i.kill()
-                #print(Vect(i.pos.getX(), i.pos.getY()).multiply(-1).add(self.hitboxCenter).getMagnitude() <= 50)
+            if i.isFromPlayer:
+                #(self.pos.getX()-(round(self.size/2))-cameraPos.getX(), self.pos.getY()-(round(self.size/2))
+                xComp = i.pos.getX()-self.hitboxCenter.getX()-(round(i.size/2))-cameraPos.getX()
+                yComp = i.pos.getY()-self.hitboxCenter.getY()-(round(i.size/2))-cameraPos.getY()
+                if Vect(xComp, yComp).getMagnitude() <= 25.6:
+                    if i.penetration >= self.hp:
+                        i.penetration -= self.hp
+                        self.kill()
+                    else:
+                        self.hp -= i.damage
+                        i.kill()
+                    #print(Vect(i.pos.getX(), i.pos.getY()).multiply(-1).add(self.hitboxCenter).getMagnitude() <= 50)
+        self.shootReady()
 
         
 
@@ -388,7 +403,6 @@ logoPixelSize = 10
 
 particleList = []
 bulletList = []
-enemyShooters = []
 playerShooters = []
 enemyList = []
 xpList = []
@@ -406,6 +420,7 @@ frameCount = 0
 playerWidth = 32
 enemyScaleFactor = 2
 particlesPerDeath = 7
+enemyShooterAccuracy = 0.1
 xpColor = ((180, 220, 8), (220, 255, 10))
 xpSize = (12, 8)
 
@@ -427,6 +442,11 @@ while running:
     for i in playerShooters:
         if i.cooldownFrames > 0:
             i.cooldownFrames -= 1
+
+    for i in enemyList:
+        for j in i.personalShooterList:
+            if j.cooldownFrames > 0:
+                j.cooldownFrames -= 1
 
 
 
@@ -485,7 +505,7 @@ while running:
     if(pygame.mouse.get_pressed(3)[0]): 
         for i in playerShooters:
             if i.cooldownFrames <= 0:
-                i.shoot(Vect(player.pos.getX()+cameraPos.getX()+playerWidth/2,player.pos.getY()+cameraPos.getY()+playerWidth/2), math.atan2(mousePos.getY(), mousePos.getX()))
+                i.shoot(Vect(player.pos.getX()+cameraPos.getX()+playerWidth/2,player.pos.getY()+cameraPos.getY()+playerWidth/2), math.atan2(mousePos.getY(), mousePos.getX()), True)
                 i.cooldownFrames = FPS * i.cooldown
 
 
