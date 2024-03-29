@@ -3,7 +3,7 @@ from src.bullet import *
 import random
 
 class Shooter():
-    def __init__(self, cooldown, bulletCreated, angleVariant, cooldownFrames):
+    def __init__(self, cooldown, bulletCreated, angleVariant):
         """NOTE - Cooldown measured in seconds // angleVariant is the degrees of rotation away from perfect accuracy"""
         self.cooldown = cooldown
         self.bulletCreated = bulletCreated
