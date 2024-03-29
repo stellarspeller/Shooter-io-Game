@@ -3,6 +3,7 @@ from src.particle import *
 from src.itemdrop import *
 import random
 from data.enemyData import *
+import copy
 #from src. import *
 
 class Enemy():
@@ -13,7 +14,7 @@ class Enemy():
         self.hp = enemyData[enemyType]["hp"]
         self.rotation = 0
         self.hitboxCenter = Vect(0,0)
-        self.personalShooterList = enemyData[enemyType]["shooters"].copy() #thank you chatgpt
+        self.personalShooterList = copy.deepcopy(enemyData[enemyType]["shooters"]) #thank you chatgpt
 
     def kill(self):
         for i in range(particlesPerDeath):
@@ -23,8 +24,17 @@ class Enemy():
         del self
 
     def shootReady(self):
+        #print(self)
+        
+        #print(len(self.personalShooterList))
         for i in self.personalShooterList:
+            #print("eeeee " + str(i.cooldownFrames))
+            print(self.personalShooterList)
             if i.cooldownFrames <= 0:
+                #print(self)
+                print(self.personalShooterList)
+                #print(Vect(self.pos.getX(), self.pos.getY()))
+                #print(self.pos.getY())
                 xComp = self.pos.getX()#+cameraPos.getX()+15
                 yComp = self.pos.getY()#+cameraPos.getY()+15
                 shootAngle = math.atan2(player.pos.getY()-self.pos.getY()+cameraPos.getY()+15, player.pos.getX()-self.pos.getX()+cameraPos.getX()+15)
@@ -34,6 +44,8 @@ class Enemy():
     
     def update(self):
         """Does the functionality of both Render and Update because the hitbox is influenced by the sprite's rotation"""
+        print("update function started")
+        
         moveConst = 2
         initComponent = Vect(self.vel.getX(),self.vel.getY()).multiply(1-(moveConst/FPS))
         xComp = player.pos.getX()-self.pos.getX()-(enemyScaleFactor*15/4)+cameraPos.getX()+playerWidth/2
@@ -87,4 +99,6 @@ class Enemy():
                         self.hp -= i.damage
                         i.kill()
                     #print(Vect(i.pos.getX(), i.pos.getY()).multiply(-1).add(self.hitboxCenter).getMagnitude() <= 50)
+        #print(self.pos)
+        
         self.shootReady()

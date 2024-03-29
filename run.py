@@ -93,6 +93,14 @@ while running:
                 i.cooldownFrames = FPS * i.cooldown
 
 
+    """Spawning New Enemies"""
+    if len(enemyList) == 0:
+        for i in range(3):
+            xComp = cameraPos.getX()-50
+            yComp = random.randint(cameraPos.getRoundY()-50, cameraPos.getRoundY()+screenSize.getRoundY()+50)
+            enemyList.append(Enemy(Vect(xComp, yComp), "red"))
+
+
     """Updating and rendering orders"""
     for i in range(round(screenSize.getRoundX()/lineDensity)+2):
         pygame.draw.line(screen, white, ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, -10), ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, screenSize.getY()+10), lineThickness)
@@ -113,8 +121,11 @@ while running:
         i.render()
 
     for i in enemyList:
+        #print("hi")
         i.update()
-
+        #i.shootReady()
+    print("frame completed")
+    #print("aaaaaaaaaa " + str(len(enemyList)))
     player.update()
     player.render()
     player.checkBulletCollision()
