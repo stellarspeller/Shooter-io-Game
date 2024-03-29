@@ -8,6 +8,7 @@ from src.constants import *
 from data.bullets import *
 from src.enemy import *
 from data import *
+from src.waveHandler import *
 
 running = True
 
@@ -93,12 +94,14 @@ while running:
                 i.cooldownFrames = FPS * i.cooldown
 
 
-    """Spawning New Enemies"""
+    """Spawning New Enemies
     if len(enemyList) == 0:
         for i in range(3):
             xComp = cameraPos.getX()-50
             yComp = random.randint(cameraPos.getRoundY()-50, cameraPos.getRoundY()+screenSize.getRoundY()+50)
             enemyList.append(Enemy(Vect(xComp, yComp), "red"))
+    """
+    waveHandler.update()
 
 
     """Updating and rendering orders"""
