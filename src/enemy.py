@@ -24,17 +24,10 @@ class Enemy():
         del self
 
     def shootReady(self):
-        #print(self)
-        
-        #print(len(self.personalShooterList))
         for i in self.personalShooterList:
-            #print("eeeee " + str(i.cooldownFrames))
             print(self.personalShooterList)
             if i.cooldownFrames <= 0:
-                #print(self)
                 print(self.personalShooterList)
-                #print(Vect(self.pos.getX(), self.pos.getY()))
-                #print(self.pos.getY())
                 xComp = self.pos.getX()#+cameraPos.getX()+15
                 yComp = self.pos.getY()#+cameraPos.getY()+15
                 shootAngle = math.atan2(player.pos.getY()-self.pos.getY()+cameraPos.getY()+15, player.pos.getX()-self.pos.getX()+cameraPos.getX()+15)
@@ -69,15 +62,11 @@ class Enemy():
         image_rect = enemyData[self.enemyType]["sprite"].get_rect()
         image_center = image_rect.center
         rotation_point = image_center
-        #print(rotation_point)
         rotated_rect = rotated_image.get_rect(center=rotation_point)
-        #print(rotated_rect)
         #scaled_rect = scaled_image.get_rect(center=(self.pos.getX(), self.pos.getY()))
         screen.blit(rotated_image, (xComp + rotated_rect.x, yComp + rotated_rect.y))
 
-        #pygame.draw.ellipse(screen, white, (xComp - rotated_rect.x/2 -.5, yComp - rotated_rect.y/2 -.5, 5, 5))
         self.hitboxCenter = Vect(xComp - rotated_rect.x/2 -.5, yComp - rotated_rect.y/2 -.5)
-        #print(self.hitboxCenter)
         #screen.blit(rotated_image, (xComp, yComp))
 
         if random.uniform(0,1) <= (10/FPS):
@@ -88,7 +77,6 @@ class Enemy():
 
         for i in bulletList:
             if i.isFromPlayer:
-                #(self.pos.getX()-(round(self.size/2))-cameraPos.getX(), self.pos.getY()-(round(self.size/2))
                 xComp = i.pos.getX()-self.hitboxCenter.getX()-(round(i.size/2))-cameraPos.getX()
                 yComp = i.pos.getY()-self.hitboxCenter.getY()-(round(i.size/2))-cameraPos.getY()
                 if Vect(xComp, yComp).getMagnitude() <= 25.6:
@@ -98,7 +86,5 @@ class Enemy():
                     else:
                         self.hp -= i.damage
                         i.kill()
-                    #print(Vect(i.pos.getX(), i.pos.getY()).multiply(-1).add(self.hitboxCenter).getMagnitude() <= 50)
-        #print(self.pos)
         
         self.shootReady()

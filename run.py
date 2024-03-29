@@ -1,7 +1,5 @@
 import pygame
-#import random
 import math
-#from os import system
 pygame.init()
 #Font=pygame.font.SysFont('fontify.ttf', 96)
 from src.constants import *
@@ -111,7 +109,6 @@ while running:
         pygame.draw.line(screen, white, (-10, ((lineDensity*i)-cameraPos.getRoundY()%lineDensity)), (screenSize.getX()+10, (lineDensity*i)-cameraPos.getRoundY()%lineDensity), lineThickness)
     
     for i in particleList:
-        #print(i.vel)
         i.update()
         i.render()
 
@@ -124,11 +121,7 @@ while running:
         i.render()
 
     for i in enemyList:
-        #print("hi")
         i.update()
-        #i.shootReady()
-    print("frame completed")
-    #print("aaaaaaaaaa " + str(len(enemyList)))
     player.update()
     player.render()
     player.checkBulletCollision()
@@ -147,7 +140,6 @@ while running:
 
     particleList.append(Particle(400, 400, 1.1, 10, white, 10))
 
-    #print(cameraPos)
 
     #system.clear()
     #print("Particles: " + str(len(particleList)))
@@ -155,7 +147,6 @@ while running:
 
 
 
-    #print(inputVect)
 
     #inputVect.multiply(-3)
 

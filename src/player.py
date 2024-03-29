@@ -25,10 +25,7 @@ class Player():
             if not i.isFromPlayer:
                 xComp = i.pos.getX()-self.pos.getX()-cameraPos.getX()-playerWidth/2
                 yComp = i.pos.getY()-self.pos.getY()-cameraPos.getY()-playerWidth/2
-                #print("a")
                 if Vect(xComp, yComp).getMagnitude() <= 16:
-                    #print(self.hp)
-                    #print("YOUR MOM")
                     if i.penetration >= self.hp:
                         i.penetration -= self.hp
                         self.kill()
