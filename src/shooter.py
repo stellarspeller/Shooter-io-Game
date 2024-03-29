@@ -1,8 +1,9 @@
 from src.constants import *
 from src.bullet import *
+import random
 
 class Shooter():
-    def __init__(self, cooldown, bulletCreated, angleVariant):
+    def __init__(self, cooldown, bulletCreated, angleVariant, cooldownFrames):
         """NOTE - Cooldown measured in seconds // angleVariant is the degrees of rotation away from perfect accuracy"""
         self.cooldown = cooldown
         self.bulletCreated = bulletCreated
