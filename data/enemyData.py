@@ -4,7 +4,7 @@ from src.shooter import *
 enemyData = {
     "red":{
         "hp":10,
-        "maxVelocity":2,
+        "maxVelocity":1.6,
         "shooters":[
             Shooter(.7, bulletTypes["basic"], 0)
         ],
@@ -13,7 +13,7 @@ enemyData = {
     },
     "orange":{
         "hp":18,
-        "maxVelocity":3,
+        "maxVelocity":2.2,
         "shooters":[
             Shooter(.8, bulletTypes["basic"], 0), 
             Shooter(1, bulletTypes["basic"], 0)
@@ -23,7 +23,7 @@ enemyData = {
     },
     "yellow":{
         "hp":21,
-        "maxVelocity":4,
+        "maxVelocity":3,
         "shooters":[
             Shooter(.6, bulletTypes["basic"], 0), 
             Shooter(.9, bulletTypes["basic"], -0.2),
