@@ -15,6 +15,8 @@ class Enemy():
         self.rotation = 0
         self.hitboxCenter = Vect(0,0)
         self.personalShooterList = copy.deepcopy(enemyData[enemyType]["shooters"]) #thank you chatgpt
+        for i in self.personalShooterList:
+            i.cooldownFrames = random.randint(0, FPS * i.cooldown)
 
     def kill(self):
         for i in range(particlesPerDeath):
@@ -35,7 +37,6 @@ class Enemy():
     
     def update(self):
         """Does the functionality of both Render and Update because the hitbox is influenced by the sprite's rotation"""
-        print("update function started")
         
         moveConst = 2
         initComponent = Vect(self.vel.getX(),self.vel.getY()).multiply(1-(moveConst/FPS))
