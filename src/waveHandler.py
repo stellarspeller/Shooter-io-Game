@@ -6,7 +6,9 @@ class WaveHandler():
     def __init__(self):
         self.waveNum = 0
         self.enemyThreshold = 0
-        self.rangeFromPlayer = (80,150)
+        self.rangeFromPlayer = (100,220)
+        self.queue = [] #NUM of enemies, frames, type
+        self.queueFrames = 0
 
     def spawn(self, enemyType):
 
@@ -27,10 +29,37 @@ class WaveHandler():
 
         enemyList.append(Enemy(Vect(xComp, yComp), enemyType))
 
+    def addToQueue(self, numOfEnemies, secondsPerSpawn, enemyType):
+        self.queue.append([numOfEnemies, round(secondsPerSpawn*FPS), enemyType])
+
     def update(self):
         if len(enemyList) <= self.enemyThreshold:
-            for i in range(30):
-                self.spawn("red")
+            for i in range(1):
+                #self.spawn("red")
+                self.addToQueue(20, .2, "red")
+
+        if len(self.queue) > 0:
+            #self.queueFrames = self.queue[0][1] #basically, get the number of frames between each spawn for the #1 in queue
+
+            #check queueframe value
+            #if 0, do the spawn procedure
+            #if above 0, subtract one
+
+            print("ooooooooo " + str(self.queue[0][0]))
+
+            if self.queueFrames == 0:
+                self.spawn(self.queue[0][2])
+                self.queue[0][0] -= 1
+                self.queueFrames = self.queue[0][1]
+
+                if self.queue[0][0] <= 0:
+                    #print("p")
+                    #self.queue.remove(self.queue[0])
+                    del self.queue[0]
+
+            elif self.queueFrames > 0:
+                self.queueFrames -= 1
+
                 
 
 waveHandler = WaveHandler()

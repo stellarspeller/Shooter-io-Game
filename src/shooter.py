@@ -1,6 +1,5 @@
 from src.constants import *
 from src.bullet import *
-import random
 
 class Shooter():
     def __init__(self, cooldown, bulletCreated, angleVariant):
