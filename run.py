@@ -14,7 +14,9 @@ enemyList.append(Enemy(Vect(70,70), "red"))
 
 playerShooters.append(Shooter(.4, bulletTypes["basic"], 0))
 playerShooters.append(Shooter(.9, bulletTypes["cannonball"], 0))
-
+bgMusic = pygame.mixer.Sound("res/sound/music/tis.wav")
+pygame.mixer.music.load("res/sound/music/tis.wav")
+pygame.mixer.music.play(-1)
 
 clock = pygame.time.Clock()
 # game loop
