@@ -45,7 +45,7 @@ class WaveHandler():
             #if 0, do the spawn procedure
             #if above 0, subtract one
 
-            print("ooooooooo " + str(self.queue[0][0]))
+            #print("ooooooooo " + str(self.queue[0][0]))
 
             if self.queueFrames == 0:
                 self.spawn(self.queue[0][2])

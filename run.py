@@ -62,7 +62,7 @@ while running:
 
     inputVect = Vect(inputRight-inputLeft, inputDown-inputUp)
     
-    inputVect.clamp(1)
+    inputVect.squareClamp(1)
 
     inputVect.multiply(.1)
 

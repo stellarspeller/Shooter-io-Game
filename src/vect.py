@@ -44,9 +44,14 @@ class Vect():
     def getRoundY(self):
         return round(self.y)
     
-    def clamp(self, clampRadius):
+    def squareClamp(self, clampRadius):
         if self.y >=  clampRadius: self.y =  clampRadius
         if self.y <= -clampRadius: self.y = -clampRadius
         if self.x >=  clampRadius: self.x =  clampRadius
         if self.x <= -clampRadius: self.x = -clampRadius
     
+    def circularClamp(self, radius=None):
+        if radius is None:
+            radius = 1
+        if self.getMagnitude() > radius:
+            self.unitize(radius)
