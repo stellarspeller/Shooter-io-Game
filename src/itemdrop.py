@@ -8,7 +8,6 @@ class itemDrop():
         self.pos = pos
         self.value = value
         self.vel = Vect(0,0)
-        self.variance = Vect(0,0)
 
     def render(self):
         xComp = self.pos.getX()-cameraPos.getX()
@@ -21,11 +20,6 @@ class itemDrop():
     def update(self):
 
         #movement towards player
-        #Vect().circularClamp(0.003)
-
-        #self.variance.x += random.uniform(-1/FPS, 1/FPS)
-        #self.variance.y += random.uniform(-1/FPS, 1/FPS)
-        self.variance.circularClamp(1)
 
         xComp = player.pos.getX()+playerWidth/2-self.pos.getX()+cameraPos.getX()
         yComp = player.pos.getY()+playerWidth/2-self.pos.getY()+cameraPos.getY()
@@ -38,8 +32,8 @@ class itemDrop():
 
         self.vel.circularClamp(45000/(8000+Vect(xComp, yComp).getMagnitude()*FPS))
 
-        self.pos.x += self.vel.getX() + 0.45 * self.variance.getX()
-        self.pos.y += self.vel.getY() + 0.45 * self.variance.getX()
+        self.pos.x += self.vel.getX()
+        self.pos.y += self.vel.getY()
 
     def pickup(self):
         player.xp += self.value
