@@ -18,6 +18,8 @@ playerShooters.append(Shooter(.9, bulletTypes["cannonball"], 0))
 #pygame.mixer.music.load("res/sound/music/tis.wav")
 #pygame.mixer.music.play(-1)
 
+pygame.mouse.set_visible(False)
+
 clock = pygame.time.Clock()
 # game loop
 while running:
@@ -127,6 +129,14 @@ while running:
     player.update()
     player.render()
     player.checkBulletCollision()
+
+    mousePos = Vect(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
+    pygame.draw.rect(screen, black, (mousePos.getX()-9, mousePos.getY()-1, 20, 4))
+    pygame.draw.rect(screen, black, (mousePos.getX()-1, mousePos.getY()-9, 4, 20))
+
+    pygame.draw.rect(screen, white, (mousePos.getX()-8, mousePos.getY(), 18, 2))
+    pygame.draw.rect(screen, white, (mousePos.getX(), mousePos.getY()-8, 2, 18))
+
 
     """if frameCount < 240:
         for i in particlePositions:

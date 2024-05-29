@@ -3,6 +3,7 @@ from src.vect import *
 
 background_color = (27, 21, 33)
 white = (255, 255, 255)
+black = (0, 0, 0)
 
 FPS = 120
 

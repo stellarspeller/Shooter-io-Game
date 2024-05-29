@@ -36,7 +36,7 @@ class WaveHandler():
         if len(enemyList) <= self.enemyThreshold:
             for i in range(1):
                 #self.spawn("red")
-                self.addToQueue(20, .2, "red")
+                self.addToQueue(20, .2, "yellow")
 
         if len(self.queue) > 0:
             #self.queueFrames = self.queue[0][1] #basically, get the number of frames between each spawn for the #1 in queue

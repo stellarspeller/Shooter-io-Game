@@ -17,6 +17,7 @@ class Enemy():
         self.personalShooterList = copy.deepcopy(enemyData[enemyType]["shooters"]) #thank you chatgpt
         for i in self.personalShooterList:
             i.cooldownFrames = random.randint(0, FPS * i.cooldown)
+        self.rotPerSecond = enemyData[enemyType]["rotationPerSecond"]
 
     def kill(self):
         for i in range(particlesPerDeath):
@@ -45,7 +46,7 @@ class Enemy():
         #idk why divided by 4 works, it just does
         modifyComponent = Vect(xComp, yComp).multiply(moveConst/FPS)
         self.vel = initComponent.add(modifyComponent)
-        self.rotation += 0.1 * (120/FPS)
+        self.rotation += self.rotPerSecond * (120/FPS)
         if self.vel.getMagnitude() >= enemyData[self.enemyType]["maxVelocity"]:
             self.vel.unitize(enemyData[self.enemyType]["maxVelocity"])
         self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.14))
@@ -71,8 +72,7 @@ class Enemy():
         if random.uniform(0,1) <= (10/FPS):
             xComp = (self.hitboxCenter.getX()+cameraPos.getX())
             yComp = (self.hitboxCenter.getY()+cameraPos.getY())
-            particleList.append(Particle(xComp, yComp, .14, 5, enemyData[self.enemyType]["particleColor"], 18))
-        
+            particleList.append(Particle(xComp, yComp, .24, 5, enemyData[self.enemyType]["particleColor"], 18))
 
         for i in bulletList:
             if i.isFromPlayer:

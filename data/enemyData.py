@@ -9,7 +9,9 @@ enemyData = {
             Shooter(.7, bulletTypes["basic"], 0)
         ],
         "sprite":pygame.image.load("res/enemies/RED.png"),
-        "particleColor":(255,0,0)
+        "particleColor":(255,0,0),
+        "rotationPerSecond":0.1,
+        "xpValue":10
     },
     "orange":{
         "hp":18,
@@ -19,7 +21,9 @@ enemyData = {
             Shooter(1, bulletTypes["basic"], 0)
         ],
         "sprite":pygame.image.load("res/enemies/ORANGE.png"),
-        "particleColor":(255,127,0)
+        "particleColor":(255,127,0),
+        "rotationPerSecond":0.15,
+        "xpReleased":14
     },
     "yellow":{
         "hp":21,
@@ -30,6 +34,8 @@ enemyData = {
             Shooter(.9, bulletTypes["basic"], 0.2)
         ],
         "sprite":pygame.image.load("res/enemies/YELLOW.png"),
-        "particleColor":(255,255,0)
+        "particleColor":(255,255,0),
+        "rotationPerSecond":0.2,
+        "xpReleased":20
     }
 }
