@@ -29,9 +29,9 @@ enemyData = {
         "hp":21,
         "maxVelocity":3,
         "shooters":[
-            Shooter(.8, bulletTypes["basic"], 0), 
-            Shooter(1.1, bulletTypes["basic"], -2.9),
-            Shooter(1.1, bulletTypes["basic"], 2.9)
+            Shooter(.9, bulletTypes["basic"], 0), 
+            Shooter(1.3, bulletTypes["basic"], -0.4),
+            Shooter(1.3, bulletTypes["basic"], 0.4)
         ],
         "sprite":pygame.image.load("res/enemies/YELLOW.png"),
         "particleColor":(255,255,0),

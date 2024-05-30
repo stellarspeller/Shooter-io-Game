@@ -11,4 +11,4 @@ class Shooter():
 
     def shoot(self, position, angle, isFromPlayer):
         
-        bulletList.append(Bullet(position, angle, self.bulletCreated, isFromPlayer))
+        bulletList.append(Bullet(position, angle + self.angleVariant, self.bulletCreated, isFromPlayer))
