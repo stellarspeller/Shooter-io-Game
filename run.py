@@ -130,6 +130,8 @@ while running:
     player.render()
     player.checkBulletCollision()
 
+
+    """Crosshare"""
     mousePos = Vect(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
     pygame.draw.rect(screen, black, (mousePos.getX()-9, mousePos.getY()-1, 20, 4))
     pygame.draw.rect(screen, black, (mousePos.getX()-1, mousePos.getY()-9, 4, 20))

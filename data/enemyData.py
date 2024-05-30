@@ -6,7 +6,7 @@ enemyData = {
         "hp":10,
         "maxVelocity":1.6,
         "shooters":[
-            Shooter(.7, bulletTypes["basic"], 0)
+            Shooter(1.1, bulletTypes["basic"], 0)
         ],
         "sprite":pygame.image.load("res/enemies/RED.png"),
         "particleColor":(255,0,0),
@@ -17,8 +17,8 @@ enemyData = {
         "hp":18,
         "maxVelocity":2.2,
         "shooters":[
-            Shooter(.8, bulletTypes["basic"], 0), 
-            Shooter(1, bulletTypes["basic"], 0)
+            Shooter(1.2, bulletTypes["basic"], 0), 
+            Shooter(1.6, bulletTypes["basic"], 0)
         ],
         "sprite":pygame.image.load("res/enemies/ORANGE.png"),
         "particleColor":(255,127,0),
@@ -29,9 +29,9 @@ enemyData = {
         "hp":21,
         "maxVelocity":3,
         "shooters":[
-            Shooter(.6, bulletTypes["basic"], 0), 
-            Shooter(.9, bulletTypes["basic"], -0.2),
-            Shooter(.9, bulletTypes["basic"], 0.2)
+            Shooter(.8, bulletTypes["basic"], 0), 
+            Shooter(1.1, bulletTypes["basic"], -2.9),
+            Shooter(1.1, bulletTypes["basic"], 2.9)
         ],
         "sprite":pygame.image.load("res/enemies/YELLOW.png"),
         "particleColor":(255,255,0),
