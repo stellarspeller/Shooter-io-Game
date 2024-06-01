@@ -19,11 +19,19 @@ playerShooters.append(Shooter(.9, bulletTypes["cannonball"], 0))
 #pygame.mixer.music.load("res/sound/music/tis.wav")
 #pygame.mixer.music.play(-1)
 
+"""if frameCount < 240:
+        for i in particlePositions:
+            pygame.draw.rect(screen, white, (logoPixelSize*i[0]+100, logoPixelSize*i[1]+100, logoPixelSize, logoPixelSize))
+    if len(particleList) <= 0 and frameCount >= 240 and frameCount <= 240+logoPixelSize*6:
+        for i in particlePositions:
+            particleList.append(Particle(logoPixelSize*i[0]+100, logoPixelSize*i[1]+100, 1, logoPixelSize, white, 6))"""
+
 pygame.mouse.set_visible(False)
 
 clock = pygame.time.Clock()
 # game loop
 while running:
+    #Stuff with frame counting
     clock.tick(FPS)
     frameCount += 1
 
@@ -35,28 +43,6 @@ while running:
         for j in i.personalShooterList:
             if j.cooldownFrames > 0:
                 j.cooldownFrames -= 1
-
-
-
-    pygame.display.update()
-
-    for event in pygame.event.get():
-      
-        # Check for QUIT event      
-        if event.type == pygame.QUIT:
-            running = False
-
-        if event.type == pygame.VIDEORESIZE:
-            # If the window is resized, get the new dimensions and update the screen
-            #WIDTH, HEIGHT = event.w, event.h
-            screenSize.x = event.w
-            screenSize.y = event.h
-            screen = pygame.display.set_mode((screenSize.getX(), screenSize.getY()), pygame.RESIZABLE)
-            player.pos = Vect(screenSize.getX()/2 - playerWidth/2, screenSize.getY()/2 - playerWidth/2)
-
-
-
-    screen.fill(background_color)
 
 
     """Input Handling"""
@@ -97,50 +83,46 @@ while running:
                 i.cooldownFrames = FPS * i.cooldown
 
 
-    """Spawning New Enemies
-    if len(enemyList) == 0:
-        for i in range(3):
-            xComp = cameraPos.getX()-50
-            yComp = random.randint(cameraPos.getRoundY()-50, cameraPos.getRoundY()+screenSize.getRoundY()+50)
-            enemyList.append(Enemy(Vect(xComp, yComp), "red"))
-    """
+    """Spawning New Enemies"""
     waveHandler.update()
 
 
-    """Updating and rendering orders"""
+    """Rendering:"""
+
+    #background and grid
+    screen.fill(background_color)
     for i in range(round(screenSize.getRoundX()/lineDensity)+2):
         pygame.draw.line(screen, white, ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, -10), ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, screenSize.getY()+10), lineThickness)
     for i in range(round(screenSize.getY()/lineDensity)+2):
         pygame.draw.line(screen, white, (-10, ((lineDensity*i)-cameraPos.getRoundY()%lineDensity)), (screenSize.getX()+10, (lineDensity*i)-cameraPos.getRoundY()%lineDensity), lineThickness)
     
+    #particles
     for i in particleList:
         i.update()
         i.render()
 
+    #xp particles
     for i in xpList:
         i.update()
         i.render()
 
+    #bullets
     for i in bulletList:
         i.update()
         i.render()
 
+    #enemies
     for i in enemyList:
         i.update()
+
+    #the player
     player.update()
     player.render()
     player.checkBulletCollision()
     player.checkLevelUp()
 
-    text = font.render(str(player.xp) + "/" + str(xpToLevelUp[player.level-1]) + " xp, level " + str(player.level), True, white)
-    textRect = text.get_rect()
-    textRect.center = (200, 220)
-    screen.blit(text, textRect)
-
-
-    #pygame.draw.
-
-    """Crosshare"""
+    """UI"""
+    #crosshare
     mousePos = Vect(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
     pygame.draw.rect(screen, black, (mousePos.getX()-9, mousePos.getY()-1, 20, 4))
     pygame.draw.rect(screen, black, (mousePos.getX()-1, mousePos.getY()-9, 4, 20))
@@ -148,32 +130,28 @@ while running:
     pygame.draw.rect(screen, white, (mousePos.getX()-8, mousePos.getY(), 18, 2))
     pygame.draw.rect(screen, white, (mousePos.getX(), mousePos.getY()-8, 2, 18))
 
+    #leveling text
+    text = font.render(str(player.xp) + "/" + str(xpToLevelUp[player.level-1]) + " xp\nlevel " + str(player.level), True, white)
+    textRect = text.get_rect()
+    textRect.topleft = (20, 20)
+    screen.blit(text, textRect)
 
-    """if frameCount < 240:
-        for i in particlePositions:
-            pygame.draw.rect(screen, white, (logoPixelSize*i[0]+100, logoPixelSize*i[1]+100, logoPixelSize, logoPixelSize))
-    if len(particleList) <= 0 and frameCount >= 240 and frameCount <= 240+logoPixelSize*6:
-        for i in particlePositions:
-            particleList.append(Particle(logoPixelSize*i[0]+100, logoPixelSize*i[1]+100, 1, logoPixelSize, white, 6))"""
-
-    #for i in particleList:
-    #    pygame.draw.rect(screen, white, (i.pos.getX(), i.pos.y, i.size, i.size))
-
-    #pygame.draw.rect(screen, white ,(900,150,100,50))
-
+    #additional testing
     particleList.append(Particle(400, 400, 1.1, 10, white, 10))
 
+    #draw all to screen
+    pygame.display.update()
 
-    #system.clear()
-    #print("Particles: " + str(len(particleList)))
+    for event in pygame.event.get():
+      
+        # Check for QUIT event      
+        if event.type == pygame.QUIT:
+            running = False
 
-
-
-
-
-    #inputVect.multiply(-3)
-
-    #cameraPos.add(inputVect)
-
-
-    #draw player
+        if event.type == pygame.VIDEORESIZE:
+            # If the window is resized, get the new dimensions and update the screen
+            #WIDTH, HEIGHT = event.w, event.h
+            screenSize.x = event.w
+            screenSize.y = event.h
+            screen = pygame.display.set_mode((screenSize.getX(), screenSize.getY()), pygame.RESIZABLE)
+            player.pos = Vect(screenSize.getX()/2 - playerWidth/2, screenSize.getY()/2 - playerWidth/2)
