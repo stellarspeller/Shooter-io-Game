@@ -132,7 +132,7 @@ while running:
     player.checkBulletCollision()
     player.checkLevelUp()
 
-    text = font.render('text :D', True, white)
+    text = font.render(str(player.xp) + "/" + str(xpToLevelUp[player.level-1]) + " xp, level " + str(player.level), True, white)
     textRect = text.get_rect()
     textRect.center = (200, 220)
     screen.blit(text, textRect)

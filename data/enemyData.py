@@ -11,7 +11,7 @@ enemyData = {
         "sprite":pygame.image.load("res/enemies/RED.png"),
         "particleColor":(255,0,0),
         "rotationPerSecond":0.1,
-        "xpValue":10
+        "xpReleased":10
     },
     "orange":{
         "hp":18,

@@ -18,11 +18,20 @@ class Enemy():
         for i in self.personalShooterList:
             i.cooldownFrames = random.randint(0, FPS * i.cooldown)
         self.rotPerSecond = enemyData[enemyType]["rotationPerSecond"]
+        self.xpValue = round(enemyData[enemyType]["xpReleased"] * random.triangular(0.7, 1.3))
 
     def kill(self):
         for i in range(particlesPerDeath):
             particleList.append(Particle(self.pos.getX(), self.pos.getY(), 1.1, 10, enemyData[self.enemyType]["particleColor"], 10))
-        xpList.append(itemDrop(Vect(self.pos.getX()+random.randint(-20,20), self.pos.getY()+random.randint(-20,20), ), 10))
+        
+        numOfDrops = random.randint(max(1, round(self.xpValue * 0.1)), round(math.sqrt(self.xpValue)))
+        #print(numOfDrops)
+        xpParticleValues = [math.floor(self.xpValue/numOfDrops)] * numOfDrops
+        xpParticleValues[0] += (self.xpValue - xpParticleValues[0] * numOfDrops)
+
+        for i in xpParticleValues:
+            xpList.append(itemDrop(Vect(self.pos.getX()+random.randint(-24,24), self.pos.getY()+random.randint(-24,24)), i))
+        
         enemyList.remove(self)
         del self
 
