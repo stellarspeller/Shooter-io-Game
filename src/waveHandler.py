@@ -1,6 +1,7 @@
 from src.constants import *
 import random
 from src.enemy import *
+from data.waves import *
 
 class WaveHandler():
     def __init__(self):
@@ -9,8 +10,11 @@ class WaveHandler():
         self.rangeFromPlayer = (100,220)
         self.queue = [] #NUM of enemies, frames, type
         self.queueFrames = 0
+        self.recentSpawnFlag = False
 
     def spawn(self, enemyType):
+
+        self.recentSpawnFlag = False
 
         sideChosen = random.randint(0,3)
 
@@ -33,10 +37,11 @@ class WaveHandler():
         self.queue.append([numOfEnemies, round(secondsPerSpawn*FPS), enemyType])
 
     def update(self):
-        if len(enemyList) <= self.enemyThreshold:
-            for i in range(1):
-                #self.spawn("red")
-                self.addToQueue(20, .2, "yellow")
+        if ((len(enemyList) <= self.enemyThreshold) and (not self.recentSpawnFlag)):
+            for i in waveData[self.waveNum]:
+                self.addToQueue(i["count"], i["spawnDelay"], i["enemyType"])
+                self.recentSpawnFlag = True
+            self.waveNum += 1
 
         if len(self.queue) > 0:
             #self.queueFrames = self.queue[0][1] #basically, get the number of frames between each spawn for the #1 in queue
@@ -45,21 +50,16 @@ class WaveHandler():
             #if 0, do the spawn procedure
             #if above 0, subtract one
 
-            #print("ooooooooo " + str(self.queue[0][0]))
-
             if self.queueFrames == 0:
                 self.spawn(self.queue[0][2])
                 self.queue[0][0] -= 1
                 self.queueFrames = self.queue[0][1]
 
                 if self.queue[0][0] <= 0:
-                    #print("p")
-                    #self.queue.remove(self.queue[0])
                     del self.queue[0]
 
             elif self.queueFrames > 0:
                 self.queueFrames -= 1
 
-                
 
 waveHandler = WaveHandler()

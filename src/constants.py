@@ -17,7 +17,7 @@ frameCount = 0
 playerWidth = 32
 enemyScaleFactor = 2
 particlesPerDeath = 7
-enemyShooterAccuracy = 0.1
+enemyShooterAccuracy = 0.07
 xpColor = ((180, 220, 8), (220, 255, 10))
 xpSize = (12, 8)
 

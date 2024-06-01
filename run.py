@@ -1,7 +1,8 @@
 import pygame
 import math
 pygame.init()
-#Font=pygame.font.SysFont('fontify.ttf', 96)
+#font=pygame.font.SysFont("", 36)
+font = pygame.font.SysFont("none", 48, False, False)
 from src.constants import *
 from data.bullets import *
 from src.enemy import *
@@ -129,7 +130,15 @@ while running:
     player.update()
     player.render()
     player.checkBulletCollision()
+    player.checkLevelUp()
 
+    text = font.render('text :D', True, white)
+    textRect = text.get_rect()
+    textRect.center = (200, 220)
+    screen.blit(text, textRect)
+
+
+    #pygame.draw.
 
     """Crosshare"""
     mousePos = Vect(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
