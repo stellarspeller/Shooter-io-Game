@@ -2,7 +2,7 @@ import pygame
 import math
 pygame.init()
 #font=pygame.font.SysFont("", 36)
-font = pygame.font.SysFont("none", 48, False, False)
+font = pygame.font.SysFont(None, 48, False, False)
 from src.constants import *
 from data.bullets import *
 from src.enemy import *
@@ -55,18 +55,18 @@ while running:
     
     inputVect.squareClamp(1)
 
-    inputVect.multiply(.1)
+    inputVect.multiply(.1).multiply(120/FPS)
 
     if inputVect.getMagnitude() == 0:
-        inputVect = Vect(player.vel.getX()*(decelConst), player.vel.getY()*(decelConst))
+        inputVect = Vect(player.vel.getX()*(decelConst), player.vel.getY()*(decelConst)).multiply(120/FPS)
 
     player.vel.add(inputVect)
 
-    if player.vel.getMagnitude() <= 0.0001:
+    if player.vel.getMagnitude() <= 0.0001*120/FPS:
         player.vel = Vect(0,0)
 
     if player.vel.getMagnitude() > playerMaxVelocity:
-        player.vel.unitize(playerMaxVelocity)
+        player.vel.unitize(playerMaxVelocity)#*120/FPS)
 
 
 
@@ -151,7 +151,10 @@ while running:
         if event.type == pygame.VIDEORESIZE:
             # If the window is resized, get the new dimensions and update the screen
             #WIDTH, HEIGHT = event.w, event.h
+            screenSizeTempX = screenSize.x
+            screenSizeTempY = screenSize.y
             screenSize.x = event.w
             screenSize.y = event.h
             screen = pygame.display.set_mode((screenSize.getX(), screenSize.getY()), pygame.RESIZABLE)
+            #cameraPos = Vect(cameraPos.getX() - round((screenSize.x-screenSizeTempX)/2), cameraPos.getY() - round((screenSize.y-screenSizeTempY)/2))
             player.pos = Vect(screenSize.getX()/2 - playerWidth/2, screenSize.getY()/2 - playerWidth/2)

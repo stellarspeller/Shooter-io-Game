@@ -16,7 +16,7 @@ class Enemy():
         self.hitboxCenter = Vect(0,0)
         self.personalShooterList = copy.deepcopy(enemyData[enemyType]["shooters"]) #thank you chatgpt
         for i in self.personalShooterList:
-            i.cooldownFrames = random.randint(0, FPS * i.cooldown)
+            i.cooldownFrames = random.randint(0, round(FPS * i.cooldown))
         self.rotPerSecond = enemyData[enemyType]["rotationPerSecond"]
         self.xpValue = round(enemyData[enemyType]["xpReleased"] * random.triangular(0.7, 1.3))
 
@@ -57,7 +57,7 @@ class Enemy():
         self.vel = initComponent.add(modifyComponent)
         self.rotation += self.rotPerSecond * (120/FPS)
         if self.vel.getMagnitude() >= enemyData[self.enemyType]["maxVelocity"]:
-            self.vel.unitize(enemyData[self.enemyType]["maxVelocity"])
+            self.vel.unitize(enemyData[self.enemyType]["maxVelocity"] * 120/FPS)
         self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.14))
 
 

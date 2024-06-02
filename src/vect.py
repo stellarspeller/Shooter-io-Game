@@ -29,6 +29,9 @@ class Vect():
         # Optionally, return self if you want to chain methods
         return self
     
+    def getMultiply(self, scale):
+        return Vect(self.x * scale, self.y * scale)
+    
     def getX(self):
         return self.x
     

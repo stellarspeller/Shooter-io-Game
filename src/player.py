@@ -14,7 +14,7 @@ class Player():
         #pygame.draw.ellipse(screen, white, (self.pos.getRoundX(), self.pos.getRoundY(), 10, 10))
 
     def update(self):
-        cameraPos.add(self.vel)
+        cameraPos.add(self.vel.getMultiply(120/FPS))
 
     def kill(self):
         pass

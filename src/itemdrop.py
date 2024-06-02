@@ -32,6 +32,7 @@ class itemDrop():
 
         self.vel.circularClamp(35000/(8000+0.75*Vect(xComp, yComp).getMagnitude()*FPS))
 
+        self.vel.multiply(120/FPS)
         self.pos.x += self.vel.getX()
         self.pos.y += self.vel.getY()
 

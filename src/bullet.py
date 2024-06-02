@@ -10,7 +10,7 @@ class Bullet():
         self.isFromPlayer = isFromPlayer
 
     def update(self):
-        self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.2))
+        self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.2*120/FPS))
         self.penetration -= 0.25 * 1/FPS
         if self.penetration <= 0:
             bulletList.remove(self)

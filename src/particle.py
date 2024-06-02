@@ -15,7 +15,7 @@ class Particle(): #thank you chatgpt
         self.ticks = 0
 
     def render(self):
-        pygame.draw.rect(screen, self.color, (self.pos.getX()-(round(self.size/2))-cameraPos.getX(), self.pos.getY()-(round(self.size/2))-cameraPos.getY(), self.size, self.size))
+        pygame.draw.rect(screen, self.color, (self.pos.getX()-(round(self.size/2))-cameraPos.getX(), self.pos.getY()-(round(self.size/2))-cameraPos.getY(), round(self.size), round(self.size)))
 
     def update(self):
         #deltaVelocity = self.vel.multiply(1/FPS)
