@@ -17,7 +17,7 @@ class Enemy():
         self.personalShooterList = copy.deepcopy(enemyData[enemyType]["shooters"]) #thank you chatgpt
         for i in self.personalShooterList:
             i.cooldownFrames = random.randint(0, round(FPS * i.cooldown))
-        self.rotPerSecond = enemyData[enemyType]["rotationPerSecond"]
+        self.rotPerSecond = enemyData[enemyType]["rotationPerSecond"] * random.choice((-1, 1)) * random.uniform(0.9, 1.1)
         self.xpValue = round(enemyData[enemyType]["xpReleased"] * random.triangular(0.7, 1.3))
 
     def kill(self):
