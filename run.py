@@ -14,7 +14,7 @@ running = True
 enemyList.append(Enemy(Vect(70,70), "red"))
 
 playerShooters.append(Shooter(.4, bulletTypes["basic"], 0))
-playerShooters.append(Shooter(.9, bulletTypes["cannonball"], 0))
+#playerShooters.append(Shooter(.9, bulletTypes["cannonball"], 0))
 #bgMusic = pygame.mixer.Sound("res/sound/music/tis.wav")
 #pygame.mixer.music.load("res/sound/music/tis.wav")
 #pygame.mixer.music.play(-1)
@@ -156,5 +156,7 @@ while running:
             screenSize.x = event.w
             screenSize.y = event.h
             screen = pygame.display.set_mode((screenSize.getX(), screenSize.getY()), pygame.RESIZABLE)
-            #cameraPos = Vect(cameraPos.getX() - round((screenSize.x-screenSizeTempX)/2), cameraPos.getY() - round((screenSize.y-screenSizeTempY)/2))
+            #cameraPos = Vect(cameraPos.getX() - round(-(screenSize.x-screenSizeTempX)/2), cameraPos.getY() - round(-(screenSize.y-screenSizeTempY)/2))
+            cameraPos.x -= (screenSize.x-screenSizeTempX)/2
+            cameraPos.y -= (screenSize.y-screenSizeTempY)/2
             player.pos = Vect(screenSize.getX()/2 - playerWidth/2, screenSize.getY()/2 - playerWidth/2)
