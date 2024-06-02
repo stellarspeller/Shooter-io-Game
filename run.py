@@ -160,3 +160,5 @@ while running:
             cameraPos.x -= (screenSize.x-screenSizeTempX)/2
             cameraPos.y -= (screenSize.y-screenSizeTempY)/2
             player.pos = Vect(screenSize.getX()/2 - playerWidth/2, screenSize.getY()/2 - playerWidth/2)
+    #print(spawningThresholds)
+    #print(waveHandler.waveNum)

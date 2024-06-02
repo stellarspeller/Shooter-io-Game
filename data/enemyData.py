@@ -61,9 +61,50 @@ enemyData = {
             Shooter(2.5, bulletTypes["basic"], 0), 
             Shooter(2, bulletTypes["cannonball"], 0), 
         ],
-        "sprite":pygame.image.load("res/enemies/GREEN.png"),
+        "sprite":pygame.image.load("res/enemies/CYAN.png"),
         "particleColor":(0,255,255),
         "rotationPerSecond":0.3,
         "xpReleased":44
+    },
+    "blue":{
+        "hp":40,
+        "maxVelocity":2.4,
+        "shooters":[
+            Shooter(1.4, bulletTypes["sniper"], 0), 
+            Shooter(1.4, bulletTypes["basic"], -0.2), 
+            Shooter(1.4, bulletTypes["basic"], 0.2), 
+            Shooter(1.4, bulletTypes["basic"], -0.1),
+            Shooter(1.4, bulletTypes["basic"], 0.1)
+        ],
+        "sprite":pygame.image.load("res/enemies/BLUE.png"),
+        "particleColor":(0,0,255),
+        "rotationPerSecond":0.35,
+        "xpReleased":42
+    },
+    "purple":{
+        "hp":62,
+        "maxVelocity":2.6,
+        "shooters":[
+            Shooter(0.4, bulletTypes["machineFire"], 0), 
+            Shooter(1.1, bulletTypes["basic"], -0.1),
+            Shooter(1.1, bulletTypes["basic"], 0.1)
+        ],
+        "sprite":pygame.image.load("res/enemies/PURPLE.png"),
+        "particleColor":(127,0,255),
+        "rotationPerSecond":0.4,
+        "xpReleased":52
+    },
+    "pink":{
+        "hp":75,
+        "maxVelocity":2.6,
+        "shooters":[
+            Shooter(0.8, bulletTypes["cannonball"], 0), 
+            Shooter(1.1, bulletTypes["sniper"], -0.08),
+            Shooter(1.1, bulletTypes["sniper"], 0.08)
+        ],
+        "sprite":pygame.image.load("res/enemies/PINK.png"),
+        "particleColor":(255,0,255),
+        "rotationPerSecond":0.45,
+        "xpReleased":60
     }
 }

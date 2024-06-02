@@ -36,12 +36,19 @@ class WaveHandler():
     def addToQueue(self, numOfEnemies, secondsPerSpawn, enemyType):
         self.queue.append([numOfEnemies, round(secondsPerSpawn*FPS), enemyType])
 
+    def checkThresholdIncrease(self):
+        if self.waveNum >= spawningThresholds[0][0]:
+            self.enemyThreshold = spawningThresholds[0][1]
+            del spawningThresholds[0]
+            print(spawningThresholds)
+
     def update(self):
         if ((len(enemyList) <= self.enemyThreshold) and (not self.recentSpawnFlag)):
             for i in waveData[self.waveNum]:
                 self.addToQueue(i["count"], i["spawnDelay"], i["enemyType"])
                 self.recentSpawnFlag = True
             self.waveNum += 1
+            self.checkThresholdIncrease()
 
         if len(self.queue) > 0:
             #self.queueFrames = self.queue[0][1] #basically, get the number of frames between each spawn for the #1 in queue
