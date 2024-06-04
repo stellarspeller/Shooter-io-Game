@@ -14,17 +14,17 @@ class textHandler:
         self.delay = delay
 
     def get_width(self):
-        return self.font.render(self.text, True, (self.color[0], self.color[1], self.color[2])).get_width()
+        return self.font.render(self.text, True, self.color).get_width()
     
     def get_height(self):
-        return self.font.render(self.text, True, (self.color[0], self.color[1], self.color[2])).get_height()
+        return self.font.render(self.text, True, self.color).get_height()
 
     def kill(self):
         textList.remove(self)
 
     def render(self):
         # Render the text with the current alpha value
-        text_surface = self.font.render(self.text, True, (self.color[0], self.color[1], self.color[2]))
+        text_surface = self.font.render(self.text, True, self.color)
         text_surface.set_alpha(self.alpha)
         screen.blit(text_surface, self.pos)
 

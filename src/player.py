@@ -39,7 +39,10 @@ class Player():
         if self.xp >= xpToLevelUp[self.level-1]:
             self.xp -= xpToLevelUp[self.level-1]
             self.level += 1
-            textList.append(textHandler("Level up!", font, (0, 0), (255, 255, 255), True, 3, 6))
+            levelUpText = textHandler("Level up!", font, (0, 20), (255, 255, 255), True, 3, 6)
+            distFromLeftSideOfScreen = (screenSize.x - levelUpText.get_width())/2
+            levelUpText.pos = (distFromLeftSideOfScreen, 20)
+            textList.append(levelUpText)
             for i in range(particlesPerLevelup):
                 particleList.append(Particle(player.pos.getX()+cameraPos.getX()+playerWidth/2, player.pos.getY()+cameraPos.getY()+playerWidth/2, random.uniform(0.3, 0.4), random.randint(6, 8), random.choice(xpColor), random.randint(32, 44)))
 
