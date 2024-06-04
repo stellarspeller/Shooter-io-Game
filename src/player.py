@@ -44,7 +44,7 @@ class Player():
             
             #spawn particle effect
             for i in range(particlesPerLevelup):
-                particleList.append(Particle(player.pos.getX()+cameraPos.getX()+playerWidth/2, player.pos.getY()+cameraPos.getY()+playerWidth/2, random.uniform(0.3, 0.4), random.randint(6, 8), random.choice(xpColor), random.randint(32, 44)))
+                particleList.append(Particle(player.pos.getX()+cameraPos.getX()+playerWidth/2, player.pos.getY()+cameraPos.getY()+playerWidth/2, random.uniform(0.3, 0.4), random.randint(6, 8), random.choice(xpColor), random.randint(32, 44), Vect(player.vel.getX(), player.vel.getY())))
 
             #create level up text
             levelUpText = textHandler("Level up!", font, (0, 20), (255, 255, 255), True, 3, 6)

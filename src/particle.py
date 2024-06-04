@@ -2,12 +2,12 @@ from src.constants import *
 import random
 
 class Particle(): #thank you chatgpt
-    def __init__(self, x, y, speed, size, color, framesPerDownsize):
+    def __init__(self, x, y, speed, size, color, framesPerDownsize, startingVelocity=Vect(0, 0)):
         self.pos = Vect(x, y)
         angle = random.uniform(0, 2 * math.pi)  # Random angle in radians
         xVel = speed * math.cos(angle)
         yVel = speed * math.sin(angle)
-        self.vel = Vect(xVel, yVel)
+        self.vel = Vect(xVel, yVel).add(startingVelocity)
         self.vel.multiply(120/FPS)
         self.size = size
         self.color = color
@@ -30,3 +30,4 @@ class Particle(): #thank you chatgpt
                 del self
         else: 
             self.ticks += 1
+
