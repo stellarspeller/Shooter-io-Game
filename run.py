@@ -150,8 +150,6 @@ while running:
         i.update()
         i.render()
 
-    print(len(textList))
-
 
     #additional testing
     particleList.append(Particle(400, 400, 1.1, 10, white, 10))

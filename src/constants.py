@@ -11,6 +11,7 @@ FPS = 120
 #visual
 particlesPerDeath = 7
 particlesPerLevelup = 16
+particlesPerLevelupText = 20
 logoPixelSize = 10
 lineDensity = 60
 lineThickness = 1

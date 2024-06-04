@@ -19,6 +19,9 @@ class textHandler:
     def get_height(self):
         return self.font.render(self.text, True, self.color).get_height()
 
+    def get_rect(self):
+        return self.font.render(self.text, True, self.color).get_rect()
+
     def kill(self):
         textList.remove(self)
 
@@ -32,9 +35,6 @@ class textHandler:
         # Skip the elapsed time check if the text is meant to last forever
         if not self.delay:
             return
-        
-        print(self.fade_duration)
-        print(self.lifetime)
 
         # Calculate the current time since the text was created
         current_time = pygame.time.get_ticks()
