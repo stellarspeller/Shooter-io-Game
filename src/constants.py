@@ -4,6 +4,13 @@ from src.util import *
 
 background_color = (27, 21, 33)
 white = (255, 255, 255)
+red = (255, 0, 0)
+green = (0, 255, 0)
+blue = (0, 0, 255)
+yellow = (255, 255, 0)
+magenta = (255, 0, 255)
+cyan = (0, 255, 255)
+purple = (127, 0, 255)
 black = (0, 0, 0)
 
 FPS = 120
@@ -15,7 +22,7 @@ particlesPerLevelupText = 20
 logoPixelSize = 10
 lineDensity = 60
 lineThickness = 1
-playerWidth = 32
+playerWidth = 33
 enemyScaleFactor = 2
 xpColor = ((180, 220, 8), (220, 255, 10))
 xpSize = (12, 8)
@@ -91,7 +98,7 @@ particlePositions = [
     [3,9],
 ]
 
-playerImage = pygame.image.load("res/guy.png")
+playerImage = pygame.image.load("res/guy2.png")
 
 
 

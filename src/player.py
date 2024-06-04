@@ -7,21 +7,37 @@ class Player():
     def __init__(self, pos, vel):
         self.pos = pos
         self.vel = vel
-        self.hp = 100
+        self.hp = 60
+        self.maxHp = 60
+        self.hpRegen = 5
         self.xp = 0
         self.level = 1
 
     def render(self):
-        #pygame.transform.scale(playerImage, (64,64), screen)
+        #layered behind the player sprite, place a "circular health bar"
+        #this should range from a 0 degree arc at 0 hp to a 360 degree arc at hp=maxhp
+        hpArc = ((self.hp/self.maxHp)*2*math.pi)
+
+        pygame.draw.arc(screen, (red[0]/2, red[1]/2, red[2]/2, 127), (self.pos.getRoundX()-3.5, self.pos.getRoundY()-3.5, playerWidth+7, playerWidth+7), 0, hpArc, 5)
+        pygame.draw.arc(screen, red, (self.pos.getRoundX()-2.5, self.pos.getRoundY()-2.5, playerWidth+5, playerWidth+5), 0, hpArc, 5)
+
+        #pygame.draw.arc(screen, white, (1, 1, 1, 1),  )
         screen.blit(playerImage, (self.pos.getRoundX(), self.pos.getRoundY()))
-        #pygame.draw.ellipse(screen, white, (self.pos.getRoundX(), self.pos.getRoundY(), 10, 10))
+        
 
     def update(self):
         cameraPos.add(self.vel.getMultiply(120/FPS))
+        self.hpCheck()
 
     def kill(self):
         pass
         print("u lose lmao")
+
+    def hpCheck(self, cycles=1):
+        if self.hp < self.maxHp:
+            self.hp += self.hpRegen * 120/FPS * 0.002 * cycles
+        if self.hp > self.maxHp:
+            self.hp = self.maxHp
 
     def checkBulletCollision(self):
         for i in bulletList:
@@ -38,6 +54,9 @@ class Player():
 
     def checkLevelUp(self):
         if self.xp >= xpToLevelUp[self.level-1]:
+            #regenerate some hp
+            self.hpCheck(120*6*120/FPS) # equivalent to 6 seconds of hp regen
+
             #increment level, mess with stats etc
             self.xp -= xpToLevelUp[self.level-1]
             self.level += 1

@@ -119,6 +119,7 @@ while running:
     player.render()
     player.checkBulletCollision()
     player.checkLevelUp()
+    print(player.hp)
 
     """UI"""
     #crosshare
