@@ -10,5 +10,4 @@ class Shooter():
         self.cooldownFrames = FPS * cooldown
 
     def shoot(self, position, angle, isFromPlayer):
-        
         bulletList.append(Bullet(position, angle + self.angleVariant, self.bulletCreated, isFromPlayer))

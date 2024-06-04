@@ -1,13 +1,12 @@
 import pygame
 import math
 pygame.init()
-#font=pygame.font.SysFont("", 36)
-font = pygame.font.SysFont(None, 48, False, False)
 from src.constants import *
 from data.bullets import *
 from src.enemy import *
 from data import *
 from src.waveHandler import *
+from src.textHandler import *
 
 running = True
 
@@ -130,11 +129,29 @@ while running:
     pygame.draw.rect(screen, white, (mousePos.getX()-8, mousePos.getY(), 18, 2))
     pygame.draw.rect(screen, white, (mousePos.getX(), mousePos.getY()-8, 2, 18))
 
-    #leveling text
-    text = font.render(str(player.xp) + "/" + str(xpToLevelUp[player.level-1]) + " xp\nlevel " + str(player.level), True, white)
-    textRect = text.get_rect()
-    textRect.topleft = (20, 20)
-    screen.blit(text, textRect)
+    #text = font.render(str(player.xp) + "/" + str(xpToLevelUp[player.level-1]) + " xp\nlevel " + str(player.level), True, white)
+    levelText = font.render("Level " + str(player.level), True, white)
+    levelTextRect = levelText.get_rect()
+    levelTextRect.topleft = (20, 20)
+    screen.blit(levelText, levelTextRect)
+
+    xpText = fontSmall1.render(str(player.xp) + "/" + str(xpToLevelUp[player.level-1]) + " xp", True, white)
+    xpTextRect = xpText.get_rect()
+    xpTextRect.topleft = levelTextRect.bottomleft
+    screen.blit(xpText, xpTextRect)
+
+    #wave UI
+    waveText = font.render("Wave " + str(waveHandler.waveNum), True, white)
+    waveTextRect = waveText.get_rect()
+    waveTextRect.topright = (screenSize.x - 20, 20)
+    screen.blit(waveText, waveTextRect)
+
+    for i in textList:
+        i.update()
+        i.render()
+
+    print(len(textList))
+
 
     #additional testing
     particleList.append(Particle(400, 400, 1.1, 10, white, 10))

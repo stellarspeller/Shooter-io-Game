@@ -1,5 +1,6 @@
 import pygame
 from src.vect import *
+from src.util import *
 
 background_color = (27, 21, 33)
 white = (255, 255, 255)
@@ -7,27 +8,35 @@ black = (0, 0, 0)
 
 FPS = 120
 
+#visual
+particlesPerDeath = 7
+particlesPerLevelup = 16
 logoPixelSize = 10
-
 lineDensity = 60
 lineThickness = 1
+playerWidth = 32
+enemyScaleFactor = 2
+xpColor = ((180, 220, 8), (220, 255, 10))
+xpSize = (12, 8)
+
+#fonts
+font = pygame.font.SysFont(None, 48, False, False)
+fontSmall1 = pygame.font.SysFont(None, 36, False, False)
+
+#gameplay
 playerMaxVelocity = 2
 decelConst = -0.075
 frameCount = 0
-playerWidth = 32
-enemyScaleFactor = 2
-particlesPerDeath = 7
 enemyShooterAccuracy = 0.07
-xpColor = ((180, 220, 8), (220, 255, 10))
-xpSize = (12, 8)
 
 particleList = []
 bulletList = []
 playerShooters = []
 enemyList = []
 xpList = []
+textList = []
 
-xpToLevelUp = [30, 35, 40, 50, 70, 90, 120, 150, 180, 210, 250, 300, 350, 400, 450, 500, 570, 640, 720, 800, 890, 990, 1100, 1250, 1400, 1550, 1700, 1900, 2100, 2350, 2500, 3000]
+xpToLevelUp = [1, 30, 35, 40, 50, 70, 90, 120, 150, 180, 210, 250, 300, 350, 400, 450, 500, 570, 640, 720, 800, 890, 990, 1100, 1250, 1400, 1550, 1700, 1900, 2100, 2350, 2500, 3000]
 
 spawningThresholds = [
     [3, 1],
