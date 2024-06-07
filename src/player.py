@@ -12,7 +12,7 @@ class Player():
         self.hpRegen = 5
         self.xp = 0
         self.level = 1
-        self.skillPoints = 0
+        self.skillPoints = 100
         """
         skillTree - dict
         Purpose: store player skill point investments
@@ -26,7 +26,7 @@ class Player():
             "bulletSpeed": 0,
             "bulletDamage": 0,
             "bulletPenetration": 0,
-            "xpGain": 0
+            "xpBoost": 0
         }
         """
         skillStats - dict
@@ -43,7 +43,7 @@ class Player():
             "bulletSpeed": [1, 1.1, 1.2, 1.3, 1.4, 1.5],
             "bulletDamage": [1, 1.15, 1.3, 1.45, 1.65, 1.9],
             "bulletPenetration": [1, 1.1, 1.2, 1.35, 1.5, 1.65],
-            "xpGain": [1, 1.05, 1.1, 1.15, 1.2, 1.3]
+            "xpBoost": [1, 1.05, 1.1, 1.15, 1.2, 1.3]
         }
 
     def render(self):

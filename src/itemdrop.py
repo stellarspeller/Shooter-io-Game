@@ -30,13 +30,13 @@ class itemDrop():
         self.vel.y += (84/(Vect(xComp, yComp).getMagnitude()*FPS))*yComp
 
 
-        self.vel.circularClamp(35000/(8000+0.75*Vect(xComp, yComp).getMagnitude()*FPS))
+        self.vel.circularClamp(player.skillStats["xpBoost"][player.skillTree["xpBoost"]] * 35000/(8000+0.75*Vect(xComp, yComp).getMagnitude()*FPS))
 
         self.vel.multiply(120/FPS)
         self.pos.x += self.vel.getX()
         self.pos.y += self.vel.getY()
 
     def pickup(self):
-        player.xp += self.value * player.skillStats["xpGain"][player.skillTree["xpGain"]]
+        player.xp += self.value * player.skillStats["xpBoost"][player.skillTree["xpBoost"]]
         xpList.remove(self)
         del self

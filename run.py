@@ -134,12 +134,12 @@ while running:
             "bulletSpeed": 0,
             "bulletDamage": 0,
             "bulletPenetration": 0,
-            "xpGain": 0
+            "xpBoost": 0
     """
 
     if skillTreeUI:
         skillTreeUIList = [
-            TextHandler(f"{player.skillTree['xpGain']}/5 - Xp Multiplier - 9", fontSmall2, (10, screenSize.y - 30), white),
+            TextHandler(f"{player.skillTree['xpBoost']}/5 - Xp Multiplier - 9", fontSmall2, (10, screenSize.y - 30), white),
             TextHandler(f"{player.skillTree['bulletPenetration']}/5 - Bullet Penetration - 8", fontSmall2, (10, screenSize.y - 50), white),
             TextHandler(f"{player.skillTree['bulletDamage']}/5 - Bullet Damage - 7", fontSmall2, (10, screenSize.y - 70), white),
             TextHandler(f"{player.skillTree['bulletSpeed']}/5 - Bullet Speed - 6", fontSmall2, (10, screenSize.y - 90), white),
@@ -160,7 +160,7 @@ while running:
         ]
         stats = [
             "healthRegen", "speed", "maxHealth", "spread", "cooldown",
-            "bulletSpeed", "bulletDamage", "bulletPenetration", "xpGain"
+            "bulletSpeed", "bulletDamage", "bulletPenetration", "xpBoost"
         ]
 
         for i, key in enumerate(keys):
