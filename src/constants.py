@@ -128,7 +128,7 @@ pygame.display.set_caption("Redemption Arc")
 screen.fill(background_color)
 
 # Update the display using flip
-pygame.display.flip()
+#pygame.display.flip()
 
 cameraPos = Vect(0,0)
 screenSize = Vect(1200, 675)

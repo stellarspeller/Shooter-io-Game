@@ -103,20 +103,17 @@ while running:
     pygame.draw.rect(screen, white, (mousePos.getX(), mousePos.getY()-8, 2, 18))
 
     #text = font.render(str(player.xp) + "/" + str(xpToLevelUp[player.level-1]) + " xp\nlevel " + str(player.level), True, white)
-    levelText = font.render("Level " + str(player.level), True, white)
-    levelTextRect = levelText.get_rect()
-    levelTextRect.topleft = (20, 20)
-    screen.blit(levelText, levelTextRect)
+    levelTextObj = TextHandler("Level " + str(player.level), font, (20, 20), white)
+    levelTextObj.render()
+    levelTextObj.update()
 
-    xpText = fontSmall1.render(str(math.floor(player.xp)) + "/" + str(xpToLevelUp[player.level-1]) + " xp", True, white)
-    xpTextRect = xpText.get_rect()
-    xpTextRect.topleft = levelTextRect.bottomleft
-    screen.blit(xpText, xpTextRect)
+    xpTextObj = TextHandler(str(math.floor(player.xp)) + "/" + str(xpToLevelUp[player.level-1]) + " xp", fontSmall1, (20, levelTextObj.get_height()+20), white)
+    xpTextObj.render()
+    xpTextObj.update()
 
-    skillText = fontSmall1.render("Skill Points: " + str(player.skillPoints), True, white)
-    skillTextRect = skillText.get_rect()
-    skillTextRect.topleft = xpTextRect.bottomleft
-    screen.blit(skillText, skillTextRect)
+    skillTextObj = TextHandler("Skill Points: " + str(player.skillPoints), fontSmall1, (20, levelTextObj.get_height()+xpTextObj.get_height()+20), white)
+    skillTextObj.render()
+    skillTextObj.update()
 
     #skill tree spending ui
     #detect shift pressed, make this a toggle
@@ -167,7 +164,7 @@ while running:
         ]
 
         for i, key in enumerate(keys):
-            if pygame.key.get_pressed()[key] and ((not pressedSkillTree) and player.skillPoints >= 1):
+            if pygame.key.get_pressed()[key] and ((not pressedSkillTree) and player.skillPoints >= 1 and player.skillTree[stats[i]] < 5):
                 pressedSkillTree = True
                 player.skillPoints -= 1
                 #print(((not pressedSkillTree) and player.skillPoints >= 1))

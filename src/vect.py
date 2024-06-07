@@ -15,9 +15,7 @@ class Vect():
     def __str__(self):
         return str([self.x, self.y])
     
-    def unitize(self, radius=None):
-        if radius is None:
-            radius = 1
+    def unitize(self, radius=1):
         c = math.sqrt(self.x**2 + self.y**2) * (1/radius)
         if c != 0:
             self.x /= c
