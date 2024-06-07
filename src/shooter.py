@@ -9,5 +9,19 @@ class Shooter():
         self.angleVariant = angleVariant
         self.cooldownFrames = FPS * cooldown
 
-    def shoot(self, position, angle, isFromPlayer):
-        bulletList.append(Bullet(position, angle + self.angleVariant, self.bulletCreated, isFromPlayer))
+    """MODIFIER LIST:
+    0 - spread
+    1 - bulletSpeed
+    2 - bulletDamage
+    3 - bulletPenetration
+    """
+    def shoot(self, position, angle, isFromPlayer, modifiers=[1, 1, 1, 1]):
+        bulletList.append(Bullet(
+            position, 
+            angle + self.angleVariant * modifiers[0], 
+            self.bulletCreated, 
+            isFromPlayer, 
+            modifiers[1],
+            modifiers[2],
+            modifiers[3]
+        ))

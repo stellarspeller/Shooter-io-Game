@@ -18,6 +18,10 @@ playerShooters.append(Shooter(.4, bulletTypes["basic"], 0))
 #pygame.mixer.music.load("res/sound/music/tis.wav")
 #pygame.mixer.music.play(-1)
 
+#skillTreeUIList.append(TextHandler("9 - Xp Multiplier", fontSmall1, Vect(10, screenSize.y - 10), white))
+
+
+
 """if frameCount < 240:
         for i in particlePositions:
             pygame.draw.rect(screen, white, (logoPixelSize*i[0]+100, logoPixelSize*i[1]+100, logoPixelSize, logoPixelSize))
@@ -42,44 +46,6 @@ while running:
         for j in i.personalShooterList:
             if j.cooldownFrames > 0:
                 j.cooldownFrames -= 1
-
-
-    """Input Handling"""
-    inputRight = pygame.key.get_pressed()[pygame.K_l]+pygame.key.get_pressed()[pygame.K_d]+pygame.key.get_pressed()[pygame.K_RIGHT]
-    inputLeft = pygame.key.get_pressed()[pygame.K_j]+pygame.key.get_pressed()[pygame.K_a]+pygame.key.get_pressed()[pygame.K_LEFT]
-    inputDown = pygame.key.get_pressed()[pygame.K_k]+pygame.key.get_pressed()[pygame.K_s]+pygame.key.get_pressed()[pygame.K_DOWN]
-    inputUp = pygame.key.get_pressed()[pygame.K_i]+pygame.key.get_pressed()[pygame.K_w]+pygame.key.get_pressed()[pygame.K_UP]
-
-    inputVect = Vect(inputRight-inputLeft, inputDown-inputUp)
-    
-    inputVect.squareClamp(1)
-
-    inputVect.multiply(.1).multiply(120/FPS)
-
-    if inputVect.getMagnitude() == 0:
-        inputVect = Vect(player.vel.getX()*(decelConst), player.vel.getY()*(decelConst)).multiply(120/FPS)
-
-    player.vel.add(inputVect)
-
-    if player.vel.getMagnitude() <= 0.0001*120/FPS:
-        player.vel = Vect(0,0)
-
-    if player.vel.getMagnitude() > playerMaxVelocity:
-        player.vel.unitize(playerMaxVelocity)#*120/FPS)
-
-
-
-    """Mouse Input"""
-    mousePos = Vect(pygame.mouse.get_pos()[0]-player.pos.getX(), pygame.mouse.get_pos()[1]-player.pos.getY())
-    mousePos.unitize()
-
-
-    """Click to Shoot"""
-    if(pygame.mouse.get_pressed(3)[0]): 
-        for i in playerShooters:
-            if i.cooldownFrames <= 0:
-                i.shoot(Vect(player.pos.getX()+cameraPos.getX()+playerWidth/2,player.pos.getY()+cameraPos.getY()+playerWidth/2), math.atan2(mousePos.getY(), mousePos.getX()), True)
-                i.cooldownFrames = FPS * i.cooldown
 
 
     """Spawning New Enemies"""
@@ -115,11 +81,17 @@ while running:
         i.update()
 
     #the player
+
+    """Player Input"""
+    player.handleInputs()
+    player.handleClickShoot()
+
+    """Playout Output"""
     player.update()
     player.render()
     player.checkBulletCollision()
     player.checkLevelUp()
-    print(player.hp)
+    #print(player.hp)
 
     """UI"""
     #crosshare
@@ -136,10 +108,77 @@ while running:
     levelTextRect.topleft = (20, 20)
     screen.blit(levelText, levelTextRect)
 
-    xpText = fontSmall1.render(str(player.xp) + "/" + str(xpToLevelUp[player.level-1]) + " xp", True, white)
+    xpText = fontSmall1.render(str(math.floor(player.xp)) + "/" + str(xpToLevelUp[player.level-1]) + " xp", True, white)
     xpTextRect = xpText.get_rect()
     xpTextRect.topleft = levelTextRect.bottomleft
     screen.blit(xpText, xpTextRect)
+
+    skillText = fontSmall1.render("Skill Points: " + str(player.skillPoints), True, white)
+    skillTextRect = skillText.get_rect()
+    skillTextRect.topleft = xpTextRect.bottomleft
+    screen.blit(skillText, skillTextRect)
+
+    #skill tree spending ui
+    #detect shift pressed, make this a toggle
+    if (pygame.key.get_pressed()[pygame.K_LSHIFT] or pygame.key.get_pressed()[pygame.K_RSHIFT]) and not skillTreeUICooldown:
+        skillTreeUI = not skillTreeUI
+        skillTreeUICooldown = True
+    elif not (pygame.key.get_pressed()[pygame.K_LSHIFT] or pygame.key.get_pressed()[pygame.K_RSHIFT]):
+        skillTreeUICooldown = False
+        
+    
+    #skill tree:
+    """
+    "healthRegen": 0,
+            "maxHealth": 0,
+            "speed": 0,
+            "spread": 0,
+            "cooldown": 0,
+            "bulletSpeed": 0,
+            "bulletDamage": 0,
+            "bulletPenetration": 0,
+            "xpGain": 0
+    """
+
+    if skillTreeUI:
+        skillTreeUIList = [
+            TextHandler(f"{player.skillTree['xpGain']}/5 - Xp Multiplier - 9", fontSmall2, (10, screenSize.y - 30), white),
+            TextHandler(f"{player.skillTree['bulletPenetration']}/5 - Bullet Penetration - 8", fontSmall2, (10, screenSize.y - 50), white),
+            TextHandler(f"{player.skillTree['bulletDamage']}/5 - Bullet Damage - 7", fontSmall2, (10, screenSize.y - 70), white),
+            TextHandler(f"{player.skillTree['bulletSpeed']}/5 - Bullet Speed - 6", fontSmall2, (10, screenSize.y - 90), white),
+            TextHandler(f"{player.skillTree['cooldown']}/5 - Cooldown - 5", fontSmall2, (10, screenSize.y - 110), white),
+            TextHandler(f"{player.skillTree['spread']}/5 - Bullet Spread - 4", fontSmall2, (10, screenSize.y - 130), white),
+            TextHandler(f"{player.skillTree['maxHealth']}/5 - Max Health - 3", fontSmall2, (10, screenSize.y - 150), white),
+            TextHandler(f"{player.skillTree['speed']}/5 - Speed - 2", fontSmall2, (10, screenSize.y - 170), white),
+            TextHandler(f"{player.skillTree['healthRegen']}/5 - Health Regen - 1", fontSmall2, (10, screenSize.y - 190), white),
+        ]
+        for i in skillTreeUIList:
+            i.update()
+            i.render()
+
+        #check for inputs to upgrade
+        keys = [
+            pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5,
+            pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9
+        ]
+        stats = [
+            "healthRegen", "speed", "maxHealth", "spread", "cooldown",
+            "bulletSpeed", "bulletDamage", "bulletPenetration", "xpGain"
+        ]
+
+        for i, key in enumerate(keys):
+            if pygame.key.get_pressed()[key] and ((not pressedSkillTree) and player.skillPoints >= 1):
+                pressedSkillTree = True
+                player.skillPoints -= 1
+                #print(((not pressedSkillTree) and player.skillPoints >= 1))
+                #print(player.skillPoints)
+                player.skillTree[stats[i]] += 1
+                break
+        allKeysNotPressed = all(not pygame.key.get_pressed()[key] for key in keys)
+        if allKeysNotPressed:
+            pressedSkillTree = False
+
+
 
     #wave UI
     waveText = font.render("Wave " + str(waveHandler.waveNum), True, white)

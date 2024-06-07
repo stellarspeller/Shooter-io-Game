@@ -26,10 +26,14 @@ playerWidth = 33
 enemyScaleFactor = 2
 xpColor = ((180, 220, 8), (220, 255, 10))
 xpSize = (12, 8)
+skillTreeUI = False
 
 #fonts
 font = pygame.font.SysFont(None, 48, False, False)
 fontSmall1 = pygame.font.SysFont(None, 36, False, False)
+fontSmall2 = pygame.font.SysFont(None, 24, False, False)
+fontSmall3 = pygame.font.SysFont(None, 18, False, False)
+fontLarge1 = pygame.font.SysFont(None, 72, False, False)
 
 #gameplay
 playerMaxVelocity = 2
@@ -43,8 +47,11 @@ playerShooters = []
 enemyList = []
 xpList = []
 textList = []
+skillTreeUIList = [] # list of ui text objects
 
-xpToLevelUp = [1, 30, 35, 40, 50, 70, 90, 120, 150, 180, 210, 250, 300, 350, 400, 450, 500, 570, 640, 720, 800, 890, 990, 1100, 1250, 1400, 1550, 1700, 1900, 2100, 2350, 2500, 3000]
+xpToLevelUp = [1, 2, 30, 35, 40, 50, 70, 90, 120, 150, 180, 210, 250, 300, 350, 400, 450, 500, 570, 640, 720, 800, 890, 990, 1100, 1250, 1400, 1550, 1700, 1900, 2100, 2350, 2500, 3000]
+
+pressedSkillTree = False
 
 spawningThresholds = [
     [3, 1],

@@ -1,7 +1,7 @@
 #is interacted with by run.py, uses pygame to create a text box
 
 from src.constants import *
-class textHandler:
+class TextHandler:
     def __init__(self, text, font, pos, color, delay=False, fade_duration=0, lifetime=float('inf')):
         self.text = text
         self.font = font

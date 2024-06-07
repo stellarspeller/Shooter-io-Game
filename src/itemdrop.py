@@ -37,6 +37,6 @@ class itemDrop():
         self.pos.y += self.vel.getY()
 
     def pickup(self):
-        player.xp += self.value
+        player.xp += self.value * player.skillStats["xpGain"][player.skillTree["xpGain"]]
         xpList.remove(self)
         del self
