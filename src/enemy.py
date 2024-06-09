@@ -24,7 +24,6 @@ class Enemy():
         self.circleDirection = random.choice((-1, 1))
         self.framesToNextTrackingChange = random.randint(5*FPS, 20*FPS)
         self.currentOpacity = 255
-        print(self.isAdvanced)
 
     def kill(self):
         for i in range(particlesPerDeath):
@@ -107,7 +106,7 @@ class Enemy():
             if random.uniform(0,1) <= (10/FPS):
                 xComp = (self.hitboxCenter.getX()+cameraPos.getX())
                 yComp = (self.hitboxCenter.getY()+cameraPos.getY())
-                particleList.append(Particle(xComp, yComp, .24, 5, enemyData[self.enemyType]["particleColor"], 18, Vect(0, 0), self.currentOpacity))
+                particleList.append(Particle(xComp, yComp, .24, 5, enemyData[self.enemyType]["particleColor"], 18, Vect(0, 0), round(self.currentOpacity)))
 
         for i in bulletList:
             if i.isFromPlayer:
@@ -122,7 +121,7 @@ class Enemy():
                         i.kill()
 
         if self.isAdvanced:
-            self.currentOpacity -= 1 * 120/FPS
+            self.currentOpacity -= 0.6 * 120/FPS
             if self.currentOpacity <= 0:
                 self.currentOpacity = 255
 

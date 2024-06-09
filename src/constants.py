@@ -50,7 +50,18 @@ xpList = []
 textList = []
 skillTreeUIList = [] # list of ui text objects
 
-xpToLevelUp = [25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 120, 135, 150, 165, 180, 195, 210, 225, 250, 275, 300, 330, 360, 400, 450, 500, 570, 640, 720, 800, 890, 990, 1100, 1250, 1400, 1550, 1700, 1900, 2100, 2350, 2500, 3000]
+def generateXpCurve(maxLevel):
+    xpCurve = []
+    baseXp = 25
+    xpMultiplier = 1.06
+    for i in range(maxLevel+1):
+        xpCurve.append(round(int(baseXp * (xpMultiplier ** i))/5)*5)
+    return xpCurve
+
+xpToLevelUp = generateXpCurve(98)
+print(xpToLevelUp)
+#print sum of xpToLevelUp
+print(sum(xpToLevelUp))
 
 pressedSkillTree = False
 

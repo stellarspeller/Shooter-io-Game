@@ -10,8 +10,9 @@ from src.textHandler import *
 from data.shooters import *
 
 running = True
-
-enemyList.append(Enemy(Vect(70,70), "red"))
+print(f"Waves: {len(waveData)}")
+print(f"Levels: {len(xpToLevelUp)}")
+#enemyList.append(Enemy(Vect(70,70), "red"))
 
 #playerShooters[0].append(Shooter(.4, bulletTypes["basic"], 0))
 #playerShooters[0] = shooterUpgrades["primary"][0]
@@ -93,7 +94,7 @@ while running:
     player.update()
     player.render()
     player.checkBulletCollision()
-    player.checkLevelUp()
+    #player.checkLevelUp() not used since player level is checked upon xp particle pickup
 
     """UI"""
     #crosshare
@@ -109,7 +110,10 @@ while running:
     levelTextObj.render()
     levelTextObj.update()
 
-    xpTextObj = TextHandler(str(math.floor(player.xp)) + "/" + str(xpToLevelUp[player.level-1]) + " xp", fontSmall1, (20, levelTextObj.get_height()+20), white)
+    if player.level <= 99:
+        xpTextObj = TextHandler(str(math.floor(player.xp)) + "/" + str(xpToLevelUp[player.level-1]) + " xp", fontSmall1, (20, levelTextObj.get_height()+20), white)
+    else:
+        xpTextObj = TextHandler("Max Level", fontSmall1, (20, levelTextObj.get_height()+20), white)
     xpTextObj.render()
     xpTextObj.update()
 

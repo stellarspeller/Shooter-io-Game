@@ -37,6 +37,10 @@ class itemDrop():
         self.pos.y += self.vel.getY()
 
     def pickup(self):
-        player.xp += self.value * player.skillStats["xpBoost"][player.skillTree["xpBoost"]]
+        if player.level <= 99:
+            player.xp += self.value * player.skillStats["xpBoost"][player.skillTree["xpBoost"]]
+            player.checkLevelUp()
+        else:
+            player.hp += self.value * player.skillStats["xpBoost"][player.skillTree["xpBoost"]] * 0.2
         xpList.remove(self)
         del self

@@ -12,9 +12,9 @@ class Player():
         self.maxHp = 60
         self.hpRegen = 5
         self.xp = 0
-        self.level = 1
-        self.skillPoints = 17
-        self.pendingShooterUpgrades = 10
+        self.level = 100
+        self.skillPoints = 0
+        self.pendingShooterUpgrades = 0
         self.shooterTree = {
             "primary": 0,
             "secondary": 0,
@@ -113,45 +113,46 @@ class Player():
                         i.kill()
 
     def checkLevelUp(self):
-        if self.xp >= xpToLevelUp[self.level-1]:
-            #regenerate some hp
-            self.hpCheck(120*6*120/FPS) # equivalent to 6 seconds of hp regen
+        if self.level <= 99:
+            if self.xp >= xpToLevelUp[self.level-1]:
+                #regenerate some hp
+                self.hpCheck(120*6*120/FPS) # equivalent to 6 seconds of hp regen
 
-            #increment level, mess with stats etc
-            self.xp -= xpToLevelUp[self.level-1]
-            self.level += 1
+                #increment level, mess with stats etc
+                self.xp -= xpToLevelUp[self.level-1]
+                self.level += 1
 
-            #increment skill points
-            self.skillPoints += 1
+                #increment skill points
+                self.skillPoints += 1
 
-            #increment pending shooter upgrades on every 5th level
-            if self.level % 5 == 0:
-                self.pendingShooterUpgrades += 1
-            
-            #spawn particle effect
-            for i in range(particlesPerLevelup):
-                particleList.append(Particle(
-                    player.pos.getX()+cameraPos.getX()+playerWidth/2, 
-                    player.pos.getY()+cameraPos.getY()+playerWidth/2, 
-                    random.uniform(0.3, 0.4), 
-                    random.randint(6, 8), 
-                    random.choice(xpColor), 
-                    random.randint(32, 44), 
-                    Vect(player.vel.getX(), 
-                         player.vel.getY())))
+                #increment pending shooter upgrades on every 5th level
+                if self.level % 5 == 0:
+                    self.pendingShooterUpgrades += 1
+                
+                #spawn particle effect
+                for i in range(particlesPerLevelup):
+                    particleList.append(Particle(
+                        player.pos.getX()+cameraPos.getX()+playerWidth/2, 
+                        player.pos.getY()+cameraPos.getY()+playerWidth/2, 
+                        random.uniform(0.3, 0.4), 
+                        random.randint(6, 8), 
+                        random.choice(xpColor), 
+                        random.randint(32, 44), 
+                        Vect(player.vel.getX(), 
+                            player.vel.getY())))
 
-            #create level up text
-            levelUpText = TextHandler("Level up!", font, (0, 20), (255, 255, 255), True, 3, 6)
-            distFromLeftSideOfScreen = (screenSize.x - levelUpText.get_width())/2
-            levelUpText.pos = (distFromLeftSideOfScreen, 20)
-            textList.append(levelUpText)
+                #create level up text
+                levelUpText = TextHandler("Level up!", font, (0, 20), (255, 255, 255), True, 3, 6)
+                distFromLeftSideOfScreen = (screenSize.x - levelUpText.get_width())/2
+                levelUpText.pos = (distFromLeftSideOfScreen, 20)
+                textList.append(levelUpText)
 
-            #create level up text rect for particles
-            levelUpTextRect = pygame.rect.Rect(levelUpText.pos[0], levelUpText.pos[1], levelUpText.get_width(), levelUpText.get_height())
-            for i in range (particlesPerLevelupText):
-                particlePos = randomPoint(levelUpTextRect)
+                #create level up text rect for particles
+                levelUpTextRect = pygame.rect.Rect(levelUpText.pos[0], levelUpText.pos[1], levelUpText.get_width(), levelUpText.get_height())
+                for i in range (particlesPerLevelupText):
+                    particlePos = randomPoint(levelUpTextRect)
 
-                particleList.append(Particle(particlePos[0]+cameraPos.getX(), particlePos[1]+cameraPos.getY(), random.uniform(0.3, 0.4), random.randint(6, 8), random.choice(xpColor), random.randint(20, 32)))
+                    particleList.append(Particle(particlePos[0]+cameraPos.getX(), particlePos[1]+cameraPos.getY(), random.uniform(0.3, 0.4), random.randint(6, 8), random.choice(xpColor), random.randint(20, 32)))            
 
     """Player Input - Directional (Keyboard) Input"""
     def handleInputs(self):
