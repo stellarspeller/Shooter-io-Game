@@ -3,7 +3,7 @@ from src.player import *
 import random
 
 class itemDrop():
-    def __init__(self, pos, value):
+    def __init__(self, pos, value, vel=Vect(0,0)):
         """pos - Vect // value - int"""
         self.pos = pos
         self.value = value

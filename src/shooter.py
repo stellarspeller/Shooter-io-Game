@@ -3,7 +3,7 @@ from src.bullet import *
 
 class Shooter():
     def __init__(self, cooldown, bulletCreated, angleVariant):
-        """NOTE - Cooldown measured in seconds // angleVariant is the degrees of rotation away from perfect accuracy"""
+        """NOTE - Cooldown measured in seconds // angleVariant is the RADIANS of rotation away from perfect accuracy"""
         self.cooldown = cooldown
         self.bulletCreated = bulletCreated
         self.angleVariant = angleVariant
@@ -18,7 +18,7 @@ class Shooter():
     def shoot(self, position, angle, isFromPlayer, modifiers=[1, 1, 1, 1]):
         bulletList.append(Bullet(
             position, 
-            angle + self.angleVariant * modifiers[0], 
+            angle + self.angleVariant + random.uniform(-playerShooterAccuracy, playerShooterAccuracy) * modifiers[0], 
             self.bulletCreated, 
             isFromPlayer, 
             modifiers[1],

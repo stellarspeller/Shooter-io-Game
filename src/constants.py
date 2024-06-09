@@ -40,10 +40,16 @@ playerMaxVelocity = 2
 decelConst = -0.075
 frameCount = 0
 enemyShooterAccuracy = 0.07
+playerShooterAccuracy = 0.05
 
 particleList = []
 bulletList = []
-playerShooters = []
+playerShooters = [[], [], []]
+"""
+playerShooters[0] are the player's primary weapons, used for accurate/precise shooting
+playerShooters[1] are the player's secondary weapons, used for spread
+playerShooters[2] are the player's tertiary weapons, used for 360 degree shooting
+"""
 enemyList = []
 xpList = []
 textList = []

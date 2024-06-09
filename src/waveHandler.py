@@ -40,7 +40,6 @@ class WaveHandler():
         if self.waveNum >= spawningThresholds[0][0]:
             self.enemyThreshold = spawningThresholds[0][1]
             del spawningThresholds[0]
-            print(spawningThresholds)
 
     def update(self):
         if ((len(enemyList) <= self.enemyThreshold) and (not self.recentSpawnFlag)):

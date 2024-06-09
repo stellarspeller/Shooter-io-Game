@@ -12,7 +12,9 @@ class Player():
         self.hpRegen = 5
         self.xp = 0
         self.level = 1
-        self.skillPoints = 100
+        self.skillPoints = 0
+        self.pendingShooterUpgrades = 0
+        self.shooterTree = [0, 0, 0]
         """
         skillTree - dict
         Purpose: store player skill point investments
@@ -101,6 +103,10 @@ class Player():
 
             #increment skill points
             self.skillPoints += 1
+
+            #increment pending shooter upgrades on every 5th level
+            if self.level % 5 == 0:
+                self.pendingShooterUpgrades += 1
             
             #spawn particle effect
             for i in range(particlesPerLevelup):
@@ -151,19 +157,20 @@ class Player():
 
         """Click to Shoot"""
         if(pygame.mouse.get_pressed(3)[0]): 
-            for i in playerShooters:
-                if i.cooldownFrames <= 0:
-                    i.shoot(
-                        Vect(self.pos.getX()+cameraPos.getX()+playerWidth/2,self.pos.getY()+cameraPos.getY()+playerWidth/2), 
-                        math.atan2(mousePos.getY(), mousePos.getX()), 
-                        True,
-                        [
-                            self.skillStats["spread"][self.skillTree["spread"]],
-                            self.skillStats["bulletSpeed"][self.skillTree["bulletSpeed"]],
-                            self.skillStats["bulletDamage"][self.skillTree["bulletDamage"]],
-                            self.skillStats["bulletPenetration"][self.skillTree["bulletPenetration"]]
-                        ]
-                    )
-                    i.cooldownFrames = FPS * i.cooldown * self.skillStats["cooldown"][self.skillTree["cooldown"]]
+            for j in playerShooters:
+                for i in j:
+                    if i.cooldownFrames <= 0:
+                        i.shoot(
+                            Vect(self.pos.getX()+cameraPos.getX()+playerWidth/2,self.pos.getY()+cameraPos.getY()+playerWidth/2), 
+                            math.atan2(mousePos.getY(), mousePos.getX()), 
+                            True,
+                            [
+                                self.skillStats["spread"][self.skillTree["spread"]],
+                                self.skillStats["bulletSpeed"][self.skillTree["bulletSpeed"]],
+                                self.skillStats["bulletDamage"][self.skillTree["bulletDamage"]],
+                                self.skillStats["bulletPenetration"][self.skillTree["bulletPenetration"]]
+                            ]
+                        )
+                        i.cooldownFrames = FPS * i.cooldown * self.skillStats["cooldown"][self.skillTree["cooldown"]]
 
 player = Player(Vect(screenSize.getX()/2 - playerWidth/2,screenSize.getY()/2 - playerWidth/2), Vect(0,0))
