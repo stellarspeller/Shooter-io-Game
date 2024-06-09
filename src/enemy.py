@@ -50,13 +50,16 @@ class Enemy():
     
     def update(self):
         """Does the functionality of both Render and Update because the hitbox is influenced by the sprite's rotation"""
-        
+        farAway = False
         moveConst = 0.02
         initComponent = Vect(self.vel.getX(),self.vel.getY()).multiply(1-(moveConst/FPS))
         xComp = player.pos.getX()-self.pos.getX()-(enemyScaleFactor*15/4)+cameraPos.getX()+playerWidth/2
         yComp = player.pos.getY()-self.pos.getY()-(enemyScaleFactor*15/4)+cameraPos.getY()+playerWidth/2 
         #idk why divided by 4 works, it just does
-        modifyComponent = Vect(xComp, yComp).multiply(moveConst/FPS)
+        modifyComponent = Vect(xComp, yComp)
+        if (modifyComponent.getMagnitude() >= (screenSize.x + screenSize.y)*1.5):
+            farAway = True
+        modifyComponent.multiply(moveConst/FPS)
         if self.trackingPattern == 1:
             modifyComponent.multiply(self.circleDirection).setPerpindicularCW()
         self.vel = initComponent.add(modifyComponent)
@@ -99,8 +102,12 @@ class Enemy():
                     else:
                         self.hp -= i.damage
                         i.kill()
-        
-        self.shootReady()
+
+        if not farAway: #enemy doesnt shoot if not close enough to the player (4x off screen)
+            self.shootReady()
+        else: #if enemy is far away
+            self.trackingPattern = 0 #beeline to player
+            self.pos.add(self.vel.getMultiply(80/FPS)) #moves at 5x speed towards the player
 
         self.framesToNextTrackingChange -= 1
 
