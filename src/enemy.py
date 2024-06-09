@@ -12,6 +12,7 @@ class Enemy():
         self.vel = Vect(0,0)
         self.enemyType = enemyType
         self.hp = enemyData[enemyType]["hp"]
+        self.isAdvanced = enemyType in ["red2", "orange2", "yellow2", "green2", "blue2", "purple2", "pink2"]
         self.rotation = 0
         self.hitboxCenter = Vect(0,0)
         self.personalShooterList = copy.deepcopy(enemyData[enemyType]["shooters"]) #thank you chatgpt
@@ -22,12 +23,16 @@ class Enemy():
         self.trackingPattern = random.randint(0, 2)
         self.circleDirection = random.choice((-1, 1))
         self.framesToNextTrackingChange = random.randint(5*FPS, 20*FPS)
+        self.currentOpacity = 255
+        print(self.isAdvanced)
 
     def kill(self):
         for i in range(particlesPerDeath):
             particleList.append(Particle(self.pos.getX(), self.pos.getY(), 1.1, 10, enemyData[self.enemyType]["particleColor"], 10))
         
-        numOfDrops = random.randint(max(1, round(self.xpValue * 0.1)), round(math.sqrt(self.xpValue)))
+        minimumDrops = round((max(1, min(round(self.xpValue * 0.1), round(math.sqrt(self.xpValue))*0.75))))
+        maximumDrops = round(math.sqrt(self.xpValue))
+        numOfDrops = random.randint(minimumDrops, maximumDrops)
         #print(numOfDrops)
         xpParticleValues = [math.floor(self.xpValue/numOfDrops)] * numOfDrops
         xpParticleValues[0] += (self.xpValue - xpParticleValues[0] * numOfDrops)
@@ -35,7 +40,14 @@ class Enemy():
         for i in xpParticleValues:
             xpList.append(itemDrop(Vect(self.pos.getX()+random.randint(-24,24), self.pos.getY()+random.randint(-24,24)), i))
         
-        enemyList.remove(self)
+        #purpose of try except is to prevent the enemy from being removed if it is not in the enemy list
+        #not sure why this would ever happen but ive encountered it before
+        #if i didnt have this, enemies randomly become unkillable
+        #if i do have this, it occasionally crashes a game when it detects an enemy not in the list
+        try:
+            enemyList.remove(self)
+        except:
+            pass
         del self
 
     def shootReady(self):
@@ -78,6 +90,9 @@ class Enemy():
 
         scaled_image = pygame.transform.scale(enemyData[self.enemyType]["sprite"], (int(15 * enemyScaleFactor), int(15 * enemyScaleFactor)))
         rotated_image = pygame.transform.rotate(scaled_image, self.rotation)
+        
+        #set opacity for rotated image
+        rotated_image.set_alpha(self.currentOpacity)
         image_rect = enemyData[self.enemyType]["sprite"].get_rect()
         image_center = image_rect.center
         rotation_point = image_center
@@ -88,10 +103,11 @@ class Enemy():
         self.hitboxCenter = Vect(xComp - rotated_rect.x/2 -.5, yComp - rotated_rect.y/2 -.5)
         #screen.blit(rotated_image, (xComp, yComp))
 
-        if random.uniform(0,1) <= (10/FPS):
-            xComp = (self.hitboxCenter.getX()+cameraPos.getX())
-            yComp = (self.hitboxCenter.getY()+cameraPos.getY())
-            particleList.append(Particle(xComp, yComp, .24, 5, enemyData[self.enemyType]["particleColor"], 18))
+        if self.currentOpacity > 3*256/4: #only has particles if the enemy is mostly opaque
+            if random.uniform(0,1) <= (10/FPS):
+                xComp = (self.hitboxCenter.getX()+cameraPos.getX())
+                yComp = (self.hitboxCenter.getY()+cameraPos.getY())
+                particleList.append(Particle(xComp, yComp, .24, 5, enemyData[self.enemyType]["particleColor"], 18, Vect(0, 0), self.currentOpacity))
 
         for i in bulletList:
             if i.isFromPlayer:
@@ -100,16 +116,21 @@ class Enemy():
                 if Vect(xComp, yComp).getMagnitude() <= 25.6:
                     if self.hp - i.penetration <= 0:
                         i.penetration -= self.hp
-                        #self.kill()
+                        self.kill()
                     else:
                         self.hp -= i.damage
                         i.kill()
+
+        if self.isAdvanced:
+            self.currentOpacity -= 1 * 120/FPS
+            if self.currentOpacity <= 0:
+                self.currentOpacity = 255
 
         if not farAway: #enemy doesnt shoot if not close enough to the player (4x off screen)
             self.shootReady()
         else: #if enemy is far away
             self.trackingPattern = 0 #beeline to player
-            self.pos.add(self.vel.getMultiply(80/FPS)) #moves at 5x speed towards the player
+            self.pos.add(self.vel.getMultiply(80/FPS)) #moves at extremely fast pace towards the player
 
         self.framesToNextTrackingChange -= 1
 
@@ -121,5 +142,5 @@ class Enemy():
             if self.trackingPattern in (0, 1):
                 self.framesToNextTrackingChange = random.randint(5*FPS, 20*FPS)
             else:
-                self.framesToNextTrackingChange = random.randint(2*FPS, 6*FPS)
+                self.framesToNextTrackingChange = random.randint(2*FPS, 6*FPS) #less time between tracking swap if in the "run away" pattern
 

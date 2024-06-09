@@ -2,7 +2,7 @@ from src.constants import *
 import random
 
 class Particle(): #thank you chatgpt
-    def __init__(self, x, y, speed, size, color, framesPerDownsize, startingVelocity=Vect(0, 0)):
+    def __init__(self, x, y, speed, size, color, framesPerDownsize, startingVelocity=Vect(0, 0), opacity=255):
         self.pos = Vect(x, y)
         angle = random.uniform(0, 2 * math.pi)  # Random angle in radians
         xVel = speed * math.cos(angle)
@@ -13,9 +13,13 @@ class Particle(): #thank you chatgpt
         self.color = color
         self.framesPerDownsize = framesPerDownsize * FPS/120
         self.ticks = 0
+        self.opacity = opacity
 
     def render(self):
-        pygame.draw.rect(screen, self.color, (self.pos.getX()-(round(self.size/2))-cameraPos.getX(), self.pos.getY()-(round(self.size/2))-cameraPos.getY(), round(self.size), round(self.size)))
+        tempSurface = pygame.Surface((self.size, self.size))
+        tempSurface.set_alpha(self.opacity)
+        tempSurface.fill(self.color)
+        screen.blit(tempSurface, (self.pos.getX()-(round(self.size/2))-cameraPos.getX(), self.pos.getY()-(round(self.size/2))-cameraPos.getY()))
 
     def update(self):
         #deltaVelocity = self.vel.multiply(1/FPS)
