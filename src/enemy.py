@@ -19,7 +19,7 @@ class Enemy():
             i.cooldownFrames = random.randint(0, round(FPS * i.cooldown))
         self.rotPerSecond = enemyData[enemyType]["rotationPerSecond"] * random.choice((-1, 1)) * random.uniform(0.9, 1.1)
         self.xpValue = round(enemyData[enemyType]["xpReleased"] * random.triangular(0.7, 1.3))
-        self.trackingPattern = 1
+        self.trackingPattern = random.randint(0, 2)
         self.circleDirection = random.choice((-1, 1))
         self.framesToNextTrackingChange = random.randint(5*FPS, 20*FPS)
 
@@ -62,6 +62,8 @@ class Enemy():
         modifyComponent.multiply(moveConst/FPS)
         if self.trackingPattern == 1:
             modifyComponent.multiply(self.circleDirection).setPerpindicularCW()
+        if self.trackingPattern == 2:
+            modifyComponent.multiply(-1)
         self.vel = initComponent.add(modifyComponent)
         self.rotation += self.rotPerSecond * (120/FPS)
         if self.vel.getMagnitude() >= enemyData[self.enemyType]["maxVelocity"]:
@@ -96,7 +98,7 @@ class Enemy():
                 xComp = i.pos.getX()-self.hitboxCenter.getX()-(round(i.size/2))-cameraPos.getX()
                 yComp = i.pos.getY()-self.hitboxCenter.getY()-(round(i.size/2))-cameraPos.getY()
                 if Vect(xComp, yComp).getMagnitude() <= 25.6:
-                    if i.penetration >= self.hp:
+                    if self.hp - i.penetration <= 0:
                         i.penetration -= self.hp
                         #self.kill()
                     else:
@@ -112,7 +114,12 @@ class Enemy():
         self.framesToNextTrackingChange -= 1
 
         if self.framesToNextTrackingChange == 0:
-            if self.trackingPattern == 0: self.trackingPattern = 1
-            else: self.trackingPattern = 0
-            self.framesToNextTrackingChange = random.randint(5*FPS, 20*FPS)
+            #sets self.trackingPattern to a random value that is not the current tracking pattern
+            options = [0, 1, 2]
+            options.remove(self.trackingPattern)
+            self.trackingPattern = random.choice(options)
+            if self.trackingPattern in (0, 1):
+                self.framesToNextTrackingChange = random.randint(5*FPS, 20*FPS)
+            else:
+                self.framesToNextTrackingChange = random.randint(2*FPS, 6*FPS)
 

@@ -14,7 +14,7 @@ class Player():
         self.xp = 0
         self.level = 1
         self.skillPoints = 0
-        self.pendingShooterUpgrades = 0
+        self.pendingShooterUpgrades = 1000
         self.shooterTree = {
             "primary": 0,
             "secondary": 0,
@@ -44,7 +44,7 @@ class Player():
         self.skillStats = {
             "healthRegen": [1, 1.2, 1.4, 1.8, 2.2, 2.6],
             "maxHealth": [1, 1.25, 1.5, 1.75, 2.25, 3.25],
-            "speed": [1, 1.1, 1.25, 1.4, 1.55, 1.7],
+            "speed": [1, 1.1, 1.2, 1.3, 1.4, 1.55],
             "spread": [1, 0.8, 0.6, 0.4, 0.2, 0.1],
             "cooldown": [1, 0.95, 0.9, 0.8, 0.7, 0.6],
             "bulletSpeed": [1, 1.1, 1.2, 1.3, 1.4, 1.5],
