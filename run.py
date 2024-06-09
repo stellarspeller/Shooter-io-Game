@@ -14,9 +14,9 @@ running = True
 enemyList.append(Enemy(Vect(70,70), "red"))
 
 #playerShooters[0].append(Shooter(.4, bulletTypes["basic"], 0))
-playerShooters[0] = shooterUpgrades["primary"][0]
-playerShooters[1] = shooterUpgrades["secondary"][0]
-playerShooters[2] = shooterUpgrades["tertiary"][0]
+#playerShooters[0] = shooterUpgrades["primary"][0]
+#playerShooters[1] = shooterUpgrades["secondary"][0]
+#playerShooters[2] = shooterUpgrades["tertiary"][0]
 #playerShooters[0].append(Shooter(.9, bulletTypes["cannonball"], 0))
 #bgMusic = pygame.mixer.Sound("res/sound/music/tis.wav")
 #pygame.mixer.music.load("res/sound/music/tis.wav")
@@ -42,10 +42,11 @@ while running:
     clock.tick(FPS)
     frameCount += 1
 
-    for j in playerShooters:
-        for i in j:
-            if i.cooldownFrames > 0:
-                i.cooldownFrames -= 1
+    for i in player.playerShooters:
+        for j in i:
+            for k in j:
+                if k.cooldownFrames > 0:
+                    k.cooldownFrames -= 1
 
     for i in enemyList:
         for j in i.personalShooterList:
@@ -81,6 +82,8 @@ while running:
     #enemies
     for i in enemyList:
         i.update()
+        if i.hp <= 0:
+            i.kill()
 
     """Player Input"""
     player.handleInputs()
@@ -122,6 +125,11 @@ while running:
     elif not (pygame.key.get_pressed()[pygame.K_LSHIFT] or pygame.key.get_pressed()[pygame.K_RSHIFT]):
         skillTreeUICooldown = False
         
+    if (pygame.key.get_pressed()[pygame.K_TAB]) and not cannonUpgradeUICooldown:
+        cannonUpgradeUI = not cannonUpgradeUI
+        cannonUpgradeUICooldown = True
+    elif not (pygame.key.get_pressed()[pygame.K_TAB]):
+        cannonUpgradeUICooldown = False
     
     #skill tree:
     """
@@ -172,6 +180,42 @@ while running:
         if allKeysNotPressed:
             pressedSkillTree = False
 
+    if cannonUpgradeUI:
+        cannonUpgradeUIList = [
+            TextHandler(
+                f"{player.shooterTree['primary']+1}/{len(shooterUpgrades['primary'])} - Primary [b]",
+                fontSmall2, (screenSize.x - 190, screenSize.y - 30), white
+            ),
+            TextHandler(
+                f"{player.shooterTree['secondary']+1}/{len(shooterUpgrades['secondary'])} - Spread [n]",
+                fontSmall2, (screenSize.x - 190, screenSize.y - 50), white
+            ),
+            TextHandler(
+                f"{player.shooterTree['tertiary']+1}/{len(shooterUpgrades['tertiary'])} - Surround [m]",
+                fontSmall2, (screenSize.x - 190, screenSize.y - 70), white
+            )
+        ]
+        for i in cannonUpgradeUIList:
+            i.update()
+            i.render()
+        #check for inputs to upgrade
+        keys = [
+            pygame.K_b, pygame.K_n, pygame.K_m
+        ]
+        stats = [
+            "primary", "secondary", "tertiary"
+        ]
+
+        for i, key in enumerate(keys):
+            if pygame.key.get_pressed()[key] and ((not pressedCannonUpgrade) and player.pendingShooterUpgrades >= 1 and player.shooterTree[stats[i]] < len(shooterUpgrades[stats[i]])-1):
+                pressedCannonUpgrade = True
+                player.pendingShooterUpgrades -= 1
+                player.shooterTree[stats[i]] += 1
+                player.updateShooterStats()
+                break
+        allKeysNotPressed = all(not pygame.key.get_pressed()[key] for key in keys)
+        if allKeysNotPressed:
+            pressedCannonUpgrade = False
 
     #wave UI
     waveText = font.render("Wave " + str(waveHandler.waveNum), True, white)

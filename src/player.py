@@ -2,6 +2,7 @@ from src.constants import *
 from src.particle import *
 from src.textHandler import *
 from src.util import *
+from data.shooters import *
 
 class Player():
     def __init__(self, pos, vel):
@@ -14,7 +15,11 @@ class Player():
         self.level = 1
         self.skillPoints = 0
         self.pendingShooterUpgrades = 0
-        self.shooterTree = [0, 0, 0]
+        self.shooterTree = {
+            "primary": 0,
+            "secondary": 0,
+            "tertiary": 0
+        }
         """
         skillTree - dict
         Purpose: store player skill point investments
@@ -47,6 +52,13 @@ class Player():
             "bulletPenetration": [1, 1.1, 1.2, 1.35, 1.5, 1.65],
             "xpBoost": [1, 1.05, 1.1, 1.15, 1.2, 1.3]
         }
+        self.playerShooters = [[], [], []]
+        """
+        playerShooters[0] are the player's primary weapons, used for accurate/precise shooting
+        playerShooters[1] are the player's secondary weapons, used for spread
+        playerShooters[2] are the player's tertiary weapons, used for 360 degree shooting
+        """
+        self.updateShooterStats()
 
     def render(self):
         #layered behind the player sprite, place a "circular health bar"
@@ -78,6 +90,14 @@ class Player():
         pass
         #detect player input to spend on skilltree
         #update skill tree
+
+    def updateShooterStats(self):
+        #sets player shooter list to the current shooter tree levels of shooter data
+        self.playerShooters = [
+            [shooterUpgrades["primary"][self.shooterTree["primary"]]],
+            [shooterUpgrades["secondary"][self.shooterTree["secondary"]]],
+            [shooterUpgrades["tertiary"][self.shooterTree["tertiary"]]]
+        ]
 
     def checkBulletCollision(self):
         for i in bulletList:
@@ -157,20 +177,21 @@ class Player():
 
         """Click to Shoot"""
         if(pygame.mouse.get_pressed(3)[0]): 
-            for j in playerShooters:
-                for i in j:
-                    if i.cooldownFrames <= 0:
-                        i.shoot(
-                            Vect(self.pos.getX()+cameraPos.getX()+playerWidth/2,self.pos.getY()+cameraPos.getY()+playerWidth/2), 
-                            math.atan2(mousePos.getY(), mousePos.getX()), 
-                            True,
-                            [
-                                self.skillStats["spread"][self.skillTree["spread"]],
-                                self.skillStats["bulletSpeed"][self.skillTree["bulletSpeed"]],
-                                self.skillStats["bulletDamage"][self.skillTree["bulletDamage"]],
-                                self.skillStats["bulletPenetration"][self.skillTree["bulletPenetration"]]
-                            ]
-                        )
-                        i.cooldownFrames = FPS * i.cooldown * self.skillStats["cooldown"][self.skillTree["cooldown"]]
+            for i in self.playerShooters:
+                for j in i:
+                    for k in j:
+                        if k.cooldownFrames <= 0:
+                            k.shoot(
+                                Vect(self.pos.getX()+cameraPos.getX()+playerWidth/2,self.pos.getY()+cameraPos.getY()+playerWidth/2), 
+                                math.atan2(mousePos.getY(), mousePos.getX()), 
+                                True,
+                                [
+                                    self.skillStats["spread"][self.skillTree["spread"]],
+                                    self.skillStats["bulletSpeed"][self.skillTree["bulletSpeed"]],
+                                    self.skillStats["bulletDamage"][self.skillTree["bulletDamage"]],
+                                    self.skillStats["bulletPenetration"][self.skillTree["bulletPenetration"]]
+                                ]
+                            )
+                            k.cooldownFrames = FPS * k.cooldown * self.skillStats["cooldown"][self.skillTree["cooldown"]]
 
 player = Player(Vect(screenSize.getX()/2 - playerWidth/2,screenSize.getY()/2 - playerWidth/2), Vect(0,0))

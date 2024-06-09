@@ -27,6 +27,7 @@ enemyScaleFactor = 2
 xpColor = ((180, 220, 8), (220, 255, 10))
 xpSize = (12, 8)
 skillTreeUI = False
+cannonUpgradeUI = False
 
 #fonts
 font = pygame.font.SysFont(None, 48, False, False)
@@ -44,12 +45,6 @@ playerShooterAccuracy = 0.05
 
 particleList = []
 bulletList = []
-playerShooters = [[], [], []]
-"""
-playerShooters[0] are the player's primary weapons, used for accurate/precise shooting
-playerShooters[1] are the player's secondary weapons, used for spread
-playerShooters[2] are the player's tertiary weapons, used for 360 degree shooting
-"""
 enemyList = []
 xpList = []
 textList = []

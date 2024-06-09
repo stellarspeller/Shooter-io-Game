@@ -90,7 +90,7 @@ class Enemy():
                 if Vect(xComp, yComp).getMagnitude() <= 25.6:
                     if i.penetration >= self.hp:
                         i.penetration -= self.hp
-                        self.kill()
+                        #self.kill()
                     else:
                         self.hp -= i.damage
                         i.kill()
