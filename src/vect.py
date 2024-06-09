@@ -36,6 +36,22 @@ class Vect():
     def getY(self):
         return self.y
     
+    def setPerpindicularCW(self):
+        #rotate 90 degrees clockwise
+        self.x, self.y = -self.y, self.x
+    
+    def setPerpindicularCCW(self):
+        #rotate 90 degrees counter-clockwise
+        self.x, self.y = self.y, -self.x
+
+    def getPerpindicularCW(self):
+        #rotate 90 degrees clockwise
+        return Vect(self.y, -self.x)
+    
+    def getPerpindicularCCW(self):
+        #rotate 90 degrees counter-clockwise
+        return Vect(-self.y, self.x)
+    
     def getMagnitude(self):
         return math.sqrt(self.y**2 + self.x**2)
     

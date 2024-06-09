@@ -19,6 +19,9 @@ class Enemy():
             i.cooldownFrames = random.randint(0, round(FPS * i.cooldown))
         self.rotPerSecond = enemyData[enemyType]["rotationPerSecond"] * random.choice((-1, 1)) * random.uniform(0.9, 1.1)
         self.xpValue = round(enemyData[enemyType]["xpReleased"] * random.triangular(0.7, 1.3))
+        self.trackingPattern = 1
+        self.circleDirection = random.choice((-1, 1))
+        self.framesToNextTrackingChange = random.randint(5*FPS, 20*FPS)
 
     def kill(self):
         for i in range(particlesPerDeath):
@@ -48,12 +51,14 @@ class Enemy():
     def update(self):
         """Does the functionality of both Render and Update because the hitbox is influenced by the sprite's rotation"""
         
-        moveConst = 2
+        moveConst = 0.02
         initComponent = Vect(self.vel.getX(),self.vel.getY()).multiply(1-(moveConst/FPS))
         xComp = player.pos.getX()-self.pos.getX()-(enemyScaleFactor*15/4)+cameraPos.getX()+playerWidth/2
         yComp = player.pos.getY()-self.pos.getY()-(enemyScaleFactor*15/4)+cameraPos.getY()+playerWidth/2 
         #idk why divided by 4 works, it just does
         modifyComponent = Vect(xComp, yComp).multiply(moveConst/FPS)
+        if self.trackingPattern == 1:
+            modifyComponent.multiply(self.circleDirection).setPerpindicularCW()
         self.vel = initComponent.add(modifyComponent)
         self.rotation += self.rotPerSecond * (120/FPS)
         if self.vel.getMagnitude() >= enemyData[self.enemyType]["maxVelocity"]:
@@ -96,3 +101,11 @@ class Enemy():
                         i.kill()
         
         self.shootReady()
+
+        self.framesToNextTrackingChange -= 1
+
+        if self.framesToNextTrackingChange == 0:
+            if self.trackingPattern == 0: self.trackingPattern = 1
+            else: self.trackingPattern = 0
+            self.framesToNextTrackingChange = random.randint(5*FPS, 20*FPS)
+

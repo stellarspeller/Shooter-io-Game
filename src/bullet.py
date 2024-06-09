@@ -24,4 +24,8 @@ class Bullet():
     def render(self):
         x = round(self.pos.getX()-self.size/2 - cameraPos.getX())
         y = round(self.pos.getY()-self.size/2 - cameraPos.getY())
-        pygame.draw.rect(screen, white, (x, y, self.size, self.size))
+        if self.isFromPlayer:
+            color = cyan
+        else:
+            color = red
+        pygame.draw.rect(screen, color, (x, y, self.size, self.size))
