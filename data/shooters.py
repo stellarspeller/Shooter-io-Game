@@ -44,10 +44,6 @@ shooterUpgrades = {
     "secondary": [
         [], #player has no initial secondary weapons
         [
-            Shooter(1.1, bulletTypes["machineFire"], -0.15), 
-            Shooter(1.1, bulletTypes["machineFire"], 0.15)
-        ],
-        [
             Shooter(0.65, bulletTypes["machineFire"], -0.15), 
             Shooter(0.65, bulletTypes["machineFire"], 0.15)
         ],
@@ -85,12 +81,8 @@ shooterUpgrades = {
     "tertiary": [
         [], #player has no initial tertiary weapons
         [
-            Shooter(1.8, bulletTypes["machineFire"], 0), 
-            Shooter(1.8, bulletTypes["machineFire"], math.pi)
-        ],
-        [
-            Shooter(1.4, bulletTypes["machineFire"], 0), 
-            Shooter(1.4, bulletTypes["machineFire"], math.pi)
+            Shooter(1.6, bulletTypes["machineFire"], 0), 
+            Shooter(1.6, bulletTypes["machineFire"], math.pi)
         ],
         [
             Shooter(1.4, bulletTypes["machineFire"], 0), 

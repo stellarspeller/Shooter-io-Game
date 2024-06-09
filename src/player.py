@@ -13,8 +13,8 @@ class Player():
         self.hpRegen = 5
         self.xp = 0
         self.level = 100
-        self.skillPoints = 0
-        self.pendingShooterUpgrades = 0
+        self.skillPoints = 99
+        self.pendingShooterUpgrades = 20
         self.shooterTree = {
             "primary": 0,
             "secondary": 0,
@@ -42,15 +42,15 @@ class Player():
         Ie: 1.2 = 120% of base stat (given in constants usually)
         """
         self.skillStats = {
-            "healthRegen": [1, 1.2, 1.4, 1.8, 2.2, 2.6],
-            "maxHealth": [1, 1.25, 1.5, 1.75, 2.25, 3.25],
-            "speed": [1, 1.1, 1.2, 1.3, 1.4, 1.55],
-            "spread": [1, 0.8, 0.6, 0.4, 0.2, 0.1],
-            "cooldown": [1, 0.95, 0.9, 0.8, 0.7, 0.6],
-            "bulletSpeed": [1, 1.1, 1.2, 1.3, 1.4, 1.5],
-            "bulletDamage": [1, 1.15, 1.3, 1.45, 1.65, 1.9],
-            "bulletPenetration": [1, 1.1, 1.2, 1.35, 1.5, 1.65],
-            "xpBoost": [1, 1.05, 1.1, 1.15, 1.2, 1.3]
+            "healthRegen": [1, 1.1, 1.2, 1.4, 1.6, 1.8, 2.1, 2.4, 2.7, 3],
+            "maxHealth": [1, 1.15, 1.3, 1.45, 1.6, 1.8, 2, 2.5, 3, 3.5],
+            "speed": [1, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.4, 1.5, 1.65],
+            "spread": [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1],
+            "cooldown": [1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55],
+            "bulletSpeed": [1, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.5],
+            "bulletDamage": [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.65, 1.8, 1.95, 2.1],
+            "bulletPenetration": [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.65, 1.8, 1.95, 2.1],
+            "xpBoost": [1, 1.025, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.4, 1.55]
         }
         self.playerShooters = [[], [], []]
         """
