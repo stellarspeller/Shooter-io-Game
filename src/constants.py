@@ -44,7 +44,9 @@ enemyShooterAccuracy = 0.07
 playerShooterAccuracy = 0.05
 
 particleList = []
-bulletList = []
+#bulletList = []
+playerBulletList = [] #separated for player and enemy to reduce useless collision detection
+enemyBulletList = []
 enemyList = []
 xpList = []
 textList = []
@@ -62,6 +64,7 @@ xpToLevelUp = generateXpCurve(98)
 print(xpToLevelUp)
 #print sum of xpToLevelUp
 print(sum(xpToLevelUp))
+xpToLevelUp.append(-1) #placeholder to make sure that nothing crashes if you reach max level and try to display the xp curve
 
 pressedSkillTree = False
 

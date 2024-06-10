@@ -25,6 +25,18 @@ class Player():
         Purpose: store player skill point investments
         """
         self.skillTree = {
+            "healthRegen": 11,
+            "maxHealth": 11,
+            "speed": 11,
+            "spread": 11,
+            "cooldown": 11,
+            "bulletSpeed": 11,
+            "bulletDamage": 11,
+            "bulletPenetration": 11,
+            "xpBoost": 11
+        }
+        """
+        self.skillTree = {
             "healthRegen": 0,
             "maxHealth": 0,
             "speed": 0,
@@ -36,21 +48,22 @@ class Player():
             "xpBoost": 0
         }
         """
+        """
         skillStats - dict
         Purpose: store player skill stats
         Note: stats are in the form of multipliers
         Ie: 1.2 = 120% of base stat (given in constants usually)
         """
         self.skillStats = {
-            "healthRegen": [1, 1.1, 1.2, 1.4, 1.6, 1.8, 2.1, 2.4, 2.7, 3],
-            "maxHealth": [1, 1.15, 1.3, 1.45, 1.6, 1.8, 2, 2.5, 3, 3.5],
-            "speed": [1, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.4, 1.5, 1.65],
-            "spread": [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1],
-            "cooldown": [1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55],
-            "bulletSpeed": [1, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.5],
-            "bulletDamage": [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.65, 1.8, 1.95, 2.1],
-            "bulletPenetration": [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.65, 1.8, 1.95, 2.1],
-            "xpBoost": [1, 1.025, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.4, 1.55]
+            "healthRegen": [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.8, 2.1, 2.4, 2.7, 3],
+            "maxHealth": [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.8, 2, 2.4, 2.8, 3.3],
+            "speed": [1, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5, 1.65],
+            "spread": [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15, 0.1],
+            "cooldown": [1, 0.975, 0.95, 0.925, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55],
+            "bulletSpeed": [1, 1.025, 1.05, 1.075, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.5],
+            "bulletDamage": [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.75, 1.9, 2.05, 2.15, 2.3],
+            "bulletPenetration": [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.95, 2.1, 2.3],
+            "xpBoost": [1, 1.025, 1.05, 1.075, 1.1, 1.15, 1.2, 1.25, 1.3, 1.4, 1.5, 1.65]
         }
         self.playerShooters = [[], [], []]
         """
@@ -100,17 +113,22 @@ class Player():
         ]
 
     def checkBulletCollision(self):
-        for i in bulletList:
-            if not i.isFromPlayer:
-                xComp = i.pos.getX()-self.pos.getX()-cameraPos.getX()-playerWidth/2
-                yComp = i.pos.getY()-self.pos.getY()-cameraPos.getY()-playerWidth/2
-                if Vect(xComp, yComp).getMagnitude() <= 16:
-                    if i.penetration >= self.hp:
-                        i.penetration -= self.hp
-                        self.kill()
-                    else:
-                        self.hp -= i.damage
-                        i.kill()
+        playerPosOnGrid = Vect(self.pos.getX()-cameraPos.getX(), self.pos.getY()-cameraPos.getY())
+        screenMargin = 2 * (screenSize.x + screenSize.y)
+        for i in enemyBulletList:
+            xComp = i.pos.getX()-self.pos.getX()-cameraPos.getX()-playerWidth/2
+            yComp = i.pos.getY()-self.pos.getY()-cameraPos.getY()-playerWidth/2
+            if Vect(xComp, yComp).getMagnitudeSq() <= 16**2:
+                if i.penetration >= self.hp:
+                    i.penetration -= self.hp
+                    self.kill()
+                else:
+                    self.hp -= i.damage
+                    i.kill()
+        for i in playerBulletList:
+            if i.pos.getManhattanDist(playerPosOnGrid) >= screenMargin:
+                i.kill()
+                #kills bullets that are far away from the player
 
     def checkLevelUp(self):
         if self.level <= 99:

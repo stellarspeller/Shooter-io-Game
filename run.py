@@ -76,7 +76,10 @@ while running:
         i.render()
 
     #bullets
-    for i in bulletList:
+    for i in playerBulletList:
+        i.update()
+        i.render()
+    for i in enemyBulletList:
         i.update()
         i.render()
 
@@ -150,15 +153,15 @@ while running:
 
     if skillTreeUI:
         skillTreeUIList = [
-            TextHandler(f"{player.skillTree['xpBoost']}/9 - Xp Multiplier - 9", fontSmall2, (10, screenSize.y - 30), white),
-            TextHandler(f"{player.skillTree['bulletPenetration']}/9 - Bullet Penetration - 8", fontSmall2, (10, screenSize.y - 50), white),
-            TextHandler(f"{player.skillTree['bulletDamage']}/9 - Bullet Damage - 7", fontSmall2, (10, screenSize.y - 70), white),
-            TextHandler(f"{player.skillTree['bulletSpeed']}/9 - Bullet Speed - 6", fontSmall2, (10, screenSize.y - 90), white),
-            TextHandler(f"{player.skillTree['cooldown']}/9 - Cooldown - 5", fontSmall2, (10, screenSize.y - 110), white),
-            TextHandler(f"{player.skillTree['spread']}/9 - Bullet Spread - 4", fontSmall2, (10, screenSize.y - 130), white),
-            TextHandler(f"{player.skillTree['maxHealth']}/9 - Max Health - 3", fontSmall2, (10, screenSize.y - 150), white),
-            TextHandler(f"{player.skillTree['speed']}/9 - Player Speed - 2", fontSmall2, (10, screenSize.y - 170), white),
-            TextHandler(f"{player.skillTree['healthRegen']}/9 - Health Regen - 1", fontSmall2, (10, screenSize.y - 190), white),
+            TextHandler(f"{player.skillTree['xpBoost']}/11 - Xp Multiplier - 9", fontSmall2, (10, screenSize.y - 30), white),
+            TextHandler(f"{player.skillTree['bulletPenetration']}/11 - Bullet Penetration - 8", fontSmall2, (10, screenSize.y - 50), white),
+            TextHandler(f"{player.skillTree['bulletDamage']}/11 - Bullet Damage - 7", fontSmall2, (10, screenSize.y - 70), white),
+            TextHandler(f"{player.skillTree['bulletSpeed']}/11 - Bullet Speed - 6", fontSmall2, (10, screenSize.y - 90), white),
+            TextHandler(f"{player.skillTree['cooldown']}/11 - Cooldown - 5", fontSmall2, (10, screenSize.y - 110), white),
+            TextHandler(f"{player.skillTree['spread']}/11 - Bullet Spread - 4", fontSmall2, (10, screenSize.y - 130), white),
+            TextHandler(f"{player.skillTree['maxHealth']}/11 - Max Health - 3", fontSmall2, (10, screenSize.y - 150), white),
+            TextHandler(f"{player.skillTree['speed']}/11 - Player Speed - 2", fontSmall2, (10, screenSize.y - 170), white),
+            TextHandler(f"{player.skillTree['healthRegen']}/11 - Health Regen - 1", fontSmall2, (10, screenSize.y - 190), white),
         ]
         for i in skillTreeUIList:
             i.update()
@@ -175,7 +178,7 @@ while running:
         ]
 
         for i, key in enumerate(keys):
-            if pygame.key.get_pressed()[key] and ((not pressedSkillTree) and player.skillPoints >= 1 and player.skillTree[stats[i]] < 9):
+            if pygame.key.get_pressed()[key] and ((not pressedSkillTree) and player.skillPoints >= 1 and player.skillTree[stats[i]] < 11):
                 pressedSkillTree = True
                 player.skillPoints -= 1
                 player.skillTree[stats[i]] += 1
@@ -230,7 +233,7 @@ while running:
     for i in textList:
         i.update()
         i.render()
-
+    print(len(playerBulletList)+len(enemyBulletList))
 
     #additional testing
     particleList.append(Particle(400, 400, 1.1, 10, white, 10))

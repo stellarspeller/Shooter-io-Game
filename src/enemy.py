@@ -108,11 +108,11 @@ class Enemy():
                 yComp = (self.hitboxCenter.getY()+cameraPos.getY())
                 particleList.append(Particle(xComp, yComp, .24, 5, enemyData[self.enemyType]["particleColor"], 18, Vect(0, 0), round(self.currentOpacity)))
 
-        for i in bulletList:
-            if i.isFromPlayer:
+        for i in playerBulletList:
+            if i.pos.getManhattanDist(self.pos) <= 35: #check if bullet is close enough to enemy to warrant a collision detection calculation
                 xComp = i.pos.getX()-self.hitboxCenter.getX()-(round(i.size/2))-cameraPos.getX()
                 yComp = i.pos.getY()-self.hitboxCenter.getY()-(round(i.size/2))-cameraPos.getY()
-                if Vect(xComp, yComp).getMagnitude() <= 25.6:
+                if Vect(xComp, yComp).getMagnitudeSq() <= 25.6**2:
                     if self.hp - i.penetration <= 0:
                         i.penetration -= self.hp
                         self.kill()

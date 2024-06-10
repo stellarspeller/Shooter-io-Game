@@ -14,11 +14,13 @@ class Bullet():
         self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.2*120/FPS))
         self.penetration -= 0.25 * 1/FPS
         if self.penetration <= 0:
-            bulletList.remove(self)
-            del self
+            self.kill()
     
     def kill(self):
-        bulletList.remove(self)
+        if self.isFromPlayer:
+            playerBulletList.remove(self)
+        else: 
+            enemyBulletList.remove(self)
         del self
         
     def render(self):

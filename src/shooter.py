@@ -16,12 +16,23 @@ class Shooter():
     3 - bulletPenetration
     """
     def shoot(self, position, angle, isFromPlayer, modifiers=[1, 1, 1, 1]):
-        bulletList.append(Bullet(
-            position, 
-            angle + self.angleVariant + random.uniform(-playerShooterAccuracy, playerShooterAccuracy) * modifiers[0], 
-            self.bulletCreated, 
-            isFromPlayer, 
-            modifiers[1],
-            modifiers[2],
-            modifiers[3]
-        ))
+        if isFromPlayer:
+            playerBulletList.append(Bullet(
+                position, 
+                angle + self.angleVariant + random.uniform(-playerShooterAccuracy, playerShooterAccuracy) * modifiers[0], 
+                self.bulletCreated, 
+                isFromPlayer, 
+                modifiers[1],
+                modifiers[2],
+                modifiers[3]
+            ))
+        else:
+            enemyBulletList.append(Bullet(
+                position, 
+                angle + self.angleVariant + random.uniform(-enemyShooterAccuracy, enemyShooterAccuracy) * modifiers[0], 
+                self.bulletCreated, 
+                isFromPlayer, 
+                modifiers[1],
+                modifiers[2],
+                modifiers[3]
+            ))

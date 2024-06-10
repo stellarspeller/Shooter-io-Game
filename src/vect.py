@@ -55,6 +55,12 @@ class Vect():
     def getMagnitude(self):
         return math.sqrt(self.y**2 + self.x**2)
     
+    def getMagnitudeSq(self):
+        return self.y**2 + self.x**2
+    
+    def getManhattanDist(self, otherVect):
+        return abs(self.x - otherVect.x) + abs(self.y - otherVect.y)
+
     def getRoundX(self):
         return round(self.x)
     

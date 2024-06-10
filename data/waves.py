@@ -11,7 +11,7 @@ waveData = [
     #[ {"count":1, "spawnDelay":1, "enemyType":"purple"} ],
     #[ {"count":1, "spawnDelay":1, "enemyType":"pink2"} ],
     [
-        {"count":4, "spawnDelay":5, "enemyType":"red"}
+        {"count":400, "spawnDelay":0.05, "enemyType":"purple"}
     ], [
         {"count":5, "spawnDelay":4, "enemyType":"red"}
     ], [
