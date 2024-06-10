@@ -43,6 +43,12 @@ frameCount = 0
 enemyShooterAccuracy = 0.07
 playerShooterAccuracy = 0.05
 
+settings = {
+    "musicVolume": 0,
+    "soundVolume": 0,
+    "enemyParticles": True
+}
+
 particleList = []
 #bulletList = []
 playerBulletList = [] #separated for player and enemy to reduce useless collision detection

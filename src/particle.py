@@ -14,12 +14,16 @@ class Particle(): #thank you chatgpt
         self.framesPerDownsize = framesPerDownsize * FPS/120
         self.ticks = 0
         self.opacity = opacity
+        
 
     def render(self):
-        tempSurface = pygame.Surface((self.size, self.size))
-        tempSurface.set_alpha(self.opacity)
-        tempSurface.fill(self.color)
-        screen.blit(tempSurface, (self.pos.getX()-(round(self.size/2))-cameraPos.getX(), self.pos.getY()-(round(self.size/2))-cameraPos.getY()))
+        #self.tempSurface = pygame.Surface((self.size, self.size))
+        #self.tempSurface.set_alpha(self.opacity)
+        #self.tempSurface.fill(self.color)
+        #screen.blit(self.tempSurface, (self.pos.getX()-(round(self.size/2))-cameraPos.getX(), self.pos.getY()-(round(self.size/2))-cameraPos.getY()))
+        x = round(self.pos.getX()-self.size/2 - cameraPos.getX())
+        y = round(self.pos.getY()-self.size/2 - cameraPos.getY())
+        pygame.draw.rect(screen, self.color, (x, y, self.size, self.size))
 
     def update(self):
         #deltaVelocity = self.vel.multiply(1/FPS)

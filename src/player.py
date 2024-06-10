@@ -12,9 +12,9 @@ class Player():
         self.maxHp = 60
         self.hpRegen = 5
         self.xp = 0
-        self.level = 100
-        self.skillPoints = 99
-        self.pendingShooterUpgrades = 20
+        self.level = 1
+        self.skillPoints = 0
+        self.pendingShooterUpgrades = 0
         self.shooterTree = {
             "primary": 0,
             "secondary": 0,
@@ -24,7 +24,7 @@ class Player():
         skillTree - dict
         Purpose: store player skill point investments
         """
-        self.skillTree = {
+        """self.skillTree = {
             "healthRegen": 11,
             "maxHealth": 11,
             "speed": 11,
@@ -47,7 +47,6 @@ class Player():
             "bulletPenetration": 0,
             "xpBoost": 0
         }
-        """
         """
         skillStats - dict
         Purpose: store player skill stats

@@ -24,6 +24,8 @@ class Enemy():
         self.circleDirection = random.choice((-1, 1))
         self.framesToNextTrackingChange = random.randint(5*FPS, 20*FPS)
         self.currentOpacity = 255
+        self.scaled_image = pygame.transform.scale(enemyData[self.enemyType]["sprite"], (int(15 * enemyScaleFactor), int(15 * enemyScaleFactor)))
+
 
     def kill(self):
         for i in range(particlesPerDeath):
@@ -58,6 +60,14 @@ class Enemy():
                 variability = random.triangular(-enemyShooterAccuracy, enemyShooterAccuracy, 0)
                 i.shoot(Vect(xComp, yComp), shootAngle+variability, False)
                 i.cooldownFrames = FPS * i.cooldown
+
+    def generateParticles(self):
+        if settings["enemyParticles"]:
+            if self.currentOpacity > 3*256/4: #only has particles if the enemy is mostly opaque
+                if random.uniform(0,1) <= (10/FPS):
+                    xComp = (self.hitboxCenter.getX()+cameraPos.getX())
+                    yComp = (self.hitboxCenter.getY()+cameraPos.getY())
+                    particleList.append(Particle(xComp, yComp, .24, 5, enemyData[self.enemyType]["particleColor"], 18, Vect(0, 0), round(self.currentOpacity)))
     
     def update(self):
         """Does the functionality of both Render and Update because the hitbox is influenced by the sprite's rotation"""
@@ -87,8 +97,7 @@ class Enemy():
 
         #this is a mess but so am i :D
 
-        scaled_image = pygame.transform.scale(enemyData[self.enemyType]["sprite"], (int(15 * enemyScaleFactor), int(15 * enemyScaleFactor)))
-        rotated_image = pygame.transform.rotate(scaled_image, self.rotation)
+        rotated_image = pygame.transform.rotate(self.scaled_image, self.rotation)
         
         #set opacity for rotated image
         rotated_image.set_alpha(self.currentOpacity)
@@ -102,11 +111,7 @@ class Enemy():
         self.hitboxCenter = Vect(xComp - rotated_rect.x/2 -.5, yComp - rotated_rect.y/2 -.5)
         #screen.blit(rotated_image, (xComp, yComp))
 
-        if self.currentOpacity > 3*256/4: #only has particles if the enemy is mostly opaque
-            if random.uniform(0,1) <= (10/FPS):
-                xComp = (self.hitboxCenter.getX()+cameraPos.getX())
-                yComp = (self.hitboxCenter.getY()+cameraPos.getY())
-                particleList.append(Particle(xComp, yComp, .24, 5, enemyData[self.enemyType]["particleColor"], 18, Vect(0, 0), round(self.currentOpacity)))
+        self.generateParticles()
 
         for i in playerBulletList:
             if i.pos.getManhattanDist(self.pos) <= 35: #check if bullet is close enough to enemy to warrant a collision detection calculation

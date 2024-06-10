@@ -8,7 +8,7 @@ enemyData = {
         "shooters":[
             Shooter(1.1, bulletTypes["basic"], 0)
         ],
-        "sprite":pygame.image.load("res/enemies/RED.png"),
+        "sprite":pygame.image.load("res/enemies/RED.png").convert_alpha(),
         "particleColor":(255,0,0),
         "rotationPerSecond":0.1,
         "xpReleased":10
@@ -20,7 +20,7 @@ enemyData = {
             Shooter(1.2, bulletTypes["basic"], 0), 
             Shooter(1.6, bulletTypes["basic"], 0)
         ],
-        "sprite":pygame.image.load("res/enemies/ORANGE.png"),
+        "sprite":pygame.image.load("res/enemies/ORANGE.png").convert_alpha(),
         "particleColor":(255,127,0),
         "rotationPerSecond":0.15,
         "xpReleased":14
@@ -33,7 +33,7 @@ enemyData = {
             Shooter(1.3, bulletTypes["basic"], -0.4),
             Shooter(1.3, bulletTypes["basic"], 0.4)
         ],
-        "sprite":pygame.image.load("res/enemies/YELLOW.png"),
+        "sprite":pygame.image.load("res/enemies/YELLOW.png").convert_alpha(),
         "particleColor":(255,255,0),
         "rotationPerSecond":0.2,
         "xpReleased":20
@@ -48,7 +48,7 @@ enemyData = {
             Shooter(1.7, bulletTypes["machineFire"], -0.3),
             Shooter(1.7, bulletTypes["machineFire"], 0.3)
         ],
-        "sprite":pygame.image.load("res/enemies/GREEN.png"),
+        "sprite":pygame.image.load("res/enemies/GREEN.png").convert_alpha(),
         "particleColor":(0,255,0),
         "rotationPerSecond":0.25,
         "xpReleased":22
@@ -61,7 +61,7 @@ enemyData = {
             Shooter(2.5, bulletTypes["basic"], 0), 
             Shooter(2, bulletTypes["cannonball"], 0), 
         ],
-        "sprite":pygame.image.load("res/enemies/CYAN.png"),
+        "sprite":pygame.image.load("res/enemies/CYAN.png").convert_alpha(),
         "particleColor":(0,255,255),
         "rotationPerSecond":0.3,
         "xpReleased":44
@@ -76,7 +76,7 @@ enemyData = {
             Shooter(1.4, bulletTypes["basic"], -0.1),
             Shooter(1.4, bulletTypes["basic"], 0.1)
         ],
-        "sprite":pygame.image.load("res/enemies/BLUE.png"),
+        "sprite":pygame.image.load("res/enemies/BLUE.png").convert_alpha(),
         "particleColor":(0,0,255),
         "rotationPerSecond":0.35,
         "xpReleased":42
@@ -89,7 +89,7 @@ enemyData = {
             Shooter(1.1, bulletTypes["basic"], -0.1),
             Shooter(1.1, bulletTypes["basic"], 0.1)
         ],
-        "sprite":pygame.image.load("res/enemies/PURPLE.png"),
+        "sprite":pygame.image.load("res/enemies/PURPLE.png").convert_alpha(),
         "particleColor":(127,0,255),
         "rotationPerSecond":0.4,
         "xpReleased":52
@@ -102,7 +102,7 @@ enemyData = {
             Shooter(1.1, bulletTypes["sniper"], -0.08),
             Shooter(1.1, bulletTypes["sniper"], 0.08)
         ],
-        "sprite":pygame.image.load("res/enemies/PINK.png"),
+        "sprite":pygame.image.load("res/enemies/PINK.png").convert_alpha(),
         "particleColor":(255,0,255),
         "rotationPerSecond":0.45,
         "xpReleased":60
@@ -114,7 +114,7 @@ enemyData = {
         "shooters":[
             Shooter(0.9, bulletTypes["basic"], 0)
         ],
-        "sprite":pygame.image.load("res/enemies/RED.png"),
+        "sprite":pygame.image.load("res/enemies/RED.png").convert_alpha(),
         "particleColor":(255,0,0),
         "rotationPerSecond":0.1,
         "xpReleased":20
@@ -128,7 +128,7 @@ enemyData = {
             Shooter(2.0, bulletTypes["basic"], 0),
             Shooter(2.4, bulletTypes["basic"], 0)
         ],
-        "sprite":pygame.image.load("res/enemies/ORANGE.png"),
+        "sprite":pygame.image.load("res/enemies/ORANGE.png").convert_alpha(),
         "particleColor":(255,127,0),
         "rotationPerSecond":0.15,
         "xpReleased":28
@@ -143,7 +143,7 @@ enemyData = {
             Shooter(1.4, bulletTypes["basic"], -0.7),
             Shooter(1.4, bulletTypes["basic"], 0.7),
         ],
-        "sprite":pygame.image.load("res/enemies/YELLOW.png"),
+        "sprite":pygame.image.load("res/enemies/YELLOW.png").convert_alpha(),
         "particleColor":(255,255,0),
         "rotationPerSecond":0.2,
         "xpReleased":40
@@ -158,7 +158,7 @@ enemyData = {
             Shooter(1.7, bulletTypes["basic"], -0.3),
             Shooter(1.7, bulletTypes["basic"], 0.3)
         ],
-        "sprite":pygame.image.load("res/enemies/GREEN.png"),
+        "sprite":pygame.image.load("res/enemies/GREEN.png").convert_alpha(),
         "particleColor":(0,255,0),
         "rotationPerSecond":0.25,
         "xpReleased":44
@@ -172,7 +172,7 @@ enemyData = {
             Shooter(1.4, bulletTypes["cannonball"], 0), 
             Shooter(5, bulletTypes["cannonball"], 0), 
         ],
-        "sprite":pygame.image.load("res/enemies/CYAN.png"),
+        "sprite":pygame.image.load("res/enemies/CYAN.png").convert_alpha(),
         "particleColor":(0,255,255),
         "rotationPerSecond":0.3,
         "xpReleased":44
@@ -191,7 +191,7 @@ enemyData = {
             Shooter(1.2, bulletTypes["basic"], -0.1),
             Shooter(1.2, bulletTypes["basic"], 0.1)
         ],
-        "sprite":pygame.image.load("res/enemies/BLUE.png"),
+        "sprite":pygame.image.load("res/enemies/BLUE.png").convert_alpha(),
         "particleColor":(0,0,255),
         "rotationPerSecond":0.35,
         "xpReleased":84
@@ -206,7 +206,7 @@ enemyData = {
             Shooter(1.1, bulletTypes["sniper"], -0.1),
             Shooter(1.1, bulletTypes["sniper"], 0.1)
         ],
-        "sprite":pygame.image.load("res/enemies/PURPLE.png"),
+        "sprite":pygame.image.load("res/enemies/PURPLE.png").convert_alpha(),
         "particleColor":(127,0,255),
         "rotationPerSecond":0.4,
         "xpReleased":104
@@ -221,7 +221,7 @@ enemyData = {
             Shooter(0.4, bulletTypes["sniper"], -0.08),
             Shooter(0.4, bulletTypes["sniper"], 0.08)
         ],
-        "sprite":pygame.image.load("res/enemies/PINK.png"),
+        "sprite":pygame.image.load("res/enemies/PINK.png").convert_alpha(),
         "particleColor":(255,0,255),
         "rotationPerSecond":0.45,
         "xpReleased":120
