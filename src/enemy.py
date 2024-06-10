@@ -139,12 +139,15 @@ class Enemy():
         self.framesToNextTrackingChange -= 1
 
         if self.framesToNextTrackingChange == 0:
-            #sets self.trackingPattern to a random value that is not the current tracking pattern
-            options = [0, 1, 2]
-            options.remove(self.trackingPattern)
-            self.trackingPattern = random.choice(options)
+            #sets self.trackingPattern to a random pattern
+            randVar = random.randint(1, 100)
+            if randVar < 50:
+                self.trackingPattern = 0
+            elif randVar < 80:
+                self.trackingPattern = 1
+            else:
+                self.trackingPattern = 2 #run away, smaller chance because it makes the game boring like "oh why are there no enemies"
             if self.trackingPattern in (0, 1):
                 self.framesToNextTrackingChange = random.randint(5*FPS, 10*FPS)
             else:
                 self.framesToNextTrackingChange = random.randint(2*FPS, 4*FPS) #less time between tracking swap if in the "run away" pattern
-
