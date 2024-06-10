@@ -144,7 +144,7 @@ class Enemy():
             options.remove(self.trackingPattern)
             self.trackingPattern = random.choice(options)
             if self.trackingPattern in (0, 1):
-                self.framesToNextTrackingChange = random.randint(5*FPS, 20*FPS)
+                self.framesToNextTrackingChange = random.randint(5*FPS, 10*FPS)
             else:
-                self.framesToNextTrackingChange = random.randint(2*FPS, 6*FPS) #less time between tracking swap if in the "run away" pattern
+                self.framesToNextTrackingChange = random.randint(2*FPS, 4*FPS) #less time between tracking swap if in the "run away" pattern
 

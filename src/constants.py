@@ -60,8 +60,8 @@ skillTreeUIList = [] # list of ui text objects
 
 def generateXpCurve(maxLevel):
     xpCurve = []
-    baseXp = 25
-    xpMultiplier = 1.06
+    baseXp = 35
+    xpMultiplier = 1.056
     for i in range(maxLevel+1):
         xpCurve.append(round(int(baseXp * (xpMultiplier ** i))/5)*5)
     return xpCurve

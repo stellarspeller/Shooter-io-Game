@@ -233,7 +233,7 @@ while running:
     for i in textList:
         i.update()
         i.render()
-    print(len(playerBulletList)+len(enemyBulletList))
+    #print(len(playerBulletList)+len(enemyBulletList))
 
     #additional testing
     particleList.append(Particle(400, 400, 1.1, 10, white, 10))
