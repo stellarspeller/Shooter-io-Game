@@ -30,7 +30,7 @@ class itemDrop():
         self.vel.y += (84/(Vect(xComp, yComp).getMagnitude()*FPS))*yComp
 
 
-        self.vel.circularClamp(player.skillStats["xpBoost"][player.skillTree["xpBoost"]] * 35000/(8000+0.75*Vect(xComp, yComp).getMagnitude()*FPS))
+        self.vel.circularClamp(player.skillStats["xpBoost"][player.skillTree["xpBoost"]] * xpMoveConst/(8000+0.75*Vect(xComp, yComp).getMagnitude()*FPS))
 
         self.vel.multiply(120/FPS)
         self.pos.x += self.vel.getX()

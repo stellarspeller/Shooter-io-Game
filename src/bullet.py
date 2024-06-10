@@ -11,8 +11,8 @@ class Bullet():
         #extras are optional modifiers to the base bullet stats
 
     def update(self):
-        self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.2*120/FPS))
-        self.penetration -= 0.25 * 1/FPS
+        self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(bulletMoveConst*0.2*120/FPS))
+        self.penetration -= bulletMoveConst * 0.25 * 1/FPS
         if self.penetration <= 0:
             self.kill()
     

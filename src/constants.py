@@ -3,6 +3,9 @@ from src.vect import *
 from src.util import *
 
 background_color = (27, 21, 33)
+#line color should be lighter bg color
+lineColor = (27*2.8, 21*2, 33*2.4)
+
 white = (255, 255, 255)
 red = (255, 0, 0)
 green = (0, 255, 0)
@@ -37,10 +40,19 @@ fontSmall3 = pygame.font.SysFont(None, 18, False, False)
 fontLarge1 = pygame.font.SysFont(None, 72, False, False)
 
 #gameplay
-playerMaxVelocity = 2
+globalDamageConst = 0.7
+globalReloadConst = 0.7
+#the above should always be equal
+
+globalSpeedConst = 1.3
+playerMaxVelocity = 2 * globalSpeedConst
+enemyMoveConst = 0.02 * globalSpeedConst
+bulletMoveConst = 1 * globalSpeedConst
+xpMoveConst = 35000 * globalSpeedConst
 decelConst = -0.075
 frameCount = 0
 enemyShooterAccuracy = 0.07
+advancedEnemyShooterAccuracy = 0.035
 playerShooterAccuracy = 0.05
 
 settings = {

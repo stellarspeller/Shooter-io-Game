@@ -94,7 +94,7 @@ class Player():
 
     def hpCheck(self, cycles=1):
         if self.hp < self.maxHp * self.skillStats["maxHealth"][self.skillTree["maxHealth"]]:
-            self.hp += self.hpRegen * 120/FPS * 0.002 * cycles * self.skillStats["healthRegen"][self.skillTree["healthRegen"]]
+            self.hp += self.hpRegen * globalSpeedConst * 120/FPS * 0.002 * cycles * self.skillStats["healthRegen"][self.skillTree["healthRegen"]]
         if self.hp > self.maxHp * self.skillStats["maxHealth"][self.skillTree["maxHealth"]]:
             self.hp = self.maxHp * self.skillStats["maxHealth"][self.skillTree["maxHealth"]]
 
@@ -119,10 +119,10 @@ class Player():
             yComp = i.pos.getY()-self.pos.getY()-cameraPos.getY()-playerWidth/2
             if Vect(xComp, yComp).getMagnitudeSq() <= 16**2:
                 if i.penetration >= self.hp:
-                    i.penetration -= self.hp
+                    i.penetration -= self.hp * globalDamageConst
                     self.kill()
                 else:
-                    self.hp -= i.damage
+                    self.hp -= i.damage * globalDamageConst
                     i.kill()
         for i in playerBulletList:
             if i.pos.getManhattanDist(playerPosOnGrid) >= screenMargin:
@@ -133,7 +133,7 @@ class Player():
         if self.level <= 99:
             if self.xp >= xpToLevelUp[self.level-1]:
                 #regenerate some hp
-                self.hpCheck(120*6*120/FPS) # equivalent to 6 seconds of hp regen
+                self.hpCheck(globalSpeedConst * 120*6*120/FPS) # equivalent to 6 seconds of hp regen
 
                 #increment level, mess with stats etc
                 self.xp -= xpToLevelUp[self.level-1]
@@ -182,7 +182,7 @@ class Player():
         
         inputVect.squareClamp(1)
 
-        inputVect.multiply(.1).multiply(120/FPS)
+        inputVect.multiply(.1).multiply(globalSpeedConst * 120/FPS)
 
         if inputVect.getMagnitude() == 0:
             inputVect = Vect(self.vel.getX()*(decelConst), self.vel.getY()*(decelConst)).multiply(120/FPS)
@@ -218,6 +218,6 @@ class Player():
                                     self.skillStats["bulletPenetration"][self.skillTree["bulletPenetration"]]
                                 ]
                             )
-                            k.cooldownFrames = FPS * k.cooldown * self.skillStats["cooldown"][self.skillTree["cooldown"]]
+                            k.cooldownFrames = FPS * k.cooldown * self.skillStats["cooldown"][self.skillTree["cooldown"]]/globalSpeedConst * globalReloadConst
 
 player = Player(Vect(screenSize.getX()/2 - playerWidth/2,screenSize.getY()/2 - playerWidth/2), Vect(0,0))
