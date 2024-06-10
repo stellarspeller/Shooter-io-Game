@@ -24,10 +24,12 @@ class Bullet():
         del self
         
     def render(self):
-        x = round(self.pos.getX()-self.size/2 - cameraPos.getX())
-        y = round(self.pos.getY()-self.size/2 - cameraPos.getY())
-        if self.isFromPlayer:
-            color = cyan
-        else:
-            color = red
-        pygame.draw.rect(screen, color, (x, y, self.size, self.size))
+        #check to make sure bullet is on screen before rendering
+        if self.pos.getX()-cameraPos.getX() < screenSize.x and self.pos.getX()-cameraPos.getX() > 0 and self.pos.getY()-cameraPos.getY() < screenSize.y and self.pos.getY()-cameraPos.getY() > 0:
+            x = round(self.pos.getX()-self.size/2 - cameraPos.getX())
+            y = round(self.pos.getY()-self.size/2 - cameraPos.getY())
+            if self.isFromPlayer:
+                color = cyan
+            else:
+                color = red
+            pygame.draw.rect(screen, color, (x, y, self.size, self.size))
