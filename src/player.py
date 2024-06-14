@@ -112,7 +112,7 @@ class Player():
         ]
 
     def checkBulletCollision(self):
-        playerPosOnGrid = Vect(self.pos.getX()-cameraPos.getX(), self.pos.getY()-cameraPos.getY())
+        playerPosOnGrid = Vect(self.pos.getX()+cameraPos.getX(), self.pos.getY()+cameraPos.getY())
         screenMargin = 2 * (screenSize.x + screenSize.y)
         for i in enemyBulletList:
             xComp = i.pos.getX()-self.pos.getX()-cameraPos.getX()-playerWidth/2
