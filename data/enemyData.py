@@ -59,7 +59,7 @@ enemyData = {
         "shooters":[
             Shooter(2.3, bulletTypes["basic"], 0), 
             Shooter(2.5, bulletTypes["basic"], 0), 
-            Shooter(2.4, bulletTypes["cannonball"], 0), 
+            Shooter(2.9, bulletTypes["cannonball"], 0), 
         ],
         "sprite":pygame.image.load("res/enemies/CYAN.png").convert_alpha(),
         "particleColor":(0,255,255),
@@ -98,7 +98,7 @@ enemyData = {
         "hp":75,
         "maxVelocity":2.6,
         "shooters":[
-            Shooter(1.4, bulletTypes["cannonball"], 0), 
+            Shooter(1.9, bulletTypes["cannonball"], 0), 
             Shooter(1.1, bulletTypes["sniper"], -0.08),
             Shooter(1.1, bulletTypes["sniper"], 0.08)
         ],
@@ -169,7 +169,7 @@ enemyData = {
         "shooters":[
             Shooter(1.3, bulletTypes["basic"], 0), 
             Shooter(1.5, bulletTypes["basic"], 0), 
-            Shooter(1.7, bulletTypes["cannonball"], 0), 
+            Shooter(1.9, bulletTypes["cannonball"], 0), 
             Shooter(5, bulletTypes["cannonball"], 0), 
         ],
         "sprite":pygame.image.load("res/enemies/CYAN.png").convert_alpha(),
@@ -215,9 +215,9 @@ enemyData = {
         "hp":150,
         "maxVelocity":1.7,
         "shooters":[
-            Shooter(1.2, bulletTypes["cannonball"], 0), 
-            Shooter(1.8, bulletTypes["cannonball"], -0.25), 
-            Shooter(1.8, bulletTypes["cannonball"], 0.25), 
+            Shooter(1.6, bulletTypes["cannonball"], 0), 
+            Shooter(2, bulletTypes["cannonball"], -0.25), 
+            Shooter(2, bulletTypes["cannonball"], 0.25), 
             Shooter(0.4, bulletTypes["sniper"], -0.08),
             Shooter(0.4, bulletTypes["sniper"], 0.08)
         ],

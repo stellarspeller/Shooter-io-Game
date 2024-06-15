@@ -1,6 +1,6 @@
 from src.constants import *
 from src.player import *
-import random
+#import random
 
 class itemDrop():
     def __init__(self, pos, value, vel=Vect(0,0)):

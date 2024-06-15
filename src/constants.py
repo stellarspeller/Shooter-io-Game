@@ -88,6 +88,7 @@ xpToLevelUp.append(-1) #placeholder to make sure that nothing crashes if you rea
 pressedSkillTree = False
 
 spawningThresholds = [
+    [9999, 1],
     [3, 1],
     [24, 2],
     [30, 3],

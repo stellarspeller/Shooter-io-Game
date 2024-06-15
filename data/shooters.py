@@ -16,29 +16,29 @@ shooterUpgrades = {
         ],
         [
             Shooter(.4, bulletTypes["basic"], 0), 
-            Shooter(1.7, bulletTypes["cannonball"], 0)
+            Shooter(1.9, bulletTypes["cannonball"], 0)
         ],
         [
             Shooter(.35, bulletTypes["basic"], 0), 
-            Shooter(1.5, bulletTypes["cannonball"], 0), 
-            Shooter(1.3, bulletTypes["sniper"], 0)
+            Shooter(1.7, bulletTypes["cannonball"], 0), 
+            Shooter(1.4, bulletTypes["sniper"], 0)
         ],
         [
             Shooter(.3, bulletTypes["basic"], 0), 
-            Shooter(1.2, bulletTypes["cannonball"], 0), 
+            Shooter(1.4, bulletTypes["cannonball"], 0), 
             Shooter(1.2, bulletTypes["sniper"], 0)
         ],
         [
             Shooter(.3, bulletTypes["basic"], 0), 
             Shooter(.45, bulletTypes["basic"], 0), 
-            Shooter(1.1, bulletTypes["cannonball"], 0), 
+            Shooter(1.5, bulletTypes["cannonball"], 0), 
             Shooter(1.1, bulletTypes["sniper"], 0)
         ],
         [
             Shooter(.25, bulletTypes["basic"], 0), 
             Shooter(.4, bulletTypes["basic"], 0), 
-            Shooter(1.3, bulletTypes["cannonball"], 0), 
-            Shooter(0.95, bulletTypes["cannonball"], 0), 
+            Shooter(1.4, bulletTypes["cannonball"], 0), 
+            Shooter(1.1, bulletTypes["cannonball"], 0), 
             Shooter(1, bulletTypes["sniper"], 0)]
     ],
     "secondary": [
