@@ -198,7 +198,7 @@ class Player():
     """Player Input - Mouse Input"""
     def handleClickShoot(self):
         """Mouse Input"""
-        mousePos = Vect(pygame.mouse.get_pos()[0]-self.pos.getX(), pygame.mouse.get_pos()[1]-self.pos.getY())
+        mousePos = Vect(pygame.mouse.get_pos()[0]-self.pos.getX()-playerWidth/2, pygame.mouse.get_pos()[1]-self.pos.getY()-playerWidth/2)
         mousePos.unitize()
 
         """Click to Shoot"""

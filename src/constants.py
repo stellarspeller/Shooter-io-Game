@@ -40,15 +40,15 @@ fontSmall3 = pygame.font.SysFont(None, 18, False, False)
 fontLarge1 = pygame.font.SysFont(None, 72, False, False)
 
 #gameplay
-globalDamageConst = 0.7
-globalReloadConst = 0.7
+globalDamageConst = 0.9
+globalReloadConst = 0.9
 #the above should always be equal
 
 globalSpeedConst = 1.3
 playerMaxVelocity = 2 * globalSpeedConst
 enemyMoveConst = 0.02 * globalSpeedConst
 bulletMoveConst = 1 * globalSpeedConst
-xpMoveConst = 35000 * globalSpeedConst
+xpMoveConst = 35000# * globalSpeedConst
 decelConst = -0.075
 frameCount = 0
 enemyShooterAccuracy = 0.07
@@ -82,6 +82,7 @@ xpToLevelUp = generateXpCurve(98)
 print(xpToLevelUp)
 #print sum of xpToLevelUp
 print(sum(xpToLevelUp))
+print(f'xp to get to level 50: {sum(xpToLevelUp[0:50])}')
 xpToLevelUp.append(-1) #placeholder to make sure that nothing crashes if you reach max level and try to display the xp curve
 
 pressedSkillTree = False
@@ -89,8 +90,8 @@ pressedSkillTree = False
 spawningThresholds = [
     [3, 1],
     [24, 2],
-    [30, 5],
-    [45, 7]
+    [30, 3],
+    [45, 5]
 ]
 
 particlePositions = [

@@ -36,6 +36,10 @@ print(f"Levels: {len(xpToLevelUp)}")
 
 pygame.mouse.set_visible(False)
 
+player.xp += waveHandler.xpToGrab
+while player.xp >= xpToLevelUp[player.level-1]:
+    player.checkLevelUp()
+
 clock = pygame.time.Clock()
 # game loop
 while running:

@@ -9,7 +9,7 @@ waveData = [
     #[ {"count":1, "spawnDelay":1, "enemyType":"cyan"} ],
     #[ {"count":1, "spawnDelay":1, "enemyType":"blue"} ],
     #[ {"count":1, "spawnDelay":1, "enemyType":"purple"} ],
-    [ {"count":1, "spawnDelay":1, "enemyType":"pink2"} ],
+    #[ {"count":1, "spawnDelay":1, "enemyType":"pink2"} ],
     [
         {"count":4, "spawnDelay":5, "enemyType":"red"}
     ], [
@@ -135,5 +135,35 @@ waveData = [
     ], [
         {"count":8, "spawnDelay":3, "enemyType":"pink"},
         {"count":6, "spawnDelay":4, "enemyType":"red2"}
+    ], [
+        {"count":5, "spawnDelay":3, "enemyType":"pink"},
+        {"count":6, "spawnDelay":1, "enemyType":"green"},
+        {"count":12, "spawnDelay":5, "enemyType":"purple"},
+        {"count":10, "spawnDelay":1, "enemyType":"cyan"}
+    ], [
+        {"count":5, "spawnDelay":3, "enemyType":"pink"},
+        {"count":15,"spawnDelay":5, "enemyType":"red2"},
+        {"count":3, "spawnDelay":9, "enemyType":"cyan"}
+    ], [
+        {"count":7, "spawnDelay":4, "enemyType":"pink"},
+        {"count":9, "spawnDelay":3, "enemyType":"orange2"}
+    ], [
+        {"count":8, "spawnDelay":3, "enemyType":"pink"},
+        {"count":10, "spawnDelay":3, "enemyType":"orange2"}
+    ], [
+        {"count":2, "spawnDelay":1, "enemyType":"red"},
+        {"count":3, "spawnDelay":1, "enemyType":"orange"},
+        {"count":4, "spawnDelay":2, "enemyType":"yellow"},
+        {"count":5, "spawnDelay":2, "enemyType":"green"},
+        {"count":6, "spawnDelay":3, "enemyType":"cyan"},
+        {"count":7, "spawnDelay":3, "enemyType":"blue"},
+        {"count":8, "spawnDelay":4, "enemyType":"purple"},
+        {"count":9, "spawnDelay":4, "enemyType":"pink"}
+    ], [
+        {"count":2, "spawnDelay":1, "enemyType":"red"},
+        {"count":4, "spawnDelay":2, "enemyType":"yellow"},
+        {"count":6, "spawnDelay":3, "enemyType":"cyan"},
+        {"count":8, "spawnDelay":4, "enemyType":"purple"},
+        {"count":10, "spawnDelay":5, "enemyType":"orange2"}
     ]
 ]
