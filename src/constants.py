@@ -82,7 +82,7 @@ xpToLevelUp = generateXpCurve(98)
 print(xpToLevelUp)
 #print sum of xpToLevelUp
 print(sum(xpToLevelUp))
-print(f'xp to get to level 50: {sum(xpToLevelUp[0:50])}')
+print(f'xp to get to level 76: {sum(xpToLevelUp[0:76])}')
 xpToLevelUp.append(-1) #placeholder to make sure that nothing crashes if you reach max level and try to display the xp curve
 
 pressedSkillTree = False
