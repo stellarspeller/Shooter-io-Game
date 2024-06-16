@@ -9,7 +9,7 @@ waveData = [
     #[ {"count":1, "spawnDelay":1, "enemyType":"cyan"} ],
     #[ {"count":1, "spawnDelay":1, "enemyType":"blue"} ],
     #[ {"count":1, "spawnDelay":1, "enemyType":"purple"} ],
-    #[ {"count":1, "spawnDelay":1, "enemyType":"pink2"} ],
+    #[ {"count":1, "spawnDelay":1, "enemyType":"yellow2"} ],
     [
         {"count":4, "spawnDelay":5, "enemyType":"red"}
     ], [
@@ -165,5 +165,69 @@ waveData = [
         {"count":6, "spawnDelay":3, "enemyType":"cyan"},
         {"count":8, "spawnDelay":4, "enemyType":"purple"},
         {"count":10, "spawnDelay":5, "enemyType":"orange2"}
+    ], [
+        {"count":10, "spawnDelay":2, "enemyType":"red2"},
+        {"count":10, "spawnDelay":2, "enemyType":"orange2"}
+    ], [
+        {"count":8, "spawnDelay":4, "enemyType":"purple"},
+        {"count":4, "spawnDelay":4, "enemyType":"yellow2"}
+    ], [
+        {"count":8, "spawnDelay":4, "enemyType":"purple"},
+        {"count":3, "spawnDelay":4, "enemyType":"red2"},
+        {"count":4, "spawnDelay":4, "enemyType":"yellow2"}
+    ], [
+        {"count":8, "spawnDelay":4, "enemyType":"purple"},
+        {"count":4, "spawnDelay":4, "enemyType":"red2"},
+        {"count":4, "spawnDelay":4, "enemyType":"orange2"},
+        {"count":4, "spawnDelay":4, "enemyType":"yellow2"}
+    ], [
+        {"count":9, "spawnDelay":4, "enemyType":"pink"},
+        {"count":5, "spawnDelay":4, "enemyType":"red2"},
+        {"count":4, "spawnDelay":4, "enemyType":"orange2"},
+        {"count":5, "spawnDelay":4, "enemyType":"yellow2"}
+    ], [
+        {"count":9, "spawnDelay":4, "enemyType":"pink"},
+        {"count":9, "spawnDelay":3, "enemyType":"yellow2"}
+    ], [
+        {"count":9, "spawnDelay":4, "enemyType":"pink"},
+        {"count":9, "spawnDelay":3, "enemyType":"yellow2"},
+        {"count":2, "spawnDelay":2, "enemyType":"green2"}
+    ], [
+        {"count":2, "spawnDelay":2, "enemyType":"purple"},
+        {"count":9, "spawnDelay":3, "enemyType":"pink"},
+        {"count":9, "spawnDelay":3, "enemyType":"yellow2"},
+        {"count":4, "spawnDelay":2, "enemyType":"green2"}
+    ], [
+        {"count":7, "spawnDelay":2, "enemyType":"purple"},
+        {"count":9, "spawnDelay":3, "enemyType":"yellow2"},
+        {"count":6, "spawnDelay":2, "enemyType":"green2"}
+    ], [
+        {"count":8, "spawnDelay":2, "enemyType":"purple"},
+        {"count":8, "spawnDelay":2, "enemyType":"yellow2"},
+        {"count":8, "spawnDelay":2, "enemyType":"green2"}
+    ], [
+        {"count":4, "spawnDelay":4, "enemyType":"cyan2"}
+    ], [
+        {"count":3, "spawnDelay":3, "enemyType":"green2"},
+        {"count":4, "spawnDelay":4, "enemyType":"cyan2"}
+    ], [
+        {"count":5, "spawnDelay":3, "enemyType":"green2"},
+        {"count":5, "spawnDelay":3, "enemyType":"cyan2"}
+    ], [
+        {"count":6, "spawnDelay":2, "enemyType":"red2"},
+        {"count":5, "spawnDelay":3, "enemyType":"green2"},
+        {"count":5, "spawnDelay":3, "enemyType":"cyan2"}
+    ], [
+        {"count":7, "spawnDelay":2, "enemyType":"red2"},
+        {"count":7, "spawnDelay":2, "enemyType":"green2"},
+        {"count":7, "spawnDelay":2, "enemyType":"cyan2"}
+    ], [
+        {"count":7, "spawnDelay":2, "enemyType":"red2"},
+        {"count":7, "spawnDelay":2, "enemyType":"green2"},
+        {"count":4, "spawnDelay":3, "enemyType":"blue2"}
+    ], [
+        {"count":7, "spawnDelay":2, "enemyType":"red2"},
+        {"count":8, "spawnDelay":2, "enemyType":"green2"},
+        {"count":6, "spawnDelay":2, "enemyType":"blue2"}
     ]
 ]

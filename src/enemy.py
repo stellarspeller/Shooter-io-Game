@@ -91,7 +91,7 @@ class Enemy():
         self.vel = initComponent.add(modifyComponent)
         self.rotation += self.rotPerSecond * (120/FPS) * globalSpeedConst
         if self.vel.getMagnitude() >= enemyData[self.enemyType]["maxVelocity"] * globalSpeedConst:
-            self.vel.unitize(enemyData[self.enemyType]["maxVelocity"] * globalSpeedConst * 120/FPS)
+            self.vel.unitize(enemyData[self.enemyType]["maxVelocity"] * 1.3 * globalSpeedConst * 120/FPS)
         self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(0.14))
 
 

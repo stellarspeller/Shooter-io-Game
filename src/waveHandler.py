@@ -5,7 +5,7 @@ from data.waves import *
 
 class WaveHandler():
     def __init__(self):
-        self.waveNum = 30
+        self.waveNum = 0
         self.enemyThreshold = 0
         self.rangeFromPlayer = (100,220)
         self.queue = [] #NUM of enemies, frames, type
