@@ -46,7 +46,7 @@ globalReloadConst = 0.9
 
 globalSpeedConst = 1.3
 playerMaxVelocity = 2 * globalSpeedConst
-enemyMoveConst = 0.02 * globalSpeedConst
+enemyMoveConst = 0.03 * globalSpeedConst
 bulletMoveConst = 1 * globalSpeedConst
 xpMoveConst = 35000# * globalSpeedConst
 decelConst = -0.075
