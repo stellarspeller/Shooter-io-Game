@@ -30,7 +30,7 @@ class Bullet():
         y = round(self.pos.getY()-self.size/2 - cameraPos.getY())
 
         #if x is between 0 and the camera x size and y is between 0 and the camera y size
-        if x >= 0 and x <= screenSize.x and y >= 0 and y <= screenSize.y:
+        if x >= -bosc and x <= screenSize.x+bosc and y >= -bosc and y <= screenSize.y+bosc:
             if self.isFromPlayer:
                 color = cyan
             else:

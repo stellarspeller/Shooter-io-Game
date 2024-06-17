@@ -71,6 +71,7 @@ class Player():
         playerShooters[2] are the player's tertiary weapons, used for 360 degree shooting
         """
         self.updateShooterStats()
+        self.maxSpeedModifier = [1, 1]
 
     def render(self):
         #layered behind the player sprite, place a "circular health bar"
@@ -173,6 +174,20 @@ class Player():
 
     """Player Input - Directional (Keyboard) Input"""
     def handleInputs(self):
+        if pygame.mouse.get_pressed(3)[0] and self.maxSpeedModifier[0] >= 0.6:
+            self.maxSpeedModifier[0] -= 0.005 * 120/FPS
+        if not pygame.mouse.get_pressed(3)[0]:
+            self.maxSpeedModifier[0] += 0.025 * 120/FPS 
+        if self.maxSpeedModifier[0] > 1:
+            self.maxSpeedModifier[0] = 1
+
+        if self.hp/self.maxHp >= 7/8 and self.maxSpeedModifier[1] < 1.33:
+            self.maxSpeedModifier[1] += 0.01 * 120/FPS
+        if not self.hp/self.maxHp >= 7/8:
+            self.maxSpeedModifier[1] -= 0.05 * 120/FPS 
+        if self.maxSpeedModifier[1] < 1:
+            self.maxSpeedModifier[1] = 1
+
         inputRight = pygame.key.get_pressed()[pygame.K_l]+pygame.key.get_pressed()[pygame.K_d]+pygame.key.get_pressed()[pygame.K_RIGHT]
         inputLeft = pygame.key.get_pressed()[pygame.K_j]+pygame.key.get_pressed()[pygame.K_a]+pygame.key.get_pressed()[pygame.K_LEFT]
         inputDown = pygame.key.get_pressed()[pygame.K_k]+pygame.key.get_pressed()[pygame.K_s]+pygame.key.get_pressed()[pygame.K_DOWN]
@@ -192,8 +207,10 @@ class Player():
         if self.vel.getMagnitude() <= 0.0001*120/FPS:
             self.vel = Vect(0,0)
 
-        if self.vel.getMagnitude() > playerMaxVelocity * self.skillStats["speed"][self.skillTree["speed"]]:
-            self.vel.unitize(playerMaxVelocity * self.skillStats["speed"][self.skillTree["speed"]])#*120/FPS)
+
+        maxVelocityTemp = playerMaxVelocity * self.skillStats["speed"][self.skillTree["speed"]] * self.maxSpeedModifier[0] * self.maxSpeedModifier[1]
+        if self.vel.getMagnitude() > maxVelocityTemp:
+            self.vel.unitize(maxVelocityTemp)#*120/FPS)
 
     """Player Input - Mouse Input"""
     def handleClickShoot(self):

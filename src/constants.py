@@ -88,12 +88,14 @@ xpToLevelUp.append(-1) #placeholder to make sure that nothing crashes if you rea
 pressedSkillTree = False
 
 spawningThresholds = [
-    [9999, 1],
-    [3, 1],
-    [24, 2],
+    [6, 1],
+    [16, 2],
     [30, 3],
     [45, 5]
 ]
+
+bosc = 10 #bullet off screen constant, basically the amount of pixels the bullet can go off screen before not being rendered
+
 
 particlePositions = [
     [6,0],

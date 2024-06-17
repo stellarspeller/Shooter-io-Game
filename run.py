@@ -65,9 +65,21 @@ while running:
     #background and grid
     screen.fill(background_color)
     for i in range(round(screenSize.getRoundX()/lineDensity)+2):
-        pygame.draw.line(screen, lineColor, ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, -10), ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, screenSize.getY()+10), lineThickness)
+        pygame.draw.line(
+            screen, 
+            lineColor, 
+            ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, -10), 
+            ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, screenSize.getY()+10), 
+            lineThickness
+        )
     for i in range(round(screenSize.getY()/lineDensity)+2):
-        pygame.draw.line(screen, lineColor, (-10, ((lineDensity*i)-cameraPos.getRoundY()%lineDensity)), (screenSize.getX()+10, (lineDensity*i)-cameraPos.getRoundY()%lineDensity), lineThickness)
+        pygame.draw.line(
+            screen, 
+            lineColor, 
+            (-10, ((lineDensity*i)-cameraPos.getRoundY()%lineDensity)), 
+            (screenSize.getX()+10, (lineDensity*i)-cameraPos.getRoundY()%lineDensity), 
+            lineThickness
+        )
     
     #particles
     for i in particleList:
@@ -127,6 +139,10 @@ while running:
     skillTextObj = TextHandler("Skill Points: " + str(player.skillPoints), fontSmall1, (20, levelTextObj.get_height()+xpTextObj.get_height()+20), white)
     skillTextObj.render()
     skillTextObj.update()
+
+    cannonUpgradeTextObj = TextHandler("Cannon Upgrades: " + str(player.pendingShooterUpgrades), fontSmall1, (20, levelTextObj.get_height()+xpTextObj.get_height()+skillTextObj.get_height()+20), white)
+    cannonUpgradeTextObj.render()
+    cannonUpgradeTextObj.update()
 
     #skill tree spending ui
     #detect shift pressed, make this a toggle
