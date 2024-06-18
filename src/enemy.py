@@ -12,7 +12,7 @@ class Enemy():
         self.vel = Vect(0,0)
         self.enemyType = enemyType
         self.hp = enemyData[enemyType]["hp"]
-        self.isAdvanced = enemyType in ["red2", "orange2", "yellow2", "green2", "blue2", "purple2", "pink2"]
+        self.isAdvanced = enemyType in ["red2", "orange2", "yellow2", "green2", "cyan2", "blue2", "purple2", "pink2", "white2"]
         self.rotation = 0
         self.hitboxCenter = Vect(0,0)
         self.personalShooterList = copy.deepcopy(enemyData[enemyType]["shooters"]) #thank you chatgpt
@@ -24,7 +24,10 @@ class Enemy():
         self.circleDirection = random.choice((-1, 1))
         self.framesToNextTrackingChange = random.randint(5*FPS, 20*FPS)
         self.currentOpacity = 255
-        self.scaled_image = pygame.transform.scale(enemyData[self.enemyType]["sprite"], (int(15 * enemyScaleFactor), int(15 * enemyScaleFactor)))
+        self.specificScaleFactor = 1
+        if self.enemyType in ["white", "white2"]:
+            self.specificScaleFactor = 2
+        self.scaled_image = pygame.transform.scale(enemyData[self.enemyType]["sprite"], (int(15 * enemyScaleFactor * self.specificScaleFactor), int(15 * enemyScaleFactor * self.specificScaleFactor)))
         if self.isAdvanced:
             self.shooterAccuracy = enemyShooterAccuracy
         else: 
@@ -77,8 +80,8 @@ class Enemy():
         """Does the functionality of both Render and Update because the hitbox is influenced by the sprite's rotation"""
         farAway = False
         initComponent = Vect(self.vel.getX(),self.vel.getY()).multiply(1-(enemyMoveConst/FPS))
-        xComp = player.pos.getX()-self.pos.getX()-(enemyScaleFactor*15/4)+cameraPos.getX()+playerWidth/2
-        yComp = player.pos.getY()-self.pos.getY()-(enemyScaleFactor*15/4)+cameraPos.getY()+playerWidth/2 
+        xComp = player.pos.getX()-self.pos.getX()-(enemyScaleFactor*self.specificScaleFactor*15/4)+cameraPos.getX()+playerWidth/2
+        yComp = player.pos.getY()-self.pos.getY()-(enemyScaleFactor*self.specificScaleFactor*15/4)+cameraPos.getY()+playerWidth/2 
         #idk why divided by 4 works, it just does
         modifyComponent = Vect(xComp, yComp)
         if (modifyComponent.getMagnitude() >= (screenSize.x + screenSize.y)*1.5):
@@ -117,10 +120,10 @@ class Enemy():
         self.generateParticles()
 
         for i in playerBulletList:
-            if i.pos.getManhattanDist(self.pos) <= 35: #check if bullet is close enough to enemy to warrant a collision detection calculation
+            if i.pos.getManhattanDist(self.pos) <= 90: #check if bullet is close enough to enemy to warrant a collision detection calculation
                 xComp = i.pos.getX()-self.hitboxCenter.getX()-(round(i.size/2))-cameraPos.getX()
                 yComp = i.pos.getY()-self.hitboxCenter.getY()-(round(i.size/2))-cameraPos.getY()
-                if Vect(xComp, yComp).getMagnitudeSq() <= 25.6**2:
+                if Vect(xComp, yComp).getMagnitudeSq() <= (25.6 * (enemyScaleFactor/2) * self.specificScaleFactor)**2:
                     if self.hp - i.penetration <= 0:
                         i.penetration -= self.hp * globalDamageConst
                         self.kill()

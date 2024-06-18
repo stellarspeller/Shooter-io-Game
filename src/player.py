@@ -71,7 +71,7 @@ class Player():
         playerShooters[2] are the player's tertiary weapons, used for 360 degree shooting
         """
         self.updateShooterStats()
-        self.maxSpeedModifier = [1, 1.2]
+        self.maxSpeedModifier = [1, 1]
 
     def render(self):
         #layered behind the player sprite, place a "circular health bar"
@@ -180,13 +180,19 @@ class Player():
             self.maxSpeedModifier[0] += 0.025 * 120/FPS 
         if self.maxSpeedModifier[0] > 1:
             self.maxSpeedModifier[0] = 1
+        if self.maxSpeedModifier[0] < 0.65:
+            self.maxSpeedModifier[0] = 0.65
 
-        if self.hp/self.maxHp >= 7/8 and self.maxSpeedModifier[1] < 1.2:
+        if self.hp/self.maxHp >= 7/8 and self.maxSpeedModifier[1] < 1.15:
             self.maxSpeedModifier[1] += 0.001 * 120/FPS
         if not self.hp/self.maxHp >= 7/8:
             self.maxSpeedModifier[1] -= 0.005 * 120/FPS 
         if self.maxSpeedModifier[1] < 1:
             self.maxSpeedModifier[1] = 1
+        if self.maxSpeedModifier[1] > 1.15:
+            self.maxSpeedModifier[1] = 1.15
+
+        print(self.maxSpeedModifier)
 
         inputRight = pygame.key.get_pressed()[pygame.K_l]+pygame.key.get_pressed()[pygame.K_d]+pygame.key.get_pressed()[pygame.K_RIGHT]
         inputLeft = pygame.key.get_pressed()[pygame.K_j]+pygame.key.get_pressed()[pygame.K_a]+pygame.key.get_pressed()[pygame.K_LEFT]

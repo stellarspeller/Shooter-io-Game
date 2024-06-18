@@ -226,4 +226,38 @@ enemyData = {
         "rotationPerSecond":0.45,
         "xpReleased":120
     },
+    "white":{
+        "hp":210,
+        "maxVelocity":1.9,
+        "shooters":[
+            Shooter(1.4, bulletTypes["cannonball"], 0), 
+            Shooter(1.8, bulletTypes["cannonball"], -0.2), 
+            Shooter(1.8, bulletTypes["cannonball"], 0.2), 
+            Shooter(1.2, bulletTypes["sniper"], -0.1),
+            Shooter(1.2, bulletTypes["sniper"], 0.1)
+        ],
+        "sprite":pygame.image.load("res/enemies/WHITE.png").convert_alpha(),
+        "particleColor":(255,255,255),
+        "rotationPerSecond":0.5,
+        "xpReleased":140
+    },
+    "white2":{
+        "hp":420,
+        "maxVelocity":2.2,
+        "shooters":[
+            Shooter(1.3, bulletTypes["cannonball"], 0), 
+            Shooter(1.7, bulletTypes["cannonball"], -0.2), 
+            Shooter(1.7, bulletTypes["cannonball"], 0.2), 
+            Shooter(1.1, bulletTypes["sniper"], -0.1),
+            Shooter(1.1, bulletTypes["sniper"], 0.1),
+            Shooter(1, bulletTypes["sniper"], 0),
+            Shooter(0.5, bulletTypes["machineFire"], 0),
+            Shooter(0.5, bulletTypes["machineFire"], -0.05),
+            Shooter(0.5, bulletTypes["machineFire"], 0.05)
+        ],
+        "sprite":pygame.image.load("res/enemies/WHITE.png").convert_alpha(),
+        "particleColor":(255,255,255),
+        "rotationPerSecond":0.5,
+        "xpReleased":280
+    }
 }
