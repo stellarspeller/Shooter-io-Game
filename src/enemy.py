@@ -33,7 +33,6 @@ class Enemy():
         else: 
             self.shooterAccuracy = advancedEnemyShooterAccuracy
 
-
     def kill(self):
         for i in range(particlesPerDeath):
             particleList.append(Particle(self.pos.getX(), self.pos.getY(), 1.1, 10, enemyData[self.enemyType]["particleColor"], 10))

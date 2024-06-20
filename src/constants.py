@@ -48,7 +48,7 @@ globalSpeedConst = 1.3
 playerMaxVelocity = 2 * globalSpeedConst
 enemyMoveConst = 0.03 * globalSpeedConst
 bulletMoveConst = 1 * globalSpeedConst
-xpMoveConst = 44000 * globalSpeedConst
+xpMoveConst = 35000 * globalSpeedConst
 decelConst = -0.075
 frameCount = 0
 enemyShooterAccuracy = 0.07
@@ -73,7 +73,7 @@ skillTreeUIList = [] # list of ui text objects
 def generateXpCurve(maxLevel):
     xpCurve = []
     baseXp = 35
-    xpMultiplier = 1.056
+    xpMultiplier = 1.055
     for i in range(maxLevel+1):
         xpCurve.append(round(int(baseXp * (xpMultiplier ** i))/5)*5)
     return xpCurve
@@ -82,7 +82,7 @@ xpToLevelUp = generateXpCurve(98)
 print(xpToLevelUp)
 #print sum of xpToLevelUp
 print(sum(xpToLevelUp))
-print(f'xp to get to level 76: {sum(xpToLevelUp[0:76])}')
+print(f'xp to get to level 79: {sum(xpToLevelUp[0:79])}')
 xpToLevelUp.append(-1) #placeholder to make sure that nothing crashes if you reach max level and try to display the xp curve
 
 pressedSkillTree = False
@@ -91,11 +91,12 @@ spawningThresholds = [
     [6, 1],
     [16, 2],
     [30, 3],
-    [45, 5]
+    #[45, 5],
+    [99999999, 99999999] #placeholder
 ]
 
 bosc = 10 #bullet off screen constant, basically the amount of pixels the bullet can go off screen before not being rendered
-
+#dont want this to be 0 because that would mean the bullet would not be rendered at the very edge of the screen
 
 particlePositions = [
     [6,0],

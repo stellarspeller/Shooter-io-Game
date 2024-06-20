@@ -12,15 +12,34 @@ class Bullet():
 
     def update(self):
         self.pos.add(Vect(self.vel.getX(), self.vel.getY()).multiply(bulletMoveConst*0.2*120/FPS))
-        self.penetration -= bulletMoveConst * 0.25 * 1/FPS
+        self.penetration -= bulletMoveConst * 0.25 * 1/FPS# * len(enemyBulletList)/6000
+        #components of the above equation
+        #bulletMoveConst: universal bullet movement speed
+        #0.25: base penetration to be removed per frame
+        #1/FPS: deltatime basically
+        #len(enemyBulletList)/6000: bullets are destroyed faster the more of them there are (lag reduction)
         if self.penetration <= 0:
             self.kill()
+
+        if not self.isFromPlayer:
+            #remove bullet if it goes too far off screen, like 3x screen width (do not use bosc constant)
+            if (   self.pos.getX()-cameraPos.getX() >  screenSize.x*3 
+                or self.pos.getX()-cameraPos.getX() < -screenSize.x*3 
+                or self.pos.getY()-cameraPos.getY() >  screenSize.y*3 
+                or self.pos.getY()-cameraPos.getY() < -screenSize.y*3
+                ):
+                self.kill()
+
     
     def kill(self):
-        if self.isFromPlayer:
-            playerBulletList.remove(self)
-        else: 
-            enemyBulletList.remove(self)
+        #try except exists because when you iterate through the list and delete one it doesnt lower the index
+        try:
+            if self.isFromPlayer:
+                playerBulletList.remove(self)
+            else: 
+                enemyBulletList.remove(self)
+        except:
+            pass
         del self
         
     def render(self):

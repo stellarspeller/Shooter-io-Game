@@ -26,8 +26,8 @@ class itemDrop():
         if Vect(xComp, yComp).getMagnitude() <= 22:
             self.pickup()
 
-        self.vel.x += (64/(Vect(xComp, yComp).getMagnitude()*FPS))*xComp
-        self.vel.y += (64/(Vect(xComp, yComp).getMagnitude()*FPS))*yComp
+        self.vel.x += (84/(Vect(xComp, yComp).getMagnitude()*FPS))*xComp
+        self.vel.y += (84/(Vect(xComp, yComp).getMagnitude()*FPS))*yComp
 
 
         self.vel.circularClamp(player.skillStats["xpBoost"][player.skillTree["xpBoost"]] * xpMoveConst/(8000+0.75*Vect(xComp, yComp).getMagnitude()*FPS))

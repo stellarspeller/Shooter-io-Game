@@ -200,9 +200,9 @@ enemyData = {
         "hp":124,
         "maxVelocity":2.1,
         "shooters":[
-            Shooter(0.25, bulletTypes["machineFire"], 0), 
-            Shooter(0.25, bulletTypes["machineFire"], -0.05), 
-            Shooter(0.25, bulletTypes["machineFire"], 0.05), 
+            Shooter(0.9, bulletTypes["machineFire"], 0), 
+            Shooter(0.9, bulletTypes["machineFire"], -0.05), 
+            Shooter(0.9, bulletTypes["machineFire"], 0.05), 
             Shooter(1.1, bulletTypes["sniper"], -0.1),
             Shooter(1.1, bulletTypes["sniper"], 0.1)
         ],
@@ -218,8 +218,8 @@ enemyData = {
             Shooter(1.6, bulletTypes["cannonball"], 0), 
             Shooter(2, bulletTypes["cannonball"], -0.25), 
             Shooter(2, bulletTypes["cannonball"], 0.25), 
-            Shooter(0.4, bulletTypes["sniper"], -0.08),
-            Shooter(0.4, bulletTypes["sniper"], 0.08)
+            Shooter(0.7, bulletTypes["sniper"], -0.08),
+            Shooter(0.7, bulletTypes["sniper"], 0.08)
         ],
         "sprite":pygame.image.load("res/enemies/PINK.png").convert_alpha(),
         "particleColor":(255,0,255),
@@ -252,8 +252,8 @@ enemyData = {
             Shooter(1.1, bulletTypes["sniper"], 0.1),
             Shooter(1, bulletTypes["sniper"], 0),
             Shooter(0.5, bulletTypes["machineFire"], 0),
-            Shooter(0.5, bulletTypes["machineFire"], -0.05),
-            Shooter(0.5, bulletTypes["machineFire"], 0.05)
+            Shooter(0.75, bulletTypes["machineFire"], -0.05),
+            Shooter(0.75, bulletTypes["machineFire"], 0.05)
         ],
         "sprite":pygame.image.load("res/enemies/WHITE.png").convert_alpha(),
         "particleColor":(255,255,255),

@@ -192,7 +192,7 @@ class Player():
         if self.maxSpeedModifier[1] > 1.15:
             self.maxSpeedModifier[1] = 1.15
 
-        print(self.maxSpeedModifier)
+        #print(self.maxSpeedModifier)
 
         inputRight = pygame.key.get_pressed()[pygame.K_l]+pygame.key.get_pressed()[pygame.K_d]+pygame.key.get_pressed()[pygame.K_RIGHT]
         inputLeft = pygame.key.get_pressed()[pygame.K_j]+pygame.key.get_pressed()[pygame.K_a]+pygame.key.get_pressed()[pygame.K_LEFT]
