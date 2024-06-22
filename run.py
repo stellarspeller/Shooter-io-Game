@@ -86,7 +86,7 @@ while running:
         i.update()
         i.render()
 
-    print(len(enemyBulletList))
+    #print(len(enemyBulletList))
 
     #xp particles
     for i in xpList:

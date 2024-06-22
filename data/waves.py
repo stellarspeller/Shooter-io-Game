@@ -313,5 +313,31 @@ waveData = [
         {"count":1, "spawnDelay":1, "enemyType":"white"}
     ], [
         {"count":3, "spawnDelay":10,"enemyType":"white"}
+    ], [
+        {"count":8, "spawnDelay":3, "enemyType":"purple2"},
+        {"count":8, "spawnDelay":2, "enemyType":"green2"},
+        {"count":4, "spawnDelay":1, "enemyType":"pink2"},
+        {"count":2, "spawnDelay":1, "enemyType":"white"}
+    ], [
+        {"count":12,"spawnDelay":3, "enemyType":"green2"},
+        {"count":2, "spawnDelay":1, "enemyType":"cyan2"},
+        {"count":2, "spawnDelay":1, "enemyType":"pink2"},
+        {"count":1, "spawnDelay":1, "enemyType":"white"}
+    ], [
+        {"count":2, "spawnDelay":1, "enemyType":"yellow2"},
+        {"count":2, "spawnDelay":2, "enemyType":"green2"},
+        {"count":2, "spawnDelay":1, "enemyType":"cyan2"},
+        {"count":2, "spawnDelay":2, "enemyType":"purple2"},
+        {"count":2, "spawnDelay":1, "enemyType":"pink2"},
+        {"count":2, "spawnDelay":2, "enemyType":"white"}
+    ], [
+        {"count":3, "spawnDelay":1, "enemyType":"yellow2"},
+        {"count":3, "spawnDelay":1, "enemyType":"green2"},
+        {"count":3, "spawnDelay":1, "enemyType":"cyan2"},
+        {"count":3, "spawnDelay":1, "enemyType":"purple2"},
+        {"count":3, "spawnDelay":1, "enemyType":"pink2"},
+        {"count":1, "spawnDelay":2, "enemyType":"white2"}
+    ], [
+        {"count":4, "spawnDelay":1, "enemyType":"white2"}
     ]
 ]
