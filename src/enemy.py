@@ -130,6 +130,13 @@ class Enemy():
                     else:
                         self.hp -= i.damage * globalDamageConst
                         i.kill()
+                        if self.isAdvanced:
+                            self.currentOpacity = max(
+                                self.currentOpacity + 50 * 120/FPS,
+                                50
+                            )  
+                            if self.currentOpacity >= 255:
+                                self.currentOpacity = 255
 
         if self.isAdvanced:
             self.currentOpacity -= 0.6 * 120/FPS
