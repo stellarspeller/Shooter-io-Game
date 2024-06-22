@@ -7,11 +7,11 @@ import copy
 #from src. import *
 
 class Enemy():
-    def __init__(self, pos, enemyType):
+    def __init__(self, pos, enemyType, hpMultiplier=1):
         self.pos = pos
         self.vel = Vect(0,0)
         self.enemyType = enemyType
-        self.hp = enemyData[enemyType]["hp"]
+        self.hp = enemyData[enemyType]["hp"] * hpMultiplier
         self.isAdvanced = enemyType in ["red2", "orange2", "yellow2", "green2", "cyan2", "blue2", "purple2", "pink2", "white2"]
         self.rotation = 0
         self.hitboxCenter = Vect(0,0)
@@ -21,6 +21,7 @@ class Enemy():
         self.rotPerSecond = enemyData[enemyType]["rotationPerSecond"] * random.choice((-1, 1)) * random.uniform(0.9, 1.1)
         self.xpValue = round(enemyData[enemyType]["xpReleased"] * random.triangular(0.7, 1.3))
         self.trackingPattern = random.randint(0, 2)
+        self.doesShoot = random.randint(10, 40) < len(enemyList) #enemies have a chance to not shoot based on the amount currently on screen (reduce lag and reduce chaos)
         self.circleDirection = random.choice((-1, 1))
         self.framesToNextTrackingChange = random.randint(5*FPS, 20*FPS)
         self.currentOpacity = 255
@@ -136,7 +137,11 @@ class Enemy():
                 self.currentOpacity = 255
 
         if not farAway: #enemy doesnt shoot if not close enough to the player (4x off screen)
-            self.shootReady()
+            if self.doesShoot:
+                self.shootReady()
+            else:
+                if len(enemyList) < 11:
+                    self.doesShoot = True
         else: #if enemy is far away
             self.trackingPattern = 0 #beeline to player
             self.pos.add(self.vel.getMultiply(80/FPS)) #moves at extremely fast pace towards the player

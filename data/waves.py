@@ -341,3 +341,43 @@ waveData = [
         {"count":4, "spawnDelay":1, "enemyType":"white2"}
     ]
 ]
+
+extendedWaveData = [
+        #these are all waves that will be used as "base" waves past wave 80.
+        #one of these will be randomly chosen, appended to the spawning queue as a base
+        #and then some other random wave from waveData will be chosen to add on to it
+        #the amount of extra waves added will increase to scale with waveNum
+        #basically make the game harder with each wave
+    [
+        {"count":2, "spawnDelay":0.5, "enemyType":"red"},
+        {"count":2, "spawnDelay":0.5, "enemyType":"orange"},
+        {"count":2, "spawnDelay":0.5, "enemyType":"yellow"},
+        {"count":2, "spawnDelay":0.5, "enemyType":"green"},
+        {"count":2, "spawnDelay":0.5, "enemyType":"cyan"},
+        {"count":2, "spawnDelay":0.5, "enemyType":"blue"},
+        {"count":2, "spawnDelay":0.5, "enemyType":"purple"},
+        {"count":2, "spawnDelay":0.5, "enemyType":"pink"},
+        {"count":1, "spawnDelay":3, "enemyType":"white"},
+        {"count":1, "spawnDelay":1, "enemyType":"red2"},
+        {"count":1, "spawnDelay":1, "enemyType":"orange2"},
+        {"count":1, "spawnDelay":1, "enemyType":"yellow2"},
+        {"count":1, "spawnDelay":1, "enemyType":"green2"},
+        {"count":1, "spawnDelay":1, "enemyType":"cyan2"},
+        {"count":1, "spawnDelay":1, "enemyType":"blue2"},
+        {"count":1, "spawnDelay":1, "enemyType":"purple2"},
+        {"count":1, "spawnDelay":1, "enemyType":"pink2"},
+        {"count":1, "spawnDelay":3, "enemyType":"white2"}
+    ], [
+        {"count":6, "spawnDelay":1,"enemyType":"green2"},
+        {"count":3, "spawnDelay":1,"enemyType":"cyan2"},
+        {"count":6, "spawnDelay":1,"enemyType":"purple2"},
+        {"count":3, "spawnDelay":5,"enemyType":"white"}
+    ], [
+        {"count":8, "spawnDelay":2, "enemyType":"green2"},
+        {"count":4, "spawnDelay":1, "enemyType":"pink2"},
+        {"count":2, "spawnDelay":1, "enemyType":"white"}
+    ], [
+        {"count":15,"spawnDelay":0.25, "enemyType":"yellow"},
+        {"count":10,"spawnDelay":0.25, "enemyType":"green"}
+    ]
+]
