@@ -200,11 +200,11 @@ enemyData = {
         "hp":124,
         "maxVelocity":2.1,
         "shooters":[
-            Shooter(0.9, bulletTypes["machineFire"], 0), 
-            Shooter(0.9, bulletTypes["machineFire"], -0.05), 
-            Shooter(0.9, bulletTypes["machineFire"], 0.05), 
-            Shooter(1.1, bulletTypes["sniper"], -0.1),
-            Shooter(1.1, bulletTypes["sniper"], 0.1)
+            Shooter(1.2, bulletTypes["machineFire"], 0), 
+            Shooter(1.2, bulletTypes["machineFire"], -0.05), 
+            Shooter(1.2, bulletTypes["machineFire"], 0.05), 
+            Shooter(1.3, bulletTypes["sniper"], -0.1),
+            Shooter(1.3, bulletTypes["sniper"], 0.1)
         ],
         "sprite":pygame.image.load("res/enemies/PURPLE.png").convert_alpha(),
         "particleColor":(127,0,255),
