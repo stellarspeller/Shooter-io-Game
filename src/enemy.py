@@ -130,10 +130,11 @@ class Enemy():
                     else:
                         self.hp -= i.damage * globalDamageConst
                         i.kill()
+                        self.doesShoot = True #enemy will shoot if it is damaged
                         if self.isAdvanced:
                             self.currentOpacity = max(
-                                self.currentOpacity + 50 * 120/FPS,
-                                50
+                                self.currentOpacity + 40,
+                                40 * 1/player.skillStats["cooldown"][player.skillTree["cooldown"]]
                             )  
                             if self.currentOpacity >= 255:
                                 self.currentOpacity = 255
@@ -160,10 +161,12 @@ class Enemy():
             randVar = random.randint(1, 100)
             if randVar < 50:
                 self.trackingPattern = 0
+                self.doesShoot = True
             elif randVar < 80:
                 self.trackingPattern = 1
             else:
                 self.trackingPattern = 2 #run away, smaller chance because it makes the game boring like "oh why are there no enemies"
+                self.doesShoot = False
             if self.trackingPattern in (0, 1):
                 self.framesToNextTrackingChange = random.randint(5*FPS, 10*FPS)
             else:

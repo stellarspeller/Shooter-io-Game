@@ -5,18 +5,18 @@ from data.waves import *
 
 class WaveHandler():
     def __init__(self):
-        self.waveNum = 250
+        self.waveNum = 79
         self.enemyThreshold = 0
         self.rangeFromPlayer = (100,220)
         self.queue = [] #NUM of enemies, frames, type
         self.queueFrames = 0
         self.recentSpawnFlag = False
         self.xpToGrab = 0
-        #if self.waveNum > 0:
-        #    #write a function to go through enemydata, pick out all the enemies and their xp stats, then give that much xp to the player
-        #    for i in range(self.waveNum):
-        #        for j in waveData[i]:
-        #            self.xpToGrab += enemyData[j["enemyType"]]["xpReleased"] * j["count"] * 1.65
+        if self.waveNum > 0:
+            #write a function to go through enemydata, pick out all the enemies and their xp stats, then give that much xp to the player
+            for i in range(self.waveNum):
+                for j in waveData[i]:
+                    self.xpToGrab += enemyData[j["enemyType"]]["xpReleased"] * j["count"] * 1.65
 
     def spawn(self, enemyType):
 
