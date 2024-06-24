@@ -37,6 +37,7 @@ class itemDrop():
         self.pos.y += self.vel.getY()
 
     def pickup(self):
+        pygame.mixer.Sound.play(random.choice(xpPickupSounds), 0, 0, 100)
         if player.level <= 99:
             player.xp += self.value * player.skillStats["xpBoost"][player.skillTree["xpBoost"]]
             player.checkLevelUp()

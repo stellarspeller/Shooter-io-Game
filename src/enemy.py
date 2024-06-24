@@ -35,6 +35,9 @@ class Enemy():
             self.shooterAccuracy = advancedEnemyShooterAccuracy
 
     def kill(self):
+
+        pygame.mixer.Sound.play(random.choice(enemyDeathSounds)) #play death sound
+
         for i in range(particlesPerDeath):
             particleList.append(Particle(self.pos.getX(), self.pos.getY(), 1.1, 10, enemyData[self.enemyType]["particleColor"], 10))
         
@@ -130,6 +133,7 @@ class Enemy():
                     else:
                         self.hp -= i.damage * globalDamageConst
                         i.kill()
+                        pygame.mixer.Sound.play(random.choice(enemyHitSounds))
                         self.doesShoot = True #enemy will shoot if it is damaged
                         if self.isAdvanced:
                             self.currentOpacity = max(

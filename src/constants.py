@@ -145,7 +145,25 @@ particlePositions = [
 
 playerImage = pygame.image.load("res/guy2.png")
 
-
+enemyHitSounds = [
+    pygame.mixer.Sound("res/sound/sfx/enemyHit1.wav"),
+    pygame.mixer.Sound("res/sound/sfx/enemyHit2.wav")
+]
+enemyDeathSounds = [
+    pygame.mixer.Sound("res/sound/sfx/enemyDeath1.wav"),
+    pygame.mixer.Sound("res/sound/sfx/enemyDeath2.wav")
+]
+playerShootSounds = [
+    pygame.mixer.Sound("res/sound/sfx/playerShoot1.wav"),
+    pygame.mixer.Sound("res/sound/sfx/playerShoot2.wav"),
+    pygame.mixer.Sound("res/sound/sfx/playerShoot3.wav")
+]
+xpPickupSounds = [
+    pygame.mixer.Sound("res/sound/sfx/xp1.wav"),
+    pygame.mixer.Sound("res/sound/sfx/xp2.wav"),
+    pygame.mixer.Sound("res/sound/sfx/xp3.wav")
+]
+levelUpSound = pygame.mixer.Sound("res/sound/sfx/levelUp.wav")
 
 #dQw4w9WgXcQ
 

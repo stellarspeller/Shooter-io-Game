@@ -125,6 +125,7 @@ class Player():
                 else:
                     self.hp -= i.damage * globalDamageConst
                     i.kill()
+                pygame.mixer.Sound.play(random.choice(enemyHitSounds))
         for i in playerBulletList:
             if i.pos.getManhattanDist(playerPosOnGrid) >= screenMargin:
                 i.kill()
@@ -133,6 +134,9 @@ class Player():
     def checkLevelUp(self):
         if self.level <= 99:
             if self.xp >= xpToLevelUp[self.level-1]:
+                #play sound effect
+                pygame.mixer.Sound.play(levelUpSound)
+
                 #regenerate some hp
                 self.hpCheck(globalSpeedConst * 120*6*120/FPS) # equivalent to 6 seconds of hp regen
 
@@ -230,6 +234,7 @@ class Player():
                 for j in i:
                     for k in j:
                         if k.cooldownFrames <= 0:
+                            pygame.mixer.Sound.play(random.choice(playerShootSounds), 0, 0, 100)
                             k.shoot(
                                 Vect(self.pos.getX()+cameraPos.getX()+playerWidth/2,self.pos.getY()+cameraPos.getY()+playerWidth/2), 
                                 math.atan2(mousePos.getY(), mousePos.getX()), 
