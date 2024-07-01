@@ -25,107 +25,10 @@ print(f"Levels: {len(xpToLevelUp)}")
 
 #skillTreeUIList.append(TextHandler("9 - Xp Multiplier", fontSmall1, Vect(10, screenSize.y - 10), white))
 
-
-
-"""if frameCount < 240:
-        for i in particlePositions:
-            pygame.draw.rect(screen, white, (logoPixelSize*i[0]+100, logoPixelSize*i[1]+100, logoPixelSize, logoPixelSize))
-    if len(particleList) <= 0 and frameCount >= 240 and frameCount <= 240+logoPixelSize*6:
-        for i in particlePositions:
-            particleList.append(Particle(logoPixelSize*i[0]+100, logoPixelSize*i[1]+100, 1, logoPixelSize, white, 6))"""
-
-pygame.mouse.set_visible(False)
-
-player.xp += waveHandler.xpToGrab
-while player.xp >= xpToLevelUp[player.level-1]:
-    player.checkLevelUp()
-
-clock = pygame.time.Clock()
-# game loop
-while running:
-    #Stuff with frame counting
-    clock.tick(FPS)
-    frameCount += 1
-
-    for i in player.playerShooters:
-        for j in i:
-            for k in j:
-                if k.cooldownFrames > 0:
-                    k.cooldownFrames -= 1
-
-    for i in enemyList:
-        for j in i.personalShooterList:
-            if j.cooldownFrames > 0:
-                j.cooldownFrames -= 1
-
-    """Spawning New Enemies"""
-    waveHandler.update()
-
-    """Rendering:"""
-    #background and grid
-    screen.fill(background_color)
-    for i in range(round(screenSize.getRoundX()/lineDensity)+2):
-        pygame.draw.line(
-            screen, 
-            lineColor, 
-            ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, -10), 
-            ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, screenSize.getY()+10), 
-            lineThickness
-        )
-    for i in range(round(screenSize.getY()/lineDensity)+2):
-        pygame.draw.line(
-            screen, 
-            lineColor, 
-            (-10, ((lineDensity*i)-cameraPos.getRoundY()%lineDensity)), 
-            (screenSize.getX()+10, (lineDensity*i)-cameraPos.getRoundY()%lineDensity), 
-            lineThickness
-        )
-    
-    #particles
-    for i in particleList:
-        i.update()
-        i.render()
-
-    #print(len(enemyBulletList))
-
-    #xp particles
-    for i in xpList:
-        i.update()
-        i.render()
-
-    #bullets
-    for i in playerBulletList:
-        i.update()
-        i.render()
-    for i in enemyBulletList:
-        i.update()
-        i.render()
-
-    #enemies
-    for i in enemyList:
-        i.update()
-        if i.hp <= 0:
-            i.kill()
-
-    """Player Input"""
-    player.handleInputs()
-    player.handleClickShoot()
-
-    """Playout Output"""
-    player.update()
-    player.render()
-    player.checkBulletCollision()
-    #player.checkLevelUp() not used since player level is checked upon xp particle pickup
-
-    """UI"""
-    #crosshare
-    mousePos = Vect(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
-    pygame.draw.rect(screen, black, (mousePos.getX()-9, mousePos.getY()-1, 20, 4))
-    pygame.draw.rect(screen, black, (mousePos.getX()-1, mousePos.getY()-9, 4, 20))
-
-    pygame.draw.rect(screen, white, (mousePos.getX()-8, mousePos.getY(), 18, 2))
-    pygame.draw.rect(screen, white, (mousePos.getX(), mousePos.getY()-8, 2, 18))
-
+def updateUI():
+    global skillTreeUI, skillTreeUICooldown
+    global cannonUpgradeUI, cannonUpgradeUICooldown
+    global pressedSkillTree, pressedCannonUpgrade
     #text = font.render(str(player.xp) + "/" + str(xpToLevelUp[player.level-1]) + " xp\nlevel " + str(player.level), True, white)
     levelTextObj = TextHandler("Level " + str(player.level), font, (20, 20), white)
     levelTextObj.render()
@@ -257,8 +160,173 @@ while running:
         i.render()
     #print(len(playerBulletList)+len(enemyBulletList))
 
-    #additional testing
-    particleList.append(Particle(400, 400, 1.1, 10, white, 10))
+
+
+"""if frameCount < 240:
+        for i in particlePositions:
+            pygame.draw.rect(screen, white, (logoPixelSize*i[0]+100, logoPixelSize*i[1]+100, logoPixelSize, logoPixelSize))
+    if len(particleList) <= 0 and frameCount >= 240 and frameCount <= 240+logoPixelSize*6:
+        for i in particlePositions:
+            particleList.append(Particle(logoPixelSize*i[0]+100, logoPixelSize*i[1]+100, 1, logoPixelSize, white, 6))"""
+
+pygame.mouse.set_visible(False)
+
+player.xp += waveHandler.xpToGrab
+while player.xp >= xpToLevelUp[player.level-1]:
+    player.checkLevelUp()
+
+clock = pygame.time.Clock()
+# game loop
+while running:
+    #Stuff with frame counting
+    clock.tick(FPS)
+    print(pygame.key.get_pressed()[pygame.K_q])
+
+    if scene == "pause":
+        if pygame.key.get_pressed()[pygame.K_p]:
+            scene = "play"
+        screen.fill(background_color)
+        for i in range(round(screenSize.getRoundX()/lineDensity)+2):
+            pygame.draw.line(
+                screen, 
+                lineColor, 
+                ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, -10), 
+                ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, screenSize.getY()+10), 
+                lineThickness
+            )
+        for i in range(round(screenSize.getY()/lineDensity)+2):
+            pygame.draw.line(
+                screen, 
+                lineColor, 
+                (-10, ((lineDensity*i)-cameraPos.getRoundY()%lineDensity)), 
+                (screenSize.getX()+10, (lineDensity*i)-cameraPos.getRoundY()%lineDensity), 
+                lineThickness
+            )
+        
+        for i in particleList:
+            i.render()
+
+        for i in xpList:
+            i.render()
+
+        #bullets
+        for i in playerBulletList:
+            i.render()
+        for i in enemyBulletList:
+            i.render()
+
+        """make a render without rotation change function for enemies"""
+        #enemies 
+        for i in enemyList:
+            #i.update()
+            #if i.hp <= 0:
+            #    i.kill()
+            pass
+
+        player.render()
+
+        mousePos = Vect(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
+        pygame.draw.rect(screen, black, (mousePos.getX()-9, mousePos.getY()-1, 20, 4))
+        pygame.draw.rect(screen, black, (mousePos.getX()-1, mousePos.getY()-9, 4, 20))
+
+        pygame.draw.rect(screen, white, (mousePos.getX()-8, mousePos.getY(), 18, 2))
+        pygame.draw.rect(screen, white, (mousePos.getX(), mousePos.getY()-8, 2, 18))
+
+        updateUI()
+
+    
+
+    elif scene == "play":
+        #switch scene to pause if escape key is pressed
+        if pygame.key.get_pressed()[pygame.K_q]:
+            print("hiii")
+            scene = "pause"
+        #print(scene)
+
+        frameCount += 1
+        for i in player.playerShooters:
+            for j in i:
+                for k in j:
+                    if k.cooldownFrames > 0:
+                        k.cooldownFrames -= 1
+
+        for i in enemyList:
+            for j in i.personalShooterList:
+                if j.cooldownFrames > 0:
+                    j.cooldownFrames -= 1
+
+        """Spawning New Enemies"""
+        waveHandler.update()
+
+        """Rendering:"""
+        #background and grid
+        screen.fill(background_color)
+        for i in range(round(screenSize.getRoundX()/lineDensity)+2):
+            pygame.draw.line(
+                screen, 
+                lineColor, 
+                ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, -10), 
+                ((lineDensity*i)-cameraPos.getRoundX()%lineDensity, screenSize.getY()+10), 
+                lineThickness
+            )
+        for i in range(round(screenSize.getY()/lineDensity)+2):
+            pygame.draw.line(
+                screen, 
+                lineColor, 
+                (-10, ((lineDensity*i)-cameraPos.getRoundY()%lineDensity)), 
+                (screenSize.getX()+10, (lineDensity*i)-cameraPos.getRoundY()%lineDensity), 
+                lineThickness
+            )
+        
+        #particles
+        for i in particleList:
+            i.update()
+            i.render()
+
+        #print(len(enemyBulletList))
+
+        #xp particles
+        for i in xpList:
+            i.update()
+            i.render()
+
+        #bullets
+        for i in playerBulletList:
+            i.update()
+            i.render()
+        for i in enemyBulletList:
+            i.update()
+            i.render()
+
+        #enemies
+        for i in enemyList:
+            i.update()
+            if i.hp <= 0:
+                i.kill()
+
+        """Player Input"""
+        player.handleInputs()
+        player.handleClickShoot()
+
+        """Playout Output"""
+        player.update()
+        player.render()
+        player.checkBulletCollision()
+        #player.checkLevelUp() not used since player level is checked upon xp particle pickup
+
+        """UI"""
+        #crosshare
+        mousePos = Vect(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
+        pygame.draw.rect(screen, black, (mousePos.getX()-9, mousePos.getY()-1, 20, 4))
+        pygame.draw.rect(screen, black, (mousePos.getX()-1, mousePos.getY()-9, 4, 20))
+
+        pygame.draw.rect(screen, white, (mousePos.getX()-8, mousePos.getY(), 18, 2))
+        pygame.draw.rect(screen, white, (mousePos.getX(), mousePos.getY()-8, 2, 18))
+
+        updateUI()
+
+        #additional testing
+        particleList.append(Particle(400, 400, 1.1, 10, white, 10))
 
     #draw all to screen
     pygame.display.update()

@@ -227,7 +227,7 @@ enemyData = {
         "xpReleased":120
     },
     "white":{
-        "hp":210,
+        "hp":330,
         "maxVelocity":1.9,
         "shooters":[
             Shooter(1.4, bulletTypes["cannonball"], 0), 
@@ -242,7 +242,7 @@ enemyData = {
         "xpReleased":140
     },
     "white2":{
-        "hp":420,
+        "hp":660,
         "maxVelocity":2.2,
         "shooters":[
             Shooter(1.3, bulletTypes["cannonball"], 0), 

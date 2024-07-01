@@ -18,6 +18,8 @@ black = (0, 0, 0)
 
 FPS = 120
 
+scene = "play"
+
 #visual
 particlesPerDeath = 7
 particlesPerLevelup = 16
